@@ -65,10 +65,16 @@
                       @update:options="loadItems">
 
                         <template #item.view="{ item }">
-                            <v-btn color="primary" 
+                            <v-btn color="warning" 
                                 variant="flat" 
                                 :to="'/user/vehicle-detail/' + item.id">
-                                <v-icon>mdi-eye</v-icon>
+                                <v-icon>mdi-square-edit-outline</v-icon>
+                            </v-btn>
+                            <span class="px-1" > </span>
+                            <v-btn color="danger" 
+                                variant="flat" 
+                                :to="'/user/vehicle-detail/' + item.id">
+                                <v-icon>mdi-delete</v-icon>
                             </v-btn>
                         </template>
 
