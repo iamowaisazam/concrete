@@ -1,0 +1,23 @@
+[
+    {
+        "heading": "I'm interested in a lifetime account.",
+        "description": "Of course you are! It's an incredible deal. Pay once, and access the entire Laracasts catalog (including all future content) FOREVER. Seriously. Learn more here."
+    },
+    {
+        "heading": "May I pay with Paypal?",
+        "description": "For various reasons, Paypal is not a natively supported option at Laracasts. However, if Paypal is the only way for you to sign up, you can pay for one year's worth of access here."
+    },
+    {
+        "heading": "I have a question about business/team accounts.",
+        "description": "Great. It's fairly simple. Team accounts are billed at a rate of $149 per developer, per year. Want to register a 25-developer team? That'll be $3,725 for a year's worth of unlimited Laracasts access. You can register directly through our website, or contact us to arrange a PO. Learn more here."
+    },
+    {
+        "heading": "I have a code-related question.",
+        "description": "Don't we all. However, please use the Laracasts forum for any code-related questions you have. That's what it was made for."
+    },
+    {
+        "heading": "We're interested in advertising with you.",
+        "description": "Great! Let's talk. We offer a variety of advertising possibilities, and would be a great fit for businesses targeting the Laravel space. Use the contact form on this page to start the conversation."
+    }
+    
+]

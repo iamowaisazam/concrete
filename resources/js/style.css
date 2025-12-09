@@ -1,0 +1,33 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
+
+
+body,
+* {
+    font-family: 'Inter', sans-serif !important;
+}
+
+aside {
+    z-index: 999 !important;
+}
+
+
+.v-input__details {
+    min-height: auto !important;
+}
+
+.v-input__details .v-messages {
+    min-height: auto !important;
+}
+:root {
+    --primary-color: #0080ff;
+    --danger-color: #b91c1c;
+}
+
+[data-theme="dark"] {
+    --primary-color: #0080ff;
+    --danger-color: #b91c1c;
+}
+
+.no-overlay .v-btn__overlay{
+    display: none;
+}

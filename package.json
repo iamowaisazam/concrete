@@ -1,0 +1,47 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite",
+        "test": "vitest",
+        "test:run": "vitest run"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.0.0",
+        "autoprefixer": "^10.4.21",
+        "axios": "^1.8.2",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^1.2.0",
+        "material-design-icons-iconfont": "^6.7.0",
+        "postcss": "^8.5.6",
+        "tailwindcss": "^4.1.14",
+        "vite": "^6.2.4",
+        "vite-plugin-vuetify": "^2.1.2",
+        "vitest": "^4.0.15"
+    },
+    "dependencies": {
+        "@fontsource/inter": "^5.2.8",
+        "@fortawesome/fontawesome-free": "^7.1.0",
+        "@jamescoyle/vue-icon": "^0.1.2",
+        "@mdi/font": "^7.4.47",
+        "@mdi/js": "^7.4.47",
+        "@stripe/stripe-js": "^8.5.3",
+        "@vee-validate/rules": "^4.15.1",
+        "@vitejs/plugin-vue": "^6.0.1",
+        "@vuelidate/core": "^2.0.3",
+        "@vuelidate/validators": "^2.0.4",
+        "bootstrap": "^5.3.8",
+        "lodash": "^4.17.21",
+        "material-symbols": "^0.39.1",
+        "pinia": "^3.0.3",
+        "pinia-plugin-persistedstate": "^4.5.0",
+        "v-img": "^0.2.0",
+        "vee-validate": "^4.15.1",
+        "vue": "^3.5.22",
+        "vue-router": "^4.6.3",
+        "vue3-select-component": "^0.14.0",
+        "vuetify": "^3.10.8",
+        "yup": "^1.7.1"
+    }
+}
