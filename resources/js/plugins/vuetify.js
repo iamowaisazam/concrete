@@ -34,8 +34,35 @@ const vuetify = createVuetify({
         },
     },
     theme: {
-        defaultTheme: "adminDark",
+        defaultTheme: "adminLight",
         themes: {
+            adminLight: {
+                dark: false,
+                colors: {
+                    primary: "#0080ff",
+                    'primary-lighten-1': '#8579F2',
+                    background: "#EBEFF3",
+                    'text-background': '#212121',
+                    surface: "#FFFFFF",
+                    'on-surface':'#0f1c2b',
+
+                    'surface-variant-1': "#e9eff6",
+                    'on-background': '#000000',
+                    nav:"#0f1c2b",
+
+                    field:"#000000",
+                    "on-field":"#000000",
+                   
+                    border: "#B1BFCD",
+                    danger: "#b91c1c",
+                    success: "#4CAF50",
+                    warning: "#FB8C00",
+                    error: "#FF5252",
+                    info: "#2196F3",
+                    shadow: "#E1EBEE",
+                   
+                },
+            },
             adminDark: {
                 dark: true,
                 colors: {
@@ -106,25 +133,6 @@ const vuetify = createVuetify({
                 variables: {
                     'space': '10px'
                 }
-            },
-            adminLight: {
-                dark: false,
-                colors: {
-                    primary: "#0080ff",
-                    'primary-lighten-1': '#8579F2',
-                    background: "#f0eff5",
-                    surface: "#F8F8FF",
-                    'surface-variant-1': "#e9eff6",
-                    light_text_on: "#0f1c2b",
-                    border: "#B1BFCD",
-                    danger: "#b91c1c",
-                    success: "#4CAF50",
-                    warning: "#FB8C00",
-                    error: "#FF5252",
-                    info: "#2196F3",
-                    shadow: "#E1EBEE",
-                    // secondary: "#FFFFFF",
-                },
             },
         },
     },

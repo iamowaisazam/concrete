@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "name": "Customer 1",
+    "email": "customer1@gmail.com",
+    "phone": "+92-300-1234567",
+    "address": "Orangi Town, Karachi, Pakistan",
+    "description": "Tech enthusiast who loves coding and learning new tools."
+  },
+  {
+    "id": 2,
+    "name": "Customer 2",
+    "email": "customer2@gmail.com",
+    "phone": "+92-301-9988776",
+    "address": "Gulshan-e-Iqbal, Karachi, Pakistan",
+    "description": "Loves photography and outdoor adventures."
+  },
+  {
+    "id": 3,
+    "name": "Customer 3",
+    "email": "customer3@gmail.com",
+    "phone": "+92-302-5566778",
+    "address": "Model Town, Lahore, Pakistan",
+    "description": "A foodie who enjoys trying new restaurants."
+  },
+  {
+    "id": 4,
+    "name": "Customer 4",
+    "email": "customer4@gmail.com",
+    "phone": "+92-303-8877665",
+    "address": "DHA Phase 6, Lahore, Pakistan",
+    "description": "Fitness lover and gym enthusiast."
+  },
+  {
+    "id": 5,
+    "name": "Customer 5",
+    "email": "customer5@gmail.com",
+    "phone": "+92-304-6655443",
+    "address": "Bahria Town, Islamabad, Pakistan",
+    "description": "Enjoys reading books and quiet evenings."
+  },
+  {
+    "id": 6,
+    "name": "Customer 6",
+    "email": "customer6@gmail.com",
+    "phone": "+92-305-7766554",
+    "address": "F-7, Islamabad, Pakistan",
+    "description": "A digital marketer who loves analytics."
+  },
+  {
+    "id": 7,
+    "name": "Customer 7",
+    "email": "customer7@gmail.com",
+    "phone": "+92-306-1122334",
+    "address": "Saddar, Rawalpindi, Pakistan",
+    "description": "Gamer and tech gadget collector."
+  },
+  {
+    "id": 8,
+    "name": "Customer 8",
+    "email": "customer8@gmail.com",
+    "phone": "+92-307-5544332",
+    "address": "Cantt, Rawalpindi, Pakistan",
+    "description": "Coffee lover and part-time writer."
+  },
+  {
+    "id": 9,
+    "name": "Customer 9",
+    "email": "customer9@gmail.com",
+    "phone": "+92-308-6677889",
+    "address": "Shah Rukn-e-Alam, Multan, Pakistan",
+    "description": "Graphic designer who loves aesthetics."
+  },
+  {
+    "id": 10,
+    "name": "Customer 10",
+    "email": "customer10@gmail.com",
+    "phone": "+92-309-4433221",
+    "address": "Numaish Chowrangi, Karachi, Pakistan",
+    "description": "Traveller who enjoys exploring new places."
+  },
+  {
+    "id": 11,
+    "name": "Customer 11",
+    "email": "customer11@gmail.com",
+    "phone": "+92-310-5566442",
+    "address": "Garden East, Karachi, Pakistan",
+    "description": "Movie lover and music enthusiast."
+  },
+  {
+    "id": 12,
+    "name": "Customer 12",
+    "email": "customer12@gmail.com",
+    "phone": "+92-311-9988775",
+    "address": "Clifton Block 5, Karachi, Pakistan",
+    "description": "Mobile developer passionate about UI."
+  },
+  {
+    "id": 13,
+    "name": "Customer 13",
+    "email": "customer13@gmail.com",
+    "phone": "+92-312-3322117",
+    "address": "North Nazimabad, Karachi, Pakistan",
+    "description": "Enjoys podcasts and long drives."
+  },
+  {
+    "id": 14,
+    "name": "Customer 14",
+    "email": "customer14@gmail.com",
+    "phone": "+92-313-8899001",
+    "address": "Johar Town, Lahore, Pakistan",
+    "description": "Cricket fan and early morning jogger."
+  },
+  {
+    "id": 15,
+    "name": "Customer 15",
+    "email": "customer15@gmail.com",
+    "phone": "+92-314-2233445",
+    "address": "Wapda Town, Lahore, Pakistan",
+    "description": "Music producer who loves beats."
+  },
+  {
+    "id": 16,
+    "name": "Customer 16",
+    "email": "customer16@gmail.com",
+    "phone": "+92-315-6677998",
+    "address": "G-11, Islamabad, Pakistan",
+    "description": "Entrepreneur with a passion for startups."
+  },
+  {
+    "id": 17,
+    "name": "Customer 17",
+    "email": "customer17@gmail.com",
+    "phone": "+92-316-4455667",
+    "address": "Baldia Town, Karachi, Pakistan",
+    "description": "Student who enjoys volunteering."
+  },
+  {
+    "id": 18,
+    "name": "Customer 18",
+    "email": "customer18@gmail.com",
+    "phone": "+92-317-1122443",
+    "address": "PECHS, Karachi, Pakistan",
+    "description": "Loves cooking and food experiments."
+  },
+  {
+    "id": 19,
+    "name": "Customer 19",
+    "email": "customer19@gmail.com",
+    "phone": "+92-318-9988776",
+    "address": "Satellite Town, Rawalpindi, Pakistan",
+    "description": "A calm personality who likes reading history."
+  },
+  {
+    "id": 20,
+    "name": "Customer 20",
+    "email": "customer20@gmail.com",
+    "phone": "+92-319-7766884",
+    "address": "Askari 10, Lahore, Pakistan",
+    "description": "Business-minded person with leadership skills."
+  }
+]

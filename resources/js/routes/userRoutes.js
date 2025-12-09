@@ -9,7 +9,9 @@ import Watchlist from "@views/user/watchlist/index.vue"
 import Profile from "@/views/user/profile/index.vue"
 import VehicleDetail from "@/views/user/vehicle-detail/index.vue"
 import Setting from "@views/user/setting/index.vue"
-import navbar from "@/views/web/layout/navbar.vue" 
+
+import Account from "@views/user/account/index.vue"
+
 
 export default [
     {
@@ -17,6 +19,8 @@ export default [
         component: DashboardLayout,
         children: [
             { path: 'dashboard', component: Dashboard, meta: { requiresAuth: true } },
+            { path: 'account', component: Account, meta: { requiresAuth: true } },
+
             { path: 'auction-finder', component: AuctionFinder , meta: { requiresAuth: true } },
             { path: 'dashboard', component: Dashboard },
             { path: "auctionscheduler", component: Auctionscheduler, meta: { requiresAuth: true }  },
@@ -27,7 +31,7 @@ export default [
             { path: "profile", component: Profile, meta: { requiresAuth: true } },
             { path: "vehicle-detail/:id", component: VehicleDetail, meta: { requiresAuth: true } },
             { path: "settings/:id", component: Setting, meta: { requiresAuth: true } },
-            {path :"web", component: navbar, meta:{requiresAuth:true}}
+           
         ],
     },
 ]

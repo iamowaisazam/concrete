@@ -30,8 +30,8 @@
                     </div>
                 </v-list-item-title>
             </v-list-item>
-            <v-divider></v-divider>
-            <v-list-item link>
+            <!-- <v-divider></v-divider> -->
+            <!-- <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <router-link to="/user/settings/profile" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2 wrapper">
@@ -40,8 +40,8 @@
                         </div>
                     </router-link>
                 </v-list-item-title>
-            </v-list-item>
-            <v-list-item link>
+            </v-list-item> -->
+            <!-- <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <router-link to="/user/settings/security" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2">
@@ -50,8 +50,8 @@
                         </div>
                     </router-link>
                 </v-list-item-title>
-            </v-list-item>
-            <v-list-item link>
+            </v-list-item> -->
+            <!-- <v-list-item link>
                 <v-list-item-title class="cursor-pointer">
                     <router-link to="/user/settings/billing" class="text-decoration-none" >
                         <div class="d-flex align-center ga-2 ">
@@ -60,7 +60,7 @@
                         </div>
                     </router-link>
                 </v-list-item-title>
-            </v-list-item>
+            </v-list-item> -->
             <v-divider></v-divider>
             <v-list-item>
                 <v-list-item-title class="">

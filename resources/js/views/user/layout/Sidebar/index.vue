@@ -1,33 +1,52 @@
 <template>
-    <v-navigation-drawer class="pa-0" app dark color="" :width="menuWidth" v-model="themeStore.menuOpen">
+    <v-navigation-drawer  
+        @click="MenuClick"
+        class="pa-0" 
+        color="nav" 
+        :width="menuWidth" 
+        v-model="themeStore.menuOpen">
+        
         <v-list density="compact" class="ps" nav>
+           
             <v-list-item class="d-flex ps-5 pe-5" style="height: 57px;">
                 <img :src="logo" class="d-flex justify-center align-center" />
             </v-list-item>
 
+         
+
             <v-divider class="ps-0 pe-0"></v-divider>
+            <div class="mt-3" ></div>
 
             <!-- Dynamic Menu Items -->
             <template v-for="(item, index) in menus" :key="index">
-                <!-- Regular Menu Items -->
-                <v-list-item 
-                    v-if="item.type !== 'group'" 
+
+                <v-list-group value="users" v-if="item?.chiildren">
+                    <template #activator="{ props }">
+                        <v-list-item 
+                          v-bind="props" 
+                          :title="item.label" 
+                          :prepend-icon="item.icon" />
+                    </template>
+                    <v-list-item v-for="child in item.chiildren" :title="child.label" :to="child.path" />
+                </v-list-group>
+
+                <v-list-item  v-else
                     :to="item.path" 
-                     link 
+                    link 
                     :prepend-icon="item.icon" 
                     :ripple="false"
                     :hide-overlay="false"
-                    class="text-subtitle-1"
+                    class=""
                     active-class="bg-primary on-primary  rounded my-active-menu hide-overlay">
                     <template #title>
-                        <span :ripple="false" class="text-body-1">{{ item.label }}</span>
+                        <span :ripple="false" class="">{{ item.label }}</span>
                     </template>
                 </v-list-item>
 
-                <v-list-item class="ml-n1 mt-8" v-else title="" :subtitle="item.label">
-                    <v-divider class="mt-2"></v-divider>
-                </v-list-item>
             </template>
+
+              
+
         </v-list>
     </v-navigation-drawer>
 </template>
@@ -35,12 +54,12 @@
 <script>
 import { useDisplay } from "vuetify";
 import { useThemeStore } from "@stores/themeStore";
-import { getMenu } from "@services/menuService";
+import Menus from "./menu";
 import logo from "@assets/images/logo/logo.png"
 export default {
     data() {
         return {
-            menus: getMenu(),
+            menus: Menus,
             themeStore: useThemeStore(),
             display: useDisplay(),
             logo: logo,
@@ -58,9 +77,21 @@ export default {
             }
 
         },
+        
     },
-    methods: {},
-    mounted() { },
+    methods: {
+        MenuClick() {
+            console.log("Hovered IN");
+           // your code here
+           this.themeStore.menuType = "expanded";
+        },
+        onHoverOut() {
+            console.log("Hovered OUT");
+            // your code here
+            // this.themeStore.menuType = "collapsed";
+        }
+    },
+    
 };
 </script>
 <style >

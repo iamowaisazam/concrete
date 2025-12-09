@@ -145,5 +145,34 @@ export default class UserModel {
             }
     }
 
+    
+     static async getAccounts(options:any) {
+        
+            // try {
+            //     const res = await api.post("/api/user/page/supportForm",options);
+            //     return res.data;
+            
+            // } catch (error) {
+            //     throw await errorHandler(error);
+            // }
+
+            return {
+                data:[
+                    {
+                        "id": 1,
+                        "name": "Customer 1",
+                        "email": "customer1@gmail.com",
+                        "phone": "+92-300-1234567",
+                        "address": "Orangi Town, Karachi, Pakistan",
+                        "description": "Tech enthusiast who loves coding and learning new tools."
+                    },
+                ],
+                recordsTotal:0,
+                offset:0,
+                page:1,
+                last_page:1,
+            }
+    }
+
 
 }

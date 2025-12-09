@@ -1,11 +1,12 @@
 <template>
-    <v-app>
+    <v-app  >
         <Sidebar />
-        <v-app-bar elevation="0" app color="" class="d-flex align-center justify-space-between elevation-3 border-b" style="height: 70px;">
+        <v-app-bar elevation="0" color="surface" class="d-flex align-center justify-space-between elevation-3 border-b" style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
            
             <div elevation="1" class="logoType d-none d-lg-flex align-center justify-center rounded-circle border" style="width: 30px; height: 30px;" >
-                <v-icon class="d-none d-lg-inline-flex justify-center align-center" size="default" :icon="isMenuOpen ? 'mdi-menu-left' : 'mdi-menu-right'" 
+
+                <v-icon color="" class=" d-none d-lg-inline-flex justify-center align-center" size="default" :icon="isMenuOpen ? 'mdi-menu-left' : 'mdi-menu-right'" 
                 @click="toggleMenu"></v-icon>
             </div>
            
@@ -26,18 +27,18 @@
                     </v-col>
 
                     <!-- Theme Dropdown -->
-                    <v-col cols="auto" class="ml-n3">
+                    <!-- <v-col cols="auto" class="ml-n3">
                         <v-sheet color="" class="d-flex align-center justify-center rounded border">
                             <ThemeDropdown />
                         </v-sheet>
-                    </v-col>
+                    </v-col> -->
 
                     <!-- Notification Dropdown -->
-                    <v-col cols="auto" class="ml-n3">
+                    <!-- <v-col cols="auto" class="ml-n3">
                         <v-sheet color="" class="d-flex align-center justify-center rounded border">
                             <Notificationdropdown class="test" />
                         </v-sheet>
-                    </v-col>
+                    </v-col> -->
 
                     <v-col cols="auto" class="ml-n3">
                         <ProfileDropdown>
@@ -48,19 +49,19 @@
         </v-app-bar>
 
         <!-- Main Content -->
-        <v-main class="bg-background ">
+        <v-main class="bg-light ">
             <router-view></router-view>
         </v-main>
     </v-app>
 </template>
 
 <script>
-import Sidebar from "./Sidebar.vue";
+import Sidebar from "./Sidebar/index.vue";
 import ProfileDropdown from "./ProfileDropdown.vue";
 import Notificationdropdown from "./Notificationdropdown.vue";
 
 import { mdiFullscreen } from "@mdi/js";
-import { getMenu } from "@services/menuService";
+
 import { useThemeStore } from "@stores/themeStore";
 import ThemeDropdown from "./ThemeDropdown.vue";
 
@@ -76,7 +77,7 @@ export default {
     data() {
         return {
             drawer: true,
-            menus: getMenu(),
+        
             themeStore: useThemeStore(),
             path: mdiFullscreen,
             isMenuOpen: false,
