@@ -6,12 +6,15 @@ import { useAlertStore } from '@stores/alertStore';
 import NotFound from "@views/user/404.vue"
 import userRoutes from "./userRoutes"
 import Login from '@/views/auth/login.vue';
+import Ui from '@/views/ui.vue';
 
 
 const suburl = import.meta.env.VITE_SUB_URL;
 
 const routes = [
+
     { path: '/', component: Login},
+    { path: '/ui', component: Ui},
     { path: '/login', component: Login},
     ...userRoutes,
     {

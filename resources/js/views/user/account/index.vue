@@ -10,8 +10,8 @@
                     <v-col cols="12" class="">
                         <v-card title="Accounts" subtitle="View All Accounts Details" class="">
                             <v-card-text>
-                                <div class="pb-3 pt-3 d-flex ">
-                                    <div class="">
+                                <div class="pb-3 pt-3 d-flex flex-wrap ">
+                                    <div class="py-2">
                                         <v-select 
                                             label="Length" 
                                             v-model="filter.length" 
@@ -21,21 +21,20 @@
                                             width="150"
                                              />
                                     </div>
-                                    <div class="pl-2">
+                                    <div class="pl-2 py-2">
                                         <v-text-field label="Search" 
                                             v-model="filter.search"
                                             @update:model-value="handleInput"
                                             width="200"
                                             persistent-placeholder
-
                                             clearable />
                                     </div>
 
-                                    <div class="pl-2">
+                                    <div class="pl-2 py-2">
                                         <v-btn color="primary" variant="flat" prepend-icon="mdi-magnify"
                                             @click="handleInput" />
                                     </div>
-                                    <div class="pl-2">
+                                    <div class="pl-2 py-2">
                                         <v-btn class="text-center" color="success" variant="flat"
                                             prepend-icon="mdi-plus" to="/user/account/create" />
                                     </div>
