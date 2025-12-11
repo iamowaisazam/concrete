@@ -1,9 +1,9 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 
 body,
 * {
-    font-family: 'Inter', sans-serif !important;
+     font-family: "Poppins", sans-serif !important;
 }
 
 aside {
@@ -11,22 +11,20 @@ aside {
 }
 
 
-.v-input__details {
-    min-height: auto !important;
+.v-text-field {
+  --v-input-control-height: 38px !important;
+  min-height: 38px !important;
+  height: 38px !important;
 }
 
-.v-input__details .v-messages {
-    min-height: auto !important;
-}
-:root {
-    --primary-color: #0080ff;
-    --danger-color: #b91c1c;
-}
 
-[data-theme="dark"] {
-    --primary-color: #0080ff;
-    --danger-color: #b91c1c;
-}
+
+
+
+
+
+
+
 
 .no-overlay .v-btn__overlay{
     display: none;

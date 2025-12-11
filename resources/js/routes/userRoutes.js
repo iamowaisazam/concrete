@@ -10,7 +10,7 @@ import Profile from "@/views/user/profile/index.vue"
 import VehicleDetail from "@/views/user/vehicle-detail/index.vue"
 import Setting from "@views/user/setting/index.vue"
 
-import Account from "@views/user/account/index.vue"
+import accountRoutes from "@views/user/account/route"
 
 
 export default [
@@ -19,7 +19,7 @@ export default [
         component: DashboardLayout,
         children: [
             { path: 'dashboard', component: Dashboard, meta: { requiresAuth: true } },
-            { path: 'account', component: Account, meta: { requiresAuth: true } },
+            ...accountRoutes,
 
             { path: 'auction-finder', component: AuctionFinder , meta: { requiresAuth: true } },
             { path: 'dashboard', component: Dashboard },

@@ -1,5 +1,6 @@
 <template>
     <v-app  >
+      
         <Sidebar />
         <v-app-bar elevation="0" color="surface" class="d-flex align-center justify-space-between elevation-3 border-b" style="height: 70px;">
             <v-app-bar-nav-icon class="d-lg-none" @click="themeStore.toggleMenu()"></v-app-bar-nav-icon>
@@ -49,8 +50,11 @@
         </v-app-bar>
 
         <!-- Main Content -->
-        <v-main class="bg-light ">
-            <router-view></router-view>
+        <v-main class="bg-background " >
+            <v-container fluid class="">
+                 <router-view></router-view>
+            </v-container>
+           
         </v-main>
     </v-app>
 </template>

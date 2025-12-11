@@ -3,127 +3,102 @@
         <div class="d-flex align-center ga-3"></div>
     </user-title-bar> -->
 
-    <v-container fluid>
-        <v-row >
+  
+        <v-row>
             <v-col cols="12">
-        <v-row class="mt-3">
-            
-            <v-col cols="12" class="">
-              <v-card title="Accounts" subtitle="View All Accounts Details" class="bg-surface" elevation="0" >
-                <!-- <div class="border" ></div> -->
+                <v-row class="mt-3">
+                    <v-col cols="12" class="">
+                        <v-card title="Accounts" subtitle="View All Accounts Details" class="">
+                            <v-card-text>
+                                <div class="pb-3 pt-3 d-flex ">
+                                    <div class="">
+                                        <v-select 
+                                            label="Length" 
+                                            v-model="filter.length" 
+                                            :items="[10, 20, 30]"
+                                            @update:model-value="handleInput"  
+                                            class=""
+                                            width="150"
+                                             />
+                                    </div>
+                                    <div class="pl-2">
+                                        <v-text-field label="Search" 
+                                            v-model="filter.search"
+                                            @update:model-value="handleInput"
+                                            width="200"
+                                            persistent-placeholder
 
-                <v-card-text>
+                                            clearable />
+                                    </div>
 
-                  <div class="pb-3 pt-3 d-flex ">
-                        <div class="">
-                            <v-select
-                              
-                                label="Length"
-                                v-model="filter.length" 
-                                :items="[10, 20, 30]"
-                                @update:model-value="handleInput" 
-                                variant="outlined" 
-                                class="" 
-                                width="150"
-                                density="compact" />
-                        </div>
-                        <div class="pl-2">
-                            <v-text-field 
-                              
-                                label="Search" 
-                                v-model="filter.search"
-                                @update:model-value="handleInput" 
-                                variant="outlined" 
-                                width="200"
-                                density="compact" 
-                                clearable />
-                        </div>
-                
-                    <div class="pl-2" >
-                            <v-btn 
-                                color="primary"
-                                variant="flat" 
-                                prepend-icon="mdi-magnify" 
-                                @click="handleInput" />           
-                    </div>
-                    <div class="pl-2" >
-                        <v-btn  class="text-center"
-                                color="success"
-                                variant="flat" 
-                                prepend-icon="mdi-plus" 
-                                @click="handleInput" />
-                    </div>
-                </div>
-                
-                <v-data-table-server 
-                      class="border"
-                      :headers="headers" 
-                      :items="items" 
-                      :items-length="totalItems"
-                      :loading="loading" 
-                      item-value="id" 
-                      @update:options="loadItems">
+                                    <div class="pl-2">
+                                        <v-btn color="primary" variant="flat" prepend-icon="mdi-magnify"
+                                            @click="handleInput" />
+                                    </div>
+                                    <div class="pl-2">
+                                        <v-btn class="text-center" color="success" variant="flat"
+                                            prepend-icon="mdi-plus" to="/user/account/create" />
+                                    </div>
+                                </div>
 
-                        <template #item.view="{ item }">
-                            <v-btn color="warning" 
-                                variant="flat" 
-                                :to="'/user/vehicle-detail/' + item.id">
-                                <v-icon>mdi-square-edit-outline</v-icon>
-                            </v-btn>
-                            <span class="px-1" > </span>
-                            <v-btn color="danger" 
-                                variant="flat" 
-                                :to="'/user/vehicle-detail/' + item.id">
-                                <v-icon>mdi-delete</v-icon>
-                            </v-btn>
-                        </template>
+                                <v-data-table-server class="border" :headers="headers" :items="items"
+                                    :items-length="totalItems" :loading="loading" item-value="id"
+                                    @update:options="loadItems">
 
-                        <template #item.autoboli="{ item }">
-                            -
-                        </template>
+                                    <template #item.view="{ item }">
+                                        <v-btn color="warning" variant="flat" to="/user/account/create">
+                                            <v-icon>mdi-square-edit-outline</v-icon>
+                                        </v-btn>
+                                        <span class="px-1"> </span>
+                                        <v-btn color="danger" variant="flat">
+                                            <v-icon>mdi-delete</v-icon>
+                                        </v-btn>
+                                    </template>
 
-                        <template v-slot:bottom>
-                            <div class="py-2">
-                                <custom-pagination :loading="loading" v-model:page="filter.page" :lastPage="last_page"
-                                    @page-changed="loadItems" />
-                            </div>
-                        </template>
-                    </v-data-table-server>
+                                    <template #item.autoboli="{ item }">
+                                        -
+                                    </template>
 
-                </v-card-text>
-              </v-card>
-                    
-        
+                                    <template v-slot:bottom>
+                                        <div class="py-2">
+                                            <custom-pagination :loading="loading" v-model:page="filter.page"
+                                                :lastPage="last_page" @page-changed="loadItems" />
+                                        </div>
+                                    </template>
+                                </v-data-table-server>
+
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
-        </v-col>
-     
-        </v-row>
-    </v-container>
+ 
 </template>
 
 <script>
 
 import UserModel from "@/models/user.model";
 
-import accounts from '@/json/accounts.json';
+
 
 // console.log(accounts);
 
 export default {
     components: {
-    
+
     },
     data() {
         return {
-             filter: {
+            createModel: false,
+            filter: {
                 search: '',
                 length: 10,
                 page: 1,
                 offset: 0,
             },
             last_page: 1,
-            items: accounts,
+            items: [],
             totalItems: 0,
             loading: false,
             headers: [
@@ -145,7 +120,7 @@ export default {
 
         this.loadItems();
     },
-      methods: {
+    methods: {
         handleInput(value, field = null) {
 
             switch (field) {

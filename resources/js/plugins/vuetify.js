@@ -30,8 +30,32 @@ const vuetify = createVuetify({
             style: {
                 '--v-btn-overlay-opacity': 0
             },
-            class: 'no-overlay',
+            class: 'no-overlay text-capitalize font-weight-medium',
         },
+        VCard: {
+            rounded: 0,
+            elevation: 0,
+            variant: "flat",
+            class:"pa-2"
+        },
+        VCardTitle: {
+         class: "text-h6 font-weight-medium"   
+        },
+        VTextField: {
+            color:'primary',
+            baseColor:'inputColor',
+            variant: 'outlined',
+            density: 'compact',
+            hideDetails: 'auto',
+            class: 'force-38px',
+            height: 38,
+        },
+        VSelect: {
+            color:'primary',
+            baseColor:'inputColor',
+            variant: 'outlined',
+            density: 'compact',
+        }
     },
     theme: {
         defaultTheme: "adminLight",
@@ -41,18 +65,22 @@ const vuetify = createVuetify({
                 colors: {
                     primary: "#0080ff",
                     'primary-lighten-1': '#8579F2',
+
                     background: "#EBEFF3",
-                    'text-background': '#212121',
+                    'on-background': '#212529',
+                    
+   
                     surface: "#FFFFFF",
                     'on-surface':'#0f1c2b',
 
                     'surface-variant-1': "#e9eff6",
-                    'on-background': '#000000',
+                    
                     nav:"#0f1c2b",
 
-                    field:"#000000",
-                    "on-field":"#000000",
+                    inputColor:"#36383aff",
+               
                    
+                
                     border: "#B1BFCD",
                     danger: "#b91c1c",
                     success: "#4CAF50",
@@ -62,77 +90,14 @@ const vuetify = createVuetify({
                     shadow: "#E1EBEE",
                    
                 },
-            },
-            adminDark: {
-                dark: true,
-                colors: {
-                    
-                    'primary-lighten-1': '#3399ff',
-                    primary: "#0080FF",
-                    'on-primary': '#ffffff',
-                    background: "#000f21",
-                    surface: "#0f1c2b",
-                    'surface-variant-1': "#0f1c2b",
-                    light_text_on: "#B1BFCD",
-                    border: "#343E4B",
-                    danger: "#b91c1c",
-                    success: "#4CAF50",
-                    warning: "#FB8C00",
-                    text_light:"#B2C0C3",
-                    error: "#FF5252",
-                    info: "#2196F3",
-                    background: "#0E1B2B",
-                    surface: "#000E20",
-                    shadow: "#353f4c",
-                    light:"#b2c0ce",
-                    verticalLineBlue: "#0080ff",
-                    inputBg : "#021830"
-                    
-                    // lighthover: "#002145",
-                    // secondary: "#000f21",
-                },
-                typography: {
-                    fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
-                    h1: {
-                        // fontSize: '2.25rem',
-                        // lineHeight: '2.75rem',
-                        // fontWeight: '700'
-                    },
-                    h2: {
-                        // fontSize: '1.75rem',
-                        // lineHeight: '2.25rem',
-                        // fontWeight: '600'
-                    },
-                    h3: {
-                        // fontSize: '1.5rem',
-                        // lineHeight: '2rem',
-                        // fontWeight: '600'
-                    },
-                    subtitle1: {
-                        // fontSize: '1.125rem',
-                        // lineHeight: '1.75rem'
-                    },
-                    body1: {
-                        // fontSize: '1rem',
-                        // lineHeight: '1.5rem'
-                    },
-                    body2: {
-                        // fontSize: '0.875rem',
-                        // lineHeight: '1.25rem'
-                    },
-                    caption: {
-                        // fontSize: '0.75rem',
-                        // lineHeight: '1rem'
-                    },
-                    button: {
-                        // fontSize: '0.875rem',
-                        // fontWeight: '600',
-                        // letterSpacing: '0.02em'
-                    },
-                },
-                variables: {
-                    'space': '10px'
+                variables:{
+                    'border-color': '#e0e0e0',
+                    // 'border-opacity': 1,
+                    'border-opacity': 0.38,
+                    'input-color': '#e71b1bff' // Text color inside inputs
                 }
+
+
             },
         },
     },
