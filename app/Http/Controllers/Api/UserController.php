@@ -21,9 +21,8 @@ class UserController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $baseQuery = User::query();
+        $baseQuery = User::query()->where('user_type','!=',1);
 
-     
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();
             $data = $baseQuery->select([
@@ -35,8 +34,7 @@ class UserController extends Controller
                 ->get();
 
             return response()->json([
-                'recordsTotal' => $count,
-                'recordsFiltered' => $count,
+                'total' => $count,
                 'page' => $page,
                 'offset' => $offset,
                 'last_page' => ceil($count / $length),
@@ -45,92 +43,64 @@ class UserController extends Controller
     }
 
 
+
+
+       public function store(Request $request)
+    {
+        
+        $user = new User();
+        $validator = Validator::make($request->all(),[
+            'firstName' => 'required|string|max:255',
+            ],
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors()
+            ], 422);
+        }
+    
+        $user->firstName = $request->firstName;
+        $user->personalEmail = strtolower($request->firstName) . rand(100, 999) . '@example.com';
+        $user->status = 1;
+        $user->user_type = 0;
+        $user->save();
+   
+        return response()->json([
+            'message' => "Record Created Successfuly",
+            'data' => $user,
+        ],200);
+
+    }
+
+
         public function show(Request $request,$id)
     {
 
         $user = User::find($id);
+        $user->avatar = asset('/uploads/'.$user->avatar);
         return response()->json([
             'message' => 'Get Profile Details',
             'data' => [
-                'user' => new UserProfileResource($user),
+                'user' => $user
             ],
         ]);
 
     }
 
-
-    
-     public function profile(Request $request)
+      public function update(Request $request,$id)
     {
-
-        $user = $request->user();
-        return response()->json([
-            'message' => 'Get Profile Details',
-            'data' => [
-                'user' => new UserProfileResource($user),
-            ],
-        ]);
-
-    }
-
-      public function profileUpdate(Request $request)
-    {   
-
-        $user = $request->user();
+        
+        $user = User::find($id);
         $validator = Validator::make($request->all(),[
-                'companyName' => 'required|string|max:255',
-                'companyAddress1' => 'required|string|max:255',
-                'companyAddress2' => 'required|string|max:255',
-                'businessType' => 'required|string|max:255',
-                'companyReg' => 'required|string|max:255',
-                'townCity' => 'required|string|max:255',
-                'country' => 'required|string|max:255',
-                'website' => 'required|url',
-                'postcode' => 'required|string|max:255',
-                'telephone' => 'required|string|max:255',
-                'businessEmail' => ['required','string','email','max:255',Rule::unique('users', 'businessEmail')->ignore($user->id)],
-                'motorTradeInsurance' => 'required|string|max:255',
-                'vatNumber' => 'required|string|max:255',
-
-                'firstName' => 'required|string|max:255',
-                'surname' => 'required|string|max:255',
-                'jobTitle' => 'required|string|max:255',
-                'source' => 'nullable|string|max:255',
-                'phone' => 'required|string|max:255',
-                
-                // 'avatar' => 'required|file|mimes:jpg,png,pdf|max:4096',
-                // 'motorTradeProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
-                // 'addressProof' => 'nullable|file|mimes:jpg,png,pdf|max:4096',
-
-                'personalEmail' => ['required','string','email','max:255',Rule::unique('users', 'businessEmail')->ignore($user->id)],
-                'password' => 'string|min:6',
+            'firstName' => 'required|string|max:255',
+            'personalEmail' => ['required','string','email','max:255',Rule::unique('users', 'personalEmail')->ignore($id)],
+            'phone' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'townCity' => 'nullable|string|max:255',
+            'companyAddress1' => 'nullable|string|max:255',
             ],
-            [],
-            [
-                'companyName' => 'Company Name',
-                'companyAddress1' => 'Address Line 1',
-                'companyAddress2' => 'Address Line 2',
-                'townCity' => 'Town or City',
-                'country' => 'Country',
-                'postcode' => 'Postcode',
-                'telephone' => 'Telephone Number',
-                'businessType' => 'Business Type',
-                'companyReg' => 'Company Registration Number',
-                'website' => 'Company Website',
-                'businessEmail' => 'Business Email',
-                'motorTradeInsurance' => 'Motor Trade Insurance',
-                'vatNumber' => 'VAT Number',
-                'firstName' => 'First Name',
-                'surname' => 'Surname',
-                'jobTitle' => 'Job Title',
-                'password' => 'Password',
-                'phone' => 'Phone Number',
-                'personalEmail' => 'Personal Email',
-                'password' => 'Password',
-                'uploadID' => 'Upload ID',
-                'motorTradeProof' => 'Motor Trade Proof',
-                'addressProof' => 'Address Proof',
-            ]
         );
 
         if ($validator->fails()) {
@@ -140,100 +110,33 @@ class UserController extends Controller
             ], 422);
         }
 
-        // dd($request->all());
-
-
-        //Profile Company
-        $user->companyName = $request->companyName;
         $user->companyAddress1 = $request->companyAddress1;
-        $user->companyAddress2 = $request->companyAddress2;
-        $user->businessType = $request->businessType;
-        $user->companyReg = $request->companyReg;
-        $user->website = $request->website;
-        $user->businessEmail = $request->businessEmail;
-        $user->motorTradeInsurance = $request->motorTradeInsurance;
-        $user->vatNumber = $request->vatNumber;
+        $user->firstName = $request->firstName;
+        $user->phone = $request->phone;
+        $user->personalEmail = $request->personalEmail;
         $user->townCity = $request->townCity;
         $user->country = $request->country;
-        $user->postcode = $request->postcode;
-        $user->telephone = $request->telephone;
-        
 
-        //Profile
-        $user->firstName = $request->firstName;
-        $user->surname = $request->surname;
-        $user->jobTitle = $request->jobTitle;
-        $user->title = $request->jobTitle;
-        $user->source = $request->source;
-        $user->phone = $request->phone;
-        
-      
-        if ($request->file('uploadID')) {
-            // Remove existing thumbnail if it exists
-            if ($user->avatar && file_exists(public_path('uploads/' . $user->uploadID))) {
-                unlink(public_path('uploads/' . $user->uploadID));
-            }
-            $fileName = time() . '__ff__' . $request->file('uploadID')->getClientOriginalName();
-            $filePath = public_path('uploads/uploadID');
-            $request->file('uploadID')->move($filePath, $fileName);
-            $user->uploadID = $fileName;
-        }
 
-         if ($request->file('avatar')) {
+        if ($request->file('avatar')) {
+            
             // Remove existing thumbnail if it exists
             if ($user->avatar && file_exists(public_path('uploads/' . $user->avatar))) {
                 unlink(public_path('uploads/' . $user->avatar));
             }
+
             $fileName = time() . '__ff__' . $request->file('avatar')->getClientOriginalName();
-            $filePath = public_path('uploads/avatar');
+            $filePath = public_path('uploads/');
             $request->file('avatar')->move($filePath, $fileName);
             $user->avatar = $fileName;
         }
 
-        //License
-        if ($request->file('motorTradeProof')) {
-            // Remove existing thumbnail if it exists
-            if ($user->motorTradeProof && file_exists(public_path('uploads/' . $user->motorTradeProof))) {
-                unlink(public_path('uploads/' . $user->motorTradeProof));
-            }
-            $fileName = time() . '__ff__' . $request->file('motorTradeProof')->getClientOriginalName();
-            $filePath = public_path('uploads/motorTradeProof');
-            $request->file('motorTradeProof')->move($filePath, $fileName);
-            $user->motorTradeProof = $fileName;
-        }
-
-        if ($request->file('addressProof')) {
-            // Remove existing thumbnail if it exists
-            if ($user->addressProof && file_exists(public_path('uploads/' . $user->addressProof))) {
-                unlink(public_path('uploads/' . $user->addressProof));
-            }
-            $fileName = time() . '__ff__' . $request->file('addressProof')->getClientOriginalName();
-            $filePath = public_path('uploads/addressProof');
-            $request->file('addressProof')->move($filePath, $fileName);
-            $user->addressProof = $fileName;
-        }
-
-        //Account
-        $user->personalEmail = $request->personalEmail;
-        if($request->password) {
-            $user->password = Hash::make($request->password);
-        }
-        
-        // $user->email_verification_token = null;
-        // $user->email_verification_token_status = 1;
-        // $user->status = 1;
-        // $user->user_type = 0;
-
         $user->save();
-
    
         return response()->json([
-            'message' => "Profile Updated Successfuly",
-            'data' =>[
-                'user' => new UserProfileResource($user),
-            ],  
+            'message' => "Record Updated Successfuly",
+            'data' => $user,
         ],200);
-
 
     }
 

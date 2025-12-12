@@ -15,8 +15,7 @@
                                         <v-select 
                                             label="Length" 
                                             v-model="filter.length" 
-                                            :items="[10, 20, 30]"
-                                            @update:model-value="handleInput"  
+                                            :items="[10, 20, 30]"  
                                             class=""
                                             width="150"
                                              />
@@ -24,7 +23,6 @@
                                     <div class="pl-2 py-2">
                                         <v-text-field label="Search" 
                                             v-model="filter.search"
-                                            @update:model-value="handleInput"
                                             width="200"
                                             persistent-placeholder
                                             clearable />
@@ -32,7 +30,7 @@
 
                                     <div class="pl-2 py-2">
                                         <v-btn color="primary" variant="flat" prepend-icon="mdi-magnify"
-                                            @click="handleInput" />
+                                            @click="loadItems" />
                                     </div>
                                     <div class="pl-2 py-2">
                                         <v-btn class="text-center" color="success" variant="flat"
@@ -45,11 +43,11 @@
                                     @update:options="loadItems">
 
                                     <template #item.view="{ item }">
-                                        <v-btn color="warning" variant="flat" :to="`/user/account/edit/${item.id}`">
+                                        <v-btn color="warning" variant="plain" :to="`/user/account/edit/${item.id}`">
                                             <v-icon>mdi-square-edit-outline</v-icon>
                                         </v-btn>
                                         <span class="px-1"> </span>
-                                        <v-btn color="danger" variant="flat">
+                                        <v-btn color="danger" variant="plain" >
                                             <v-icon>mdi-delete</v-icon>
                                         </v-btn>
                                     </template>
@@ -119,35 +117,25 @@ export default {
         this.loadItems();
     },
     methods: {
-        handleInput(value, field = null) {
 
-            switch (field) {
-                case 'search':
-                    this.filter.search = value;
-                    break;
-                default:
-                    break;
-            }
-
-            this.loadItems();
-        },
         async loadItems() {
 
             this.loading = true;
             try {
 
-                const res = await UserModel.getAccounts(this.filter);
+                const res = await UserModel.all(this.filter);
                 // console.log(res);
-                this.items = res.data || [];
-                this.totalItems = res.recordsTotal;
+                this.items = res.data;
+                this.totalItems = res.total;
                 this.filter.offset = res.offset;
-                this.filter.page = res.page;
+                this.filter.page = Number(res.page);
                 this.last_page = res.last_page;
 
             } catch (error) {
-                console.error("Error fetching userWatchList:", error);
+          
                 this.totalItems = 0;
                 this.items = [];
+
             } finally {
                 this.loading = false;
             }

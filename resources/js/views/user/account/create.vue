@@ -1,34 +1,15 @@
 <template>
-
-      <v-card class="" title="General Form" subtitle="All with bootstrap element classies" > 
-        <v-card-text>
-      
+      <v-card :loading="loading" :disabled="loading" class="" title="Account Information" subtitle="Create New User Account" > 
+        <v-card-text>      
             <v-row  class="pt-3" >
-                <v-col cols="12" sm="4">
-                    <label for="" class="form-label" >Name</label>
-                    <v-text-field class="" v-model="form.name" height="38px" />
-                </v-col>
-                <v-col cols="12" sm="4">
-                    <label for="" class="form-label" >Email</label>
-                    <v-text-field v-model="form.email" />
-                </v-col>
-                <v-col cols="12" sm="4">
-                    <label for="" class="form-label" >Phone</label>
-                    <v-text-field v-model="form.phone" />
-                </v-col>
-                <v-col cols="12" sm="12">
-                    <label for="" class="form-label" >Address</label>
-                    <v-text-field v-model="form.address"  />
-                </v-col>
-                <v-col cols="12" sm="12">
-                    <label for="" class="form-label" >Description</label>
-                    <v-text-field v-model="form.description" />
+                <v-col cols="12" >
+                    <label for="" class="form-label" >Fullname</label>
+                    <v-text-field class="" v-model="form.firstName" height="38px" />
                 </v-col>
             </v-row>
-    
         </v-card-text>
         <v-card-actions>
-          <v-btn class="v-btn" to="/user/account" variant="flat" color="primary" @click="submitForm">Submit</v-btn>
+          <v-btn class="v-btn" variant="flat" color="primary" @click="submitForm">Submit</v-btn>
           <v-btn class="v-btn" to="/user/account" variant="flat" color="danger">Cancel</v-btn>
         </v-card-actions>
       </v-card>
@@ -36,32 +17,37 @@
 </template>
 
 <script>
+import UserModel from '@/models/user.model';
+
 export default {
-    props:{
-        dialog: {
-            type: Boolean,
-            default: false,
-        },
-    },
     data() {
 
         return {
-            open:true,
+            loading:false,
             form: {
-                name: "",
-                email: "",
-                phone: "",
-                address: "",
-                description: "", 
+                firstName: "",
             },
         };
   },
   methods: {
-    submitForm() {
+   async submitForm() {
 
-      console.log("Form Data:", this.form);
-      this.dialog = false;
+        try {
+                
+            this.loading = true;
+            let res = await UserModel.create(this.form);
+            this.loading = false;
+            this.$alertStore.add(res.message,'success');
+            this.$router.push('/user/account/edit/' + res.data.id);
 
+
+
+
+        } catch (error) {
+             this.loading = false;
+             this.$alertStore.add(error.message,'error');
+        }
+    
     },
     handle(value){
         

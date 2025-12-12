@@ -3,10 +3,16 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useUserStore } from '@stores/userStore';
 import { useAlertStore } from '@stores/alertStore';
 
+
+
+
+// Routes...
+import Layout from "@views/user/layout/index.vue";
 import NotFound from "@views/user/404.vue"
-import userRoutes from "./userRoutes"
 import Login from '@/views/auth/login.vue';
-import Ui from '@/views/ui.vue';
+import Dashboard from '@views/user/dashboard/index.vue';
+import accountRoutes from "@views/user/account/route"
+
 
 
 const suburl = import.meta.env.VITE_SUB_URL;
@@ -14,9 +20,16 @@ const suburl = import.meta.env.VITE_SUB_URL;
 const routes = [
 
     { path: '/', component: Login},
-    { path: '/ui', component: Ui},
     { path: '/login', component: Login},
-    ...userRoutes,
+    {
+        path: "/user",
+        component: Layout,
+        children: [
+            { path: 'dashboard', component: Dashboard, meta: { requiresAuth: true } },
+            ...accountRoutes,
+
+        ],
+    },
     {
         path: "/:pathMatch(.*)*",
         name: "NotFound",
