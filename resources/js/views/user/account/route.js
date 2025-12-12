@@ -1,6 +1,6 @@
 import index from "./index.vue"
 import create from "./create.vue"
-import edit from "./edit.vue"
+import edit from "./edit/index.vue"
 
 
 export default [
@@ -18,7 +18,7 @@ export default [
                 meta: { requiresAuth: true } 
             },
             { 
-                path: 'edit', 
+                path: 'edit/:id', 
                 component: edit, 
                 meta: { requiresAuth: true } 
             },

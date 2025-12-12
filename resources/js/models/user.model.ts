@@ -105,34 +105,25 @@ export default class UserModel {
 
     }
 
-
-    static async getWatchList(options: {
+     static async getUsers(options: {
         search?: string;
         page?: number;
         length?: number;
-        make?: number;
-        year?: string;
-        reg_search?: number;
+
     }): Promise<{
-            data: unknown[];
-            recordsFiltered: number;
-            recordsTotal: number;
-            page: number;
-            length: number;
-            last_page: number;
-            offset: number;
+        data: unknown[];
     }> {
 
         try {
-            let res = await api.get('/api/user/notifications/userWatchList', {
-                params:options,
-            })
+            const res = await api.get("/api/auth/profile", { params: options });
             return res.data;
-        } catch (error) {
-            throw await errorHandler(error);
+        } catch (e) {
+            throw await errorHandler(e);
         }
 
     }
+
+
 
    static async supportForm(options:any) {
         
@@ -148,30 +139,26 @@ export default class UserModel {
     
      static async getAccounts(options:any) {
         
-            // try {
-            //     const res = await api.post("/api/user/page/supportForm",options);
-            //     return res.data;
-            
-            // } catch (error) {
-            //     throw await errorHandler(error);
-            // }
+        try {
+            const res = await api.get("/api/users",options);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
 
-            return {
-                data:[
-                    {
-                        "id": 1,
-                        "name": "Customer 1",
-                        "email": "customer1@gmail.com",
-                        "phone": "+92-300-1234567",
-                        "address": "Orangi Town, Karachi, Pakistan",
-                        "description": "Tech enthusiast who loves coding and learning new tools."
-                    },
-                ],
-                recordsTotal:0,
-                offset:0,
-                page:1,
-                last_page:1,
-            }
+    }
+
+    static async find(options:any) {
+        
+        try {
+            const res = await api.get("/api/users/"+options.id,options);
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
     }
 
 

@@ -3,11 +3,11 @@
         <div class="d-flex align-center ga-3"></div>
     </user-title-bar> -->
 
-  
         <v-row>
             <v-col cols="12">
                 <v-row class="mt-3">
                     <v-col cols="12" class="">
+                        
                         <v-card title="Accounts" subtitle="View All Accounts Details" class="">
                             <v-card-text>
                                 <div class="pb-3 pt-3 d-flex flex-wrap ">
@@ -45,7 +45,7 @@
                                     @update:options="loadItems">
 
                                     <template #item.view="{ item }">
-                                        <v-btn color="warning" variant="flat" to="/user/account/create">
+                                        <v-btn color="warning" variant="flat" :to="`/user/account/edit/${item.id}`">
                                             <v-icon>mdi-square-edit-outline</v-icon>
                                         </v-btn>
                                         <span class="px-1"> </span>
@@ -102,18 +102,17 @@ export default {
             loading: false,
             headers: [
                 { title: "ID", value: "id" },
-                { title: "Account", value: "name" },
+                { title: "Account", value: "firstName" },
                 { title: "Phone", value: "phone" },
-                { title: "Email", value: "email" },
-                { title: "Address", value: "address" },
+                { title: "Email", value: "personalEmail" },
+                { title: "City", value: "townCity" },
+                { title: "Address", value: "companyAddress1" },
                 { title: "Action", key: 'view', sortable: false },
             ],
         };
     },
     computed: {
-        currentComponent() {
-            return this.activeTab === "watchlist" ? "Watchlist" : "Alerts";
-        },
+       
     },
     mounted() {
 

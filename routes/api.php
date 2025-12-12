@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\StripeController;
-
+use App\Http\Controllers\Api\UserController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -32,7 +32,13 @@ Route::prefix('auth')->group(function () {
 });
 
 
+ Route::apiResource('users', UserController::class);
+
+
+
+
 Route::prefix('master')->middleware(['auth:sanctum'])->group(function () {
+
 
     Route::get('/getVehicleTypes',[MasterController::class,'getVehicleTypes']);
     Route::get('/getBodyTypes',[MasterController::class,'getBodyTypes']);
