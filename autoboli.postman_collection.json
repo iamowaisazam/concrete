@@ -1,44 +1,14 @@
 {
 	"info": {
-		"_postman_id": "1db562ad-791a-42a7-8d0e-4284ced7a1b1",
+		"_postman_id": "babc5df3-6347-4fed-a303-690b7cdaaec2",
 		"name": "autoboli",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "49888145",
-		"_collection_link": "https://owais-dapp-6870499.postman.co/workspace/Owais-Azam's-Workspace~4bdbb424-e895-42af-8e84-18f7ddcaec3f/collection/49888145-1db562ad-791a-42a7-8d0e-4284ced7a1b1?action=share&source=collection_link&creator=49888145"
+		"_exporter_id": "9060506"
 	},
 	"item": [
 		{
 			"name": "Auth",
 			"item": [
-				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/auth/login?email=man411210@gmail.com&password=12345678",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"login"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "man411210@gmail.com"
-								},
-								{
-									"key": "password",
-									"value": "12345678"
-								}
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Profile",
 					"request": {
@@ -74,490 +44,353 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "Intrest",
-					"item": [
-						{
-							"name": "getIntrest",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/interest/myInterest",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"interest",
-										"myInterest"
-									]
+					"name": "all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "auction-finder",
-					"item": [
-						{
-							"name": "AuctionList",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/auctionList",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"auctionList"
-									]
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "getVehicleDetail",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/auctionList/8636",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"auctionList",
-										"8636"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "getRelatedVehicle",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/getRelatedVehicle/8636",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"getRelatedVehicle",
-										"8636"
-									]
-								}
-							},
-							"response": []
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/51",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"51"
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "Dashboard",
-					"item": [
-						{
-							"name": "counters",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/dashboard/counters",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"dashboard",
-										"counters"
-									]
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "vehicleStates",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/dashboard/vehicleStates",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"dashboard",
-										"vehicleStates"
-									]
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users?firstName=Owais 11",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "Owais 11"
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "timeAuctions",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/dashboard/timeAuctions",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"dashboard",
-										"timeAuctions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "onlineAuctions",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/dashboard/onlineAuctions",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"dashboard",
-										"onlineAuctions"
-									]
-								}
-							},
-							"response": []
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "Notifications",
-					"item": [
-						{
-							"name": "userNotification",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/notifications/userNotification",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"notifications",
-										"userNotification"
-									]
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/61?_method=put",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"61"
+							],
+							"query": [
+								{
+									"key": "_method",
+									"value": "put"
+								}
+							]
 						}
-					]
+					},
+					"response": []
 				},
 				{
-					"name": "Page",
-					"item": [
-						{
-							"name": "userAlertList",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/notifications/userAlertList",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"notifications",
-										"userAlertList"
-									]
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
 								}
-							},
-							"response": []
+							]
 						},
-						{
-							"name": "userNotification",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/notifications/userNotification",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"notifications",
-										"userNotification"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "reAuctionList",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/reAuctionList?auction_date=2025-10-28",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"reAuctionList"
-									],
-									"query": [
-										{
-											"key": "auction_date",
-											"value": "2025-10-28"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "compareList",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/compareList?make_id=8&model_id=124&variant_id&year&mileage_from&mileage_to&transmission&fuel&grade",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"compareList"
-									],
-									"query": [
-										{
-											"key": "make_id",
-											"value": "8"
-										},
-										{
-											"key": "model_id",
-											"value": "124"
-										},
-										{
-											"key": "variant_id",
-											"value": null
-										},
-										{
-											"key": "year",
-											"value": null
-										},
-										{
-											"key": "mileage_from",
-											"value": null
-										},
-										{
-											"key": "mileage_to",
-											"value": null
-										},
-										{
-											"key": "transmission",
-											"value": null
-										},
-										{
-											"key": "fuel",
-											"value": null
-										},
-										{
-											"key": "grade",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "userWatchList",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/user/notifications/userWatchList",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"notifications",
-										"userWatchList"
-									]
-								}
-							},
-							"response": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/51",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"51"
+							]
 						}
-					]
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products?title=Owais 123",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Owais 123"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "put",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Product 1",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "sku3",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "300",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Owais Azam/Desktop/278875855_3281349928856457_3871007086309321500_n.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/products/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/products/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1120,6 +953,521 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Intrest",
+			"item": [
+				{
+					"name": "getIntrest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/interest/myInterest",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"interest",
+								"myInterest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auction-finder",
+			"item": [
+				{
+					"name": "AuctionList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/auctionList",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"auctionList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getVehicleDetail",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/auctionList/8636",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"auctionList",
+								"8636"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRelatedVehicle",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/getRelatedVehicle/8636",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"getRelatedVehicle",
+								"8636"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "counters",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/dashboard/counters",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"dashboard",
+								"counters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vehicleStates",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/dashboard/vehicleStates",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"dashboard",
+								"vehicleStates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "timeAuctions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/dashboard/timeAuctions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"dashboard",
+								"timeAuctions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "onlineAuctions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/dashboard/onlineAuctions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"dashboard",
+								"onlineAuctions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "userNotification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/notifications/userNotification",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"notifications",
+								"userNotification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Page",
+			"item": [
+				{
+					"name": "userAlertList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/notifications/userAlertList",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"notifications",
+								"userAlertList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userNotification",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/notifications/userNotification",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"notifications",
+								"userNotification"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reAuctionList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/reAuctionList?auction_date=2025-10-28",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"reAuctionList"
+							],
+							"query": [
+								{
+									"key": "auction_date",
+									"value": "2025-10-28"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "compareList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/compareList?make_id=8&model_id=124&variant_id&year&mileage_from&mileage_to&transmission&fuel&grade",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"compareList"
+							],
+							"query": [
+								{
+									"key": "make_id",
+									"value": "8"
+								},
+								{
+									"key": "model_id",
+									"value": "124"
+								},
+								{
+									"key": "variant_id",
+									"value": null
+								},
+								{
+									"key": "year",
+									"value": null
+								},
+								{
+									"key": "mileage_from",
+									"value": null
+								},
+								{
+									"key": "mileage_to",
+									"value": null
+								},
+								{
+									"key": "transmission",
+									"value": null
+								},
+								{
+									"key": "fuel",
+									"value": null
+								},
+								{
+									"key": "grade",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userWatchList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/notifications/userWatchList",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"notifications",
+								"userWatchList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/auth/login?email=man411210@gmail.com&password=12345678",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "man411210@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "12345678"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
