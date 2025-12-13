@@ -7,9 +7,11 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuctionFinderController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\InterestController;
+
 use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\UserController;
 
@@ -33,7 +35,7 @@ Route::prefix('auth')->group(function () {
 
 
  Route::apiResource('users', UserController::class);
-
+ Route::apiResource('products', ProductController::class);
 
 
 
