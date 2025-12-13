@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserProfileResource;
+use App\Models\Category;
+use App\Models\Expense;
+use App\Models\ExpenseCategory;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -13,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class ProductController extends Controller
+class ExpenseController extends Controller
 {
 
         public function index(Request $request)
@@ -23,7 +26,7 @@ class ProductController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $baseQuery = Product::query();
+        $baseQuery = Expense::query();
 
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();
@@ -48,9 +51,13 @@ class ProductController extends Controller
        public function store(Request $request)
     {
         
-        $model = new Product();
+        $model = new Expense();
         $validator = Validator::make($request->all(),[
-            'title' => 'required|string|max:255',
+            'remarks' => 'required|string|max:1000',
+            'date' => 'required|string|max:1000',
+            'debit' => 'required|numeric|min:0|max:999999.99',
+            'category_id' =>['nullable','integer','max:10',Rule::exists('expense_category','id')],
+            'user_id' =>['nullable','integer','max:10',Rule::exists('users','id')],
         ]);
 
         if ($validator->fails()) {
@@ -60,9 +67,11 @@ class ProductController extends Controller
             ], 422);
         }
     
-        $model->title = $request->title;
-        $model->sku = strtolower($request->title) . rand(100, 999) . '000';
-        $model->price = 0;
+        $model->remarks = $request->remarks;
+        $model->date = $request->date;
+        $model->debit = $request->debit;
+        $model->category_id = $request->category_id;
+        $model->user_id = $request->user_id;
         $model->save();
    
         return response()->json([
@@ -76,13 +85,9 @@ class ProductController extends Controller
         public function show(Request $request,$id)
     {
 
-        $model = Product::find($id);
+        $model = Expense::find($id);
         if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
-        }
-
-        if($model->image){
-            $model->image = asset('/uploads/'.$model->avatar);
         }
 
         return response()->json([
@@ -92,27 +97,23 @@ class ProductController extends Controller
 
     }
 
+
       public function update(Request $request,$id)
     {
         
-        $model = Product::find($id);
+        $model = Expense::find($id);
 
         if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
         $validator = Validator::make($request->all(),[
-                'title' => 'required|string|max:255',
-                'sku' => 'required|string|max:255',
-                'description' => 'nullable|string|max:255',
-                'image' => 'nullable|image',
-                'price' => 'required|string|max:255',
-
-                'category_id' =>['nullable','integer','max:10',Rule::exists('category','id')],
-                'user_id' =>['nullable','integer','max:10',Rule::exists('users','id')],
-                'unit_id' =>['nullable','integer','max:10',Rule::exists('unit','id')],
-            ],
-        );
+            'remarks' => 'required|string|max:1000',
+            'date' => 'required|string|max:1000',
+            'debit' => 'required|numeric|min:0|max:999999.99',
+            'category_id' =>['nullable','integer','max:10',Rule::exists('expense_category','id')],
+            'user_id' =>['nullable','integer','max:10',Rule::exists('users','id')],
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
@@ -121,68 +122,38 @@ class ProductController extends Controller
             ], 422);
         }
 
-
-        $model->title = $request->title;
-        $model->sku = $request->firstName;
-        $model->description = $request->description;
-        $model->price = $request->price;
-
+        $model->remarks = $request->remarks;
+        $model->date = $request->date;
+        $model->debit = $request->debit;
         $model->category_id = $request->category_id;
         $model->user_id = $request->user_id;
-        $model->unit_id = $request->unit_id;
-
-        if ($request->file('image')) {
-            
-            // Remove existing thumbnail if it exists
-            if ($model->image && file_exists(public_path('uploads/' . $model->image))) {
-                unlink(public_path('uploads/' . $model->image));
-            }
-
-            $fileName = time() . '__ff__' . $request->file('image')->getClientOriginalName();
-            $filePath = public_path('uploads/');
-            $request->file('image')->move($filePath, $fileName);
-            $model->image = $fileName;
-        }
-
         $model->save();
-
-        if($model->image){
-            $model->image = asset('/uploads/'.$model->image);
-        }
-   
+        
         return response()->json([
             'message' => "Record Updated Successfuly",
             'data' => $model,
         ],200);
 
     }
-
-
     
+
         public function destroy(Request $request,$id)
     {
 
-        $model = Product::find($id);
+        $model = Expense::find($id);
         if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
-        if ($model->image && file_exists(public_path('uploads/' . $model->image))) {
-             unlink(public_path('uploads/' . $model->image));
-        }
-        
         $model->delete();
 
         return response()->json([
             'message' => 'Record Deleted',
+            'data' =>  $model,
         ],200);
 
     }
 
 
   
-
-
 }
-
-

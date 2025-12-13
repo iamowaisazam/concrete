@@ -6,28 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            
-            $table->id();
-            $table->string('title');
-            $table->string('sku')->nullable();
-            $table->text('description')->nullable();
-            $table->text('image')->nullable();
-            $table->decimal('price', 10, 2)->nullable();
 
-            $table->foreignId('unit_id')
-            ->nullable()
-            ->constrained('unit')
-            ->nullOnDelete();
+        Schema::create('expenses', function (Blueprint $table) {
+            $table->id();
+            $table->string('date')->nullable();
+            $table->integer('debit')->nullable();
+            $table->integer('credit')->nullable();
+            $table->string('remarks')->nullable();
+
 
             $table->foreignId('category_id')
             ->nullable()
-            ->constrained('category')
+            ->constrained('expense_category')
             ->nullOnDelete();
                     
             $table->foreignId('user_id')
@@ -35,10 +31,10 @@ return new class extends Migration
             ->constrained('users')
             ->nullOnDelete();
 
-    
-
             $table->timestamps();
+            
         });
+
     }
 
     /**
@@ -46,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('expenses');
     }
 };
