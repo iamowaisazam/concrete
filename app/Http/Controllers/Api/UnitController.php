@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserProfileResource;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -12,16 +15,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
+class UnitController extends Controller
 {
 
         public function index(Request $request)
     {  
+
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $baseQuery = User::query()->where('user_type','!=',1);
+        $baseQuery = Unit::query();
 
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();
@@ -40,19 +44,16 @@ class UserController extends Controller
                 'last_page' => ceil($count / $length),
                 'data' => $data,
             ]);
+
     }
-
-
-
 
        public function store(Request $request)
     {
         
-        $user = new User();
+        $model = new Unit();
         $validator = Validator::make($request->all(),[
-            'firstName' => 'required|string|max:255',
-            ],
-        );
+            'title' => 'required|string|max:255',
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
@@ -61,15 +62,12 @@ class UserController extends Controller
             ], 422);
         }
     
-        $user->firstName = $request->firstName;
-        $user->personalEmail = strtolower($request->firstName) . rand(100, 999) . '@example.com';
-        $user->status = 1;
-        $user->user_type = 0;
-        $user->save();
+        $model->title = $request->title;
+        $model->save();
    
         return response()->json([
             'message' => "Record Created Successfuly",
-            'data' => $user,
+            'data' => $model,
         ],200);
 
     }
@@ -78,17 +76,14 @@ class UserController extends Controller
         public function show(Request $request,$id)
     {
 
-        $user = User::find($id);
-        if(!$user){
+        $model = Unit::find($id);
+        if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
-        $user->avatar = asset('/uploads/'.$user->avatar);
         return response()->json([
-            'message' => 'Get Profile Details',
-            'data' => [
-                'user' => $user
-            ],
+            'message' => 'Get Record Details',
+            'data' => $model,
         ]);
 
     }
@@ -96,19 +91,14 @@ class UserController extends Controller
       public function update(Request $request,$id)
     {
         
-        $user = User::find($id);
+        $model = Unit::find($id);
 
-        if(!$user){
+        if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
         $validator = Validator::make($request->all(),[
-            'firstName' => 'required|string|max:255',
-            'personalEmail' => ['required','string','email','max:255',Rule::unique('users', 'personalEmail')->ignore($id)],
-            'phone' => 'nullable|string|max:255',
-            'country' => 'nullable|string|max:255',
-            'townCity' => 'nullable|string|max:255',
-            'companyAddress1' => 'nullable|string|max:255',
+                'title' => 'required|string|max:255',
             ],
         );
 
@@ -119,51 +109,31 @@ class UserController extends Controller
             ], 422);
         }
 
-        $user->companyAddress1 = $request->companyAddress1;
-        $user->firstName = $request->firstName;
-        $user->phone = $request->phone;
-        $user->personalEmail = $request->personalEmail;
-        $user->townCity = $request->townCity;
-        $user->country = $request->country;
 
+        $model->title = $request->title;
+        $model->save();
 
-        if ($request->file('avatar')) {
-            
-            // Remove existing thumbnail if it exists
-            if ($user->avatar && file_exists(public_path('uploads/' . $user->avatar))) {
-                unlink(public_path('uploads/' . $user->avatar));
-            }
-
-            $fileName = time() . '__ff__' . $request->file('avatar')->getClientOriginalName();
-            $filePath = public_path('uploads/');
-            $request->file('avatar')->move($filePath, $fileName);
-            $user->avatar = $fileName;
-        }
-
-        $user->save();
-   
         return response()->json([
             'message' => "Record Updated Successfuly",
-            'data' => $user,
+            'data' => $model,
         ],200);
 
     }
-
-
     
         public function destroy(Request $request,$id)
     {
 
-        $user = User::find($id);
-        if(!$user){
-            return response()->json(['message' => 'Record Not Found'],400);
-        }
-        
-        $user->delete();
+            $model = Unit::find($id);
+            if(!$model){
+                return response()->json(['message' => 'Record Not Found'],400);
+            }
+                
+            $model->delete();
 
-        return response()->json([
-            'message' => 'Record Deleted',
-        ],200);
+            return response()->json([
+                'message' => 'Record Deleted',
+                'data' => $model,
+            ],200);
 
     }
 

@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-         Schema::table('users', function (Blueprint $table) {
-            $table->string('source')->nullable(); // change 'email' to the column after which you want 'source'
+        Schema::create('category', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('image')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('category');
     }
 };
