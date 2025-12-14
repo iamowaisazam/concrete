@@ -4,7 +4,10 @@
 
     <v-row v-for="(item,i) in items" :key="i" class="mt-2">
       <v-col cols="3">
-        <v-text-field v-model="item.product_id" label="Product"/>
+          <productDropDown
+                v-model="item.product_id"
+                label="Product"
+            />
       </v-col>
       <v-col cols="2">
         <v-text-field v-model="item.quantity" label="Qty"/>
@@ -26,6 +29,7 @@
 </template>
 
 <script setup>
+import productDropDown from "@components/productDropdown.vue" 
 defineProps({ items: Array })
 defineEmits(['add','remove'])
 </script>

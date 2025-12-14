@@ -5,21 +5,14 @@
 
     <v-card-text>
 
-      <!-- ================= Invoice Info ================= -->
       <div class="section">
         <h4 class="section-title">Invoice Details</h4>
         <v-divider class="my-3"/>
         <InvoiceHeaderSection :form="form"/>
-      </div>
 
-      <!-- ================= Status ================= -->
-      <div class="section">
-        <h4 class="section-title">Status & Charges</h4>
-        <v-divider class="my-3"/>
         <InvoiceStatusSection :form="form"/>
       </div>
 
-      <!-- ================= Items ================= -->
       <div class="section">
         <h4 class="section-title">Invoice Items</h4>
         <v-divider class="my-3"/>
@@ -81,7 +74,7 @@ export default {
       this.loading = true;
       try {
         const id = this.$route.params.id;
-        const res = await saleInvoiceModel.find({ id });
+        const res = await saleInvoiceModel.find(id); 
         Object.assign(this.form, res.data);
       } finally {
         this.loading = false;
@@ -102,29 +95,55 @@ export default {
       this.form.items.splice(index, 1);
     },
 
-    async submitForm() {
-      this.loading = true;
-      try {
-        const fd = new FormData();
-        fd.append("_method", "put");
+async submitForm() {
+  this.loading = true;
+  try {
+    const fd = new FormData();
+    fd.append("_method", "put");
 
-        Object.keys(this.form).forEach(key => {
-          if (key !== "items") fd.append(key, this.form[key]);
-        });
+    // ===== invoice fields =====
+    const fields = [
+      "date",
+      "due_date",
+      "ref",
+      "remarks",
+      "status",
+      "discount",
+      "tax",
+    ];
 
-        this.form.items.forEach((item, i) => {
-          Object.keys(item).forEach(k => {
-            fd.append(`items[${i}][${k}]`, item[k]);
-          });
-        });
+    fields.forEach(f => {
+      fd.append(f, this.form[f] ?? "");
+    });
 
-        await saleInvoiceModel.update(this.$route.params.id, fd);
-        this.$router.push("/user/saleinvoice");
+    fd.append("is_paid", this.form.is_paid ? 1 : 0);
 
-      } finally {
-        this.loading = false;
-      }
-    }
+    // ✅ user_id ONLY for invoice
+    fd.append("user_id", 1);
+
+    // ===== invoice items =====
+    this.form.items.forEach((item, i) => {
+      if (!item.product_id) return; // safety
+
+      fd.append(`items[${i}][product_id]`, item.product_id);
+      fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
+      fd.append(`items[${i}][price]`, item.price ?? 0);
+      fd.append(`items[${i}][discount]`, item.discount ?? 0);
+      fd.append(`items[${i}][tax]`, item.tax ?? 0);
+    });
+
+    await saleInvoiceModel.update(this.$route.params.id, fd);
+    this.$router.push("/user/saleinvoice");
+
+  } catch (e) {
+    console.error(e);
+    this.$alertStore.add("Invoice update failed", "error");
+  } finally {
+    this.loading = false;
+  }
+}
+
+
   }
 };
 </script>
