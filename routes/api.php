@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\MasterController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SaleInvoiceController;
 use App\Http\Controllers\Api\StripeController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
@@ -44,7 +45,8 @@ Route::prefix('auth')->group(function () {
  Route::apiResource('category', CategoryController::class);
  Route::apiResource('unit', UnitController::class);
  Route::apiResource('expenseCategory', ExpenseCategoryController::class);
-  Route::apiResource('expenses', ExpenseController::class);
+ Route::apiResource('expenses', ExpenseController::class);
+ Route::apiResource('saleInvoice', SaleInvoiceController::class);
 
 
 
