@@ -28,8 +28,18 @@
           <v-text-field v-model="form.unit" placeholder="Enter unit" height="38px"/>
         </v-col>
 
-        <!-- Image upload -->
+    
         <v-col cols="12" sm="6">
+          <label class="form-label">Category</label>
+          
+          <ExpenseCategory 
+            v-model="form.category_id"
+            clearable  
+            placeholder="Select category" />
+
+        </v-col>
+
+        <v-col cols="12" sm="12">
           <label class="form-label">Image</label>
           <v-file-input
             v-model="form.image"
@@ -53,7 +63,7 @@
       </v-row>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions style="margin-top: 60px;">
       <v-btn color="primary" variant="flat" @click="submitForm">Update</v-btn>
       <v-btn color="danger" variant="flat" @click="resetForm">Cancel</v-btn>
     </v-card-actions>
@@ -62,8 +72,11 @@
 
 <script>
 import ProductsModel from "@/models/product.model";
-
+import ExpenseCategory from "@/components/ExpenseCategory.vue";
 export default {
+  components:{
+    ExpenseCategory
+  },
   data() {
     return {
       loading: false,

@@ -88,6 +88,7 @@ export default {
         { title: "Ref", value: "ref" },
         { title: "Remarks", value: "remarks" },
         { title: "paid", value: "is_paid" },
+        { title: "Total", value: "total" },
         { title: "Actions", value: "actions", sortable: false },
       ],
     };

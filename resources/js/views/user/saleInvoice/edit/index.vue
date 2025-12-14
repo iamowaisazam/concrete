@@ -22,6 +22,51 @@
           @remove="removeItem"
         />
       </div>
+      <div class="section">
+        <h4 class="section-title">Grand Total</h4>
+
+        <v-card class="mt-4 pa-4" outlined shaped elevation="2">
+          <v-row class="mb-2">
+            <v-col cols="6">
+              <span class="font-weight-medium">Subtotal:</span>
+            </v-col>
+            <v-col cols="6" class="text-right">
+              <v-chip color="grey lighten-3" text-color="black" small>{{ subtotal }}</v-chip>
+            </v-col>
+          </v-row>
+
+          <v-row class="mb-2">
+            <v-col cols="6">
+              <span class="font-weight-medium">Discount:</span>
+            </v-col>
+            <v-col cols="6" class="text-right">
+              <v-chip color="red lighten-4" text-color="red darken-2" small>{{ discount }}</v-chip>
+            </v-col>
+          </v-row>
+
+          <v-row class="mb-2">
+            <v-col cols="6">
+              <span class="font-weight-medium">Tax:</span>
+            </v-col>
+            <v-col cols="6" class="text-right">
+              <v-chip color="green lighten-4" text-color="green darken-2" small>{{ tax }}</v-chip>
+            </v-col>
+          </v-row>
+
+          <v-divider class="my-2"></v-divider>
+
+          <v-row>
+            <v-col cols="6">
+              <span class="font-weight-bold">Grand Total:</span>
+            </v-col>
+            <v-col cols="6" class="text-right">
+              <v-chip color="blue lighten-4" text-color="blue darken-2" class="font-weight-bold" large>{{ grandTotal }}</v-chip>
+            </v-col>
+          </v-row>
+        </v-card>
+      </div>
+
+
 
     </v-card-text>
 
@@ -95,53 +140,55 @@ export default {
       this.form.items.splice(index, 1);
     },
 
-async submitForm() {
-  this.loading = true;
-  try {
-    const fd = new FormData();
-    fd.append("_method", "put");
+  async submitForm() {
+    this.loading = true;
+    try {
+      const fd = new FormData();
+      fd.append("_method", "put");
 
-    // ===== invoice fields =====
-    const fields = [
-      "date",
-      "due_date",
-      "ref",
-      "remarks",
-      "status",
-      "discount",
-      "tax",
-    ];
+      // ===== invoice fields =====
+      const fields = [
+        "date",
+        "due_date",
+        "ref",
+        "remarks",
+        "status",
+        "discount",
+        "tax",
+      ];
 
-    fields.forEach(f => {
-      fd.append(f, this.form[f] ?? "");
-    });
+      fields.forEach(f => {
+        fd.append(f, this.form[f] ?? "");
+      });
 
-    fd.append("is_paid", this.form.is_paid ? 1 : 0);
+      fd.append("is_paid", this.form.is_paid ? 1 : 0);
 
-    // ✅ user_id ONLY for invoice
-    fd.append("user_id", 1);
+      // ✅ user_id ONLY for invoice
+      fd.append("user_id", 1);
 
-    // ===== invoice items =====
-    this.form.items.forEach((item, i) => {
-      if (!item.product_id) return; // safety
+      // ===== invoice items =====
+      this.form.items.forEach((item, i) => {
+        if (!item.product_id) return; // safety
 
-      fd.append(`items[${i}][product_id]`, item.product_id);
-      fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
-      fd.append(`items[${i}][price]`, item.price ?? 0);
-      fd.append(`items[${i}][discount]`, item.discount ?? 0);
-      fd.append(`items[${i}][tax]`, item.tax ?? 0);
-    });
+        fd.append(`items[${i}][product_id]`, item.product_id);
+        fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
+        fd.append(`items[${i}][price]`, item.price ?? 0);
+        fd.append(`items[${i}][discount]`, item.discount ?? 0);
+        fd.append(`items[${i}][tax]`, item.tax ?? 0);
+      });
 
-    await saleInvoiceModel.update(this.$route.params.id, fd);
-    this.$router.push("/user/saleinvoice");
+      await saleInvoiceModel.update(this.$route.params.id, fd);
+      this.$router.push("/user/saleinvoice");
 
-  } catch (e) {
-    console.error(e);
-    this.$alertStore.add("Invoice update failed", "error");
-  } finally {
-    this.loading = false;
-  }
-}
+    } catch (e) {
+      console.error(e);
+      this.$alertStore.add("Invoice update failed", "error");
+    } finally {
+      this.loading = false;
+    }
+  },
+
+
 
 
   }

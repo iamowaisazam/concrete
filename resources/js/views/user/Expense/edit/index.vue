@@ -16,15 +16,15 @@
 
         <!-- Debit -->
         <v-col cols="12" sm="6">
-          <label class="form-label">Debit</label>
+          <label class="form-label">Amount</label>
           <v-text-field v-model="form.debit" type="number" />
         </v-col>
 
         <!-- Credit -->
-        <v-col cols="12" sm="6">
+        <!-- <v-col cols="12" sm="6">
           <label class="form-label">Credit</label>
           <v-text-field v-model="form.credit" type="number" />
-        </v-col>
+        </v-col> -->
 
         <!-- Category -->
         <v-col cols="12" sm="6">
@@ -47,7 +47,7 @@
       </v-row>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions style="margin-top: 60px;">
       <v-btn color="primary" variant="flat" @click="submitForm">
         Update
       </v-btn>
@@ -71,7 +71,7 @@ export default {
       form: {
         date: "",
         debit: "",
-        credit: "",
+        
         remarks: "",
         category_id: null,
       },
@@ -99,7 +99,6 @@ export default {
         console.log(data)
         this.form.date = data.date;
         this.form.debit = data.debit;
-        this.form.credit = data.credit;
         this.form.remarks = data.remarks;
         this.form.category_id = data.category_id;
 

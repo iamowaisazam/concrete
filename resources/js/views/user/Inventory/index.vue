@@ -34,6 +34,12 @@
             <template #item.image="{ item }">
               <v-img :src="item.image" width="60" height="50" contain></v-img>
             </template>
+            <template #item.unit="{ item }">
+              {{ item.title }}
+            </template>
+            <template #item.category="{ item }">
+              {{ item.title }}
+            </template>
 
             <template #item.actions="{ item }">
                  <v-btn color="warning" variant="plain" :to="`/user/inventory/edit/${item.id}`">
@@ -81,7 +87,8 @@ export default {
         { title: "Title", value: "title" },
         { title: "Price", value: "price" },
         { title: "Unit", value: "unit" },
-        { title: "Description", value: "description" },
+        { title: "Category", value: "category" },
+        // { title: "Description", value: "description" },
         { title: "Actions", value: "actions", sortable: false },
       ],
     };
