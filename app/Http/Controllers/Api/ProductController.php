@@ -23,7 +23,7 @@ class ProductController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $baseQuery = Product::query();
+        $baseQuery = Product::with(['unit','category']);
 
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();
@@ -33,7 +33,13 @@ class ProductController extends Controller
                 ->orderByDesc('id')
                 ->skip($offset)
                 ->take($length)
-                ->get();
+                ->get()
+                ->map(function($item){
+                    if($item->image){
+                        $item->image = asset('/uploads/'.$item->image);
+                    }
+                    return $item;
+                });
 
             return response()->json([
                 'total' => $count,
