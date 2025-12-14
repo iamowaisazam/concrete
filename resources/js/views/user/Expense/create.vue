@@ -42,14 +42,12 @@
         <!-- Category Dropdown -->
         <v-col cols="12" sm="6">
           <label class="form-label">Category</label>
-          <v-select
+          
+          <ExpenseCategory 
             v-model="form.category_id"
-            :items="categories"
-            item-title="title"
-            item-value="id"
-            placeholder="Select category"
-            clearable
-          />
+            clearable  
+            placeholder="Select category" />
+
         </v-col>
 
         <!-- Remarks -->
@@ -78,14 +76,20 @@
 
 
 <script>
-import expenseCategoryModel from "@/models/expensecategory.model";
+
 import expenseModel from "@/models/expense.model";
+import ExpenseCategory from "@/components/ExpenseCategory.vue";
+
+
 
 export default {
+  components:{
+    ExpenseCategory
+  },
   data() {
     return {
       loading: false,
-      categories: [],
+
       form: {
         
         date: "",
@@ -98,18 +102,11 @@ export default {
   },
 
   mounted() {
-    this.loadCategories();
+
   },
 
   methods: {
-    async loadCategories() {
-      try {
-        const res = await expenseCategoryModel.all();
-        this.categories = res.data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
+ 
 
     async submitForm() {
       this.loading = true;

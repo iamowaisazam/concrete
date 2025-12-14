@@ -33,7 +33,13 @@ class ProductController extends Controller
                 ->orderByDesc('id')
                 ->skip($offset)
                 ->take($length)
-                ->get();
+                ->get()
+                ->map(function($item){
+                    if($item->image){
+                        $item->image = asset('/uploads/'.$item->image);
+                    }
+                    return $item;
+                });
 
             return response()->json([
                 'total' => $count,
