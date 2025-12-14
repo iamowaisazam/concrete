@@ -17,7 +17,7 @@ return new class extends Migration
             
             $table->foreignId('product_id')
             ->nullable()
-            ->constrained('users')
+            ->constrained('products')
             ->restrictOnDelete();
 
             $table->foreignId('sale_invoice_id')
