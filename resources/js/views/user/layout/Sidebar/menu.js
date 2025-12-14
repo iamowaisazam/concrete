@@ -10,6 +10,32 @@ export default [
             label: "Account",
             path: "/user/account",
         },
+        {
+            icon: "mdi-office-building",
+            label: "Unit",
+            path: "/user/unit",
+        },
+        {
+            icon: "mdi-warehouse",
+            label: "Inventory",
+            path: "/user/inventory",
+        },
+        {
+            icon: "mdi-shape-outline",
+            label: "Category",
+            path: "/user/category",
+        },
+        {
+            icon: "mdi-cash-multiple",
+            label: "Expense",
+            path: "/user/expense",
+        },
+        {
+            icon: "mdi-cash-multiple",
+            label: "Expense Category",
+            path: "/user/expensecategory",
+        },
+    
         // {
         //     icon: "mdi-package",
         //     label: "Items",

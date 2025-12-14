@@ -12,6 +12,12 @@ import NotFound from "@views/user/404.vue"
 import Login from '@/views/auth/login.vue';
 import Dashboard from '@views/user/dashboard/index.vue';
 import accountRoutes from "@views/user/account/route"
+import inventoryRoute from "@views/user/Inventory/route"
+import categoryRoute from "@views/user/category/route"
+import expensecategoryRoute from "@views/user/ExpenseCategory/route"
+import expenseRoute from "@views/user/Expense/route" 
+import unitRoute from "@/views/user/unit/route"
+import Forget  from '@/views/auth/forget.vue';
 
 
 
@@ -21,12 +27,18 @@ const routes = [
 
     { path: '/', component: Login},
     { path: '/login', component: Login},
+    { path: '/forgetpassowrd',name: 'forgot-password', component: Forget},
     {
         path: "/user",
         component: Layout,
         children: [
             { path: 'dashboard', component: Dashboard, meta: { requiresAuth: true } },
             ...accountRoutes,
+            ...inventoryRoute,
+            ...categoryRoute,
+            ...expensecategoryRoute,
+            ...expenseRoute,
+            ...unitRoute,
 
         ],
     },
