@@ -36,7 +36,7 @@
             </template>
 
             <template #item.actions="{ item }">
-                 <v-btn color="success" variant="plain" :to="`/user/inventory/edit/${item.id}`">
+                 <v-btn color="success" variant="plain" :to="`/user/reports/accountLedgerDetail/${item.id}`">
                     <v-icon>mdi-eye</v-icon>
                 </v-btn>
             </template>

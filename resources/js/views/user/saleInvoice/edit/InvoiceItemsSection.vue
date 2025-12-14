@@ -1,6 +1,6 @@
 <template>
-  <v-col cols="12">
-    <v-btn color="success" @click="$emit('add')">Add Item</v-btn>
+ 
+
 
     <v-row v-for="(item,i) in items" :key="i" class="mt-2">
       <v-col cols="3">
@@ -25,7 +25,12 @@
         <v-btn color="danger" @click="$emit('remove', i)">X</v-btn>
       </v-col>
     </v-row>
-  </v-col>
+
+    <div class="mt-4 text-center" > 
+          <v-btn color="primary" variant="tonal" icon="mdi-plus" @click="$emit('add')"></v-btn>
+    </div>
+    
+  
 </template>
 
 <script setup>

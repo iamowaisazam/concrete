@@ -16,9 +16,9 @@ export default [
             path: "/user/unit",
         },
         {
-            icon: "mdi-file-chart",
-            label: "Sale Invoice",
-            path: "/user/saleInvoice",
+            icon: "mdi-shape-outline",
+            label: "Category",
+            path: "/user/category",
         },
         {
             icon: "mdi-warehouse",
@@ -26,9 +26,9 @@ export default [
             path: "/user/inventory",
         },
         {
-            icon: "mdi-shape-outline",
-            label: "Category",
-            path: "/user/category",
+            icon: "mdi-file-chart",
+            label: "Sale Invoice",
+            path: "/user/saleInvoice",
         },
         {
             icon: "mdi-cash-multiple",
@@ -39,6 +39,16 @@ export default [
             icon: "mdi-cash-multiple",
             label: "Expense Category",
             path: "/user/expensecategory",
+        },
+        {
+            icon: "mdi-cash-multiple",
+            label: "Reports",
+            children:[
+                {
+                    label: "Account Ledger",
+                    path: "/user/reports/accountLedger",
+                },
+            ]
         },
     
         // {

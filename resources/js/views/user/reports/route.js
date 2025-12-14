@@ -14,7 +14,7 @@ export default [
                 meta: { requiresAuth: true } 
             },
             { 
-                path: 'accountLedgerDetail', 
+                path: 'accountLedgerDetail/:id', 
                 component: AccountLedgerDetail, 
                 meta: { requiresAuth: true } 
             },
