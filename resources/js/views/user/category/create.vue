@@ -45,7 +45,8 @@ export default {
             
             let res = await categoryModel.create(formData);
             this.$alertStore.add(res.message, 'success');
-            this.$router.push('/user/category');
+            console.log(res)
+            this.$router.push(`/user/category/edit/${res.data.id}`);
 
         } catch (error) {
             console.error(error);

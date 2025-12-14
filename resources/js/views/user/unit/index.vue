@@ -77,8 +77,8 @@ export default {
       loading: false,
       headers: [
         { title: "ID", value: "id" },
-        { title: "Title", value: "title" },
         { title: "Image", value: "image" },
+        { title: "Title", value: "title" },
         { title: "Actions", value: "actions", sortable: false },
       ],
     };
