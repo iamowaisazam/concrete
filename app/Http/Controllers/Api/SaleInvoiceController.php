@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserProfileResource;
+
 use App\Models\Category;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
