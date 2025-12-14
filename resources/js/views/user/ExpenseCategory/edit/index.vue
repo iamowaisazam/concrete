@@ -9,26 +9,6 @@
           <label class="form-label">Title</label>
           <v-text-field v-model="form.title" placeholder="Enter title" height="38px"/>
         </v-col>
-
-
-        <!-- Image upload -->
-        <v-col cols="12" sm="6">
-          <label class="form-label">Image</label>
-          <v-file-input
-            v-model="form.image"
-            label="Upload Image"
-            prepend-icon="mdi-camera"
-            variant="filled"
-            accept="image/*"
-          />
-        </v-col>
-
-        <!-- Image preview -->
-        <v-col cols="12" sm="6" style="margin-top: 20px;">
-          <v-img v-if="imagePreview" :src="imagePreview" width="100" height="80" contain />
-        </v-col>
-
-
       </v-row>
     </v-card-text>
 
@@ -89,9 +69,7 @@ export default {
 
         formData.append('title', this.form.title);
 
-        if (this.form.image instanceof File) {
-        formData.append('image', this.form.image);
-        }
+
 
         const id = this.$route.params.id;
 

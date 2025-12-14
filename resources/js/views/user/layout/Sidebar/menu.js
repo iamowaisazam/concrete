@@ -16,6 +16,11 @@ export default [
             path: "/user/unit",
         },
         {
+            icon: "mdi-file-chart",
+            label: "Sale Invoice",
+            path: "/user/saleInvoice",
+        },
+        {
             icon: "mdi-warehouse",
             label: "Inventory",
             path: "/user/inventory",

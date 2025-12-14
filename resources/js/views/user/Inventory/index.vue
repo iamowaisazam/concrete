@@ -77,8 +77,8 @@ export default {
       loading: false,
       headers: [
         { title: "ID", value: "id" },
-        { title: "Title", value: "title" },
         { title: "Image", value: "image" },
+        { title: "Title", value: "title" },
         { title: "Price", value: "price" },
         { title: "Unit", value: "unit" },
         { title: "Description", value: "description" },

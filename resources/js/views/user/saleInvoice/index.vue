@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-card title="Category" subtitle="View All Category Details">
+      <v-card title="Sale Invoice" subtitle="View All Sale Invoice Details">
         <v-card-text>
    
           <div class="d-flex flex-wrap pb-3 pt-3">
@@ -20,7 +20,7 @@
               persistent-placeholder
             />
             <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems">Search</v-btn>
-            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/category/create`">Add Category</v-btn>
+            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/saleInvoice/create`">Add Sale Invoice</v-btn>
           </div>
 
           <v-data-table-server
@@ -31,12 +31,10 @@
             item-value="id"
             @update:options="loadItems"
           >
-            <template #item.image="{ item }">
-              <v-img :src="item.image" width="60" height="50" contain></v-img>
-            </template>
+  
 
             <template #item.actions="{ item }">
-                 <v-btn color="warning" variant="plain" :to="`/user/category/edit/${item.id}`">
+                 <v-btn color="warning" variant="plain" :to="`/user/saleInvoice/edit/${item.id}`">
                     <v-icon>mdi-square-edit-outline</v-icon>
                 </v-btn>
             <span class="px-1"> </span>
@@ -65,7 +63,7 @@
 </template>
 
 <script>
-import categoryModel from "@/models/category.model";
+import saleInvoiceModel from "@/models/saleInvoice.model";
 
 export default {
   data() {
@@ -77,8 +75,19 @@ export default {
       loading: false,
       headers: [
         { title: "ID", value: "id" },
-        { title: "Image", value: "image" },
-        { title: "Title", value: "title" },
+        { 
+          title: "Date", 
+          value: "date",
+          format: (value) => value ? value.split(' ')[0] : ''
+        },
+        { 
+          title: "Due Date", 
+          value: "due_date",
+          format: (value) => value ? value.split(' ')[0] : ''
+        },
+        { title: "Ref", value: "ref" },
+        { title: "Remarks", value: "remarks" },
+        { title: "paid", value: "is_paid" },
         { title: "Actions", value: "actions", sortable: false },
       ],
     };
@@ -90,7 +99,7 @@ export default {
     async loadItems() {
       this.loading = true;
       try {
-        const res = await categoryModel.all(this.filter);
+        const res = await saleInvoiceModel.all(this.filter);
         this.items = res.data;
         this.totalItems = res.total;
         this.last_page = res.last_page;
@@ -108,9 +117,9 @@ export default {
 
         this.loading = true;
         try {
-        const res = await categoryModel.delete(id);
+        const res = await saleInvoiceModel.delete(id);
 
-        this.$alertStore.add(res.message || "Inventory deleted", "success");
+        this.$alertStore.add(res.message || "Sale Invoice deleted", "success");
         this.loadItems(); 
 
         } catch (error) {

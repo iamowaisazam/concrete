@@ -125,6 +125,7 @@ export default {
         const res = await expenseModel.create(formData);
 
         this.$alertStore.add(res.message || "Expense created", "success");
+        // this.$router.push(`/user/expense/edit/${res.data.id}`);
         this.$router.push("/user/expense");
 
       } catch (error) {

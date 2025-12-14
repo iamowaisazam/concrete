@@ -78,7 +78,7 @@ export default {
       headers: [
         { title: "ID", value: "id" },
         { title: "Title", value: "title" },
-        { title: "Image", value: "image" },
+        
         { title: "Actions", value: "actions", sortable: false },
       ],
     };

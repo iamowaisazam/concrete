@@ -44,7 +44,8 @@ export default {
 
             let res = await ProductsModel.create(formData);
             this.$alertStore.add(res.message, 'success');
-            this.$router.push('/user/inventory');
+            // this.$router.push('/user/inventory');
+            this.$router.push(`/user/inventory/edit/${res.data.id}`);
 
         } catch (error) {
             console.error(error);
