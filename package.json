@@ -26,7 +26,6 @@
         "@jamescoyle/vue-icon": "^0.1.2",
         "@mdi/font": "^7.4.47",
         "@mdi/js": "^7.4.47",
-        "@stripe/stripe-js": "^8.5.3",
         "@vee-validate/rules": "^4.15.1",
         "@vitejs/plugin-vue": "^6.0.1",
         "@vuelidate/core": "^2.0.3",
