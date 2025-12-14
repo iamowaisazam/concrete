@@ -23,7 +23,7 @@ class ProductController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $baseQuery = Product::query();
+        $baseQuery = Product::with(['unit','category']);
 
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();

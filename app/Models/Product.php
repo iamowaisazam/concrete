@@ -9,7 +9,16 @@ class Product extends Model
 
     protected $table = 'products'; 
 
-     protected $guarded = [];
+    protected $guarded = [];
+
+
+     public function unit() {
+        return $this->belongsTo(Unit::class, 'id');
+    }
+
+     public function category() {
+        return $this->belongsTo(Category::class, 'id');
+    }
 
     
 }
