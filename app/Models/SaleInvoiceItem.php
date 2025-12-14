@@ -9,7 +9,13 @@ class SaleInvoiceItem extends Model
 
     protected $table = 'sale_invoice_items'; 
 
-     protected $guarded = [];
+    protected $guarded = [];
+
+    public function product() {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+  
 
     
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserProfileResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -35,9 +34,7 @@ class ProductController extends Controller
                 ->take($length)
                 ->get()
                 ->map(function($item){
-                    if($item->image){
-                        $item->image = asset('/uploads/'.$item->image);
-                    }
+              
                     return $item;
                 });
 
@@ -87,16 +84,13 @@ class ProductController extends Controller
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
-        if($model->image){
-            $model->image = asset('/uploads/'.$model->avatar);
-        }
-
         return response()->json([
             'message' => 'Get Record Details',
             'data' => $model,
         ]);
 
     }
+
 
       public function update(Request $request,$id)
     {
@@ -152,9 +146,7 @@ class ProductController extends Controller
 
         $model->save();
 
-        if($model->image){
-            $model->image = asset('/uploads/'.$model->image);
-        }
+     
    
         return response()->json([
             'message' => "Record Updated Successfuly",

@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
-use App\Models\UserNotificationAlert; 
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -44,11 +44,6 @@ class AppServiceProvider extends ServiceProvider
                 $isAdmin = $roleId;
 
           
-                $notifications = UserNotificationAlert::where('user_id', $user->id)
-                    ->where('is_read', 0)
-                    ->latest()
-                    ->take(10) 
-                    ->get();
             }
 
             $view->with('isAdmin', $isAdmin);

@@ -11,9 +11,6 @@ class ExpenseCategory extends Model
     // protected $fillable = ['name'];
     protected $guarded = [];
 
-    public function blogs()
-    {
-        return $this->hasMany(Blog::class);
-    }
+  
     
 }

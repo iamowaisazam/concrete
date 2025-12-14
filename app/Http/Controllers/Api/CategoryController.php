@@ -36,9 +36,7 @@ class CategoryController extends Controller
                 ->take($length)
                 ->get()
                 ->map(function($item){
-                    if($item->image){
-                        $item->image = asset('/uploads/'.$item->image);
-                    }
+               
                     return $item;
                 });
 
@@ -83,11 +81,6 @@ class CategoryController extends Controller
             $model->image = $fileName;
         }
 
-        if($model->image){
-            $model->image = asset('/uploads/'.$model->image);
-        }
-
-
         $model->save();
    
         return response()->json([
@@ -106,10 +99,7 @@ class CategoryController extends Controller
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
-        if($model->image){
-            $model->image = asset('/uploads/'.$model->avatar);
-        }
-
+ 
         return response()->json([
             'message' => 'Get Record Details',
             'data' => $model,
@@ -155,9 +145,7 @@ class CategoryController extends Controller
         $model->title = $request->title;
         $model->save();
 
-        if($model->image){
-            $model->image = asset('/uploads/'.$model->image);
-        }
+    
    
         return response()->json([
             'message' => "Record Updated Successfuly",

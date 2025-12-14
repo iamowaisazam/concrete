@@ -15,5 +15,9 @@ class SaleInvoice extends Model
     public function items() {
         return $this->hasMany(SaleInvoiceItem::class, 'sale_invoice_id');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     
 }

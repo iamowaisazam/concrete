@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserProfileResource;
+
 use App\Models\Category;
 use App\Models\Expense;
 use App\Models\ExpenseCategory;
@@ -30,7 +30,7 @@ class SaleInvoiceController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $baseQuery = SaleInvoice::query();
+        $baseQuery = SaleInvoice::with(['items.product','user']);
 
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();
@@ -87,7 +87,7 @@ class SaleInvoiceController extends Controller
         public function show(Request $request,$id)
     {
 
-        $model = SaleInvoice::find($id);
+        $model = SaleInvoice::with(['items.product','user'])->where('id',$id)->first();
         if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
         }

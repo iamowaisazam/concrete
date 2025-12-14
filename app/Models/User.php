@@ -44,31 +44,14 @@ class User extends Authenticatable  // This should extend Authenticatable
         'password',
     ];
 
-    public function pinnedNews()
-    {
-    return $this->belongsToMany(News::class, 'news_user_pins')->withTimestamps();
-    }
-
-    public function intrest()
-    {
-     return $this->hasMany(Interest::class,'user_id');
-    }
-    public function memberships()
-    {
-        return $this->hasMany(Membership::class, 'user_id', 'id');
-    }
+  
+ 
     public function role()
     {
         return $this->belongsTo(Role::class, 'user_type', 'id');
     }
-    public function notificationSettings()
-    {
-        return $this->hasMany(UserNotificationSetting::class, 'user_id');
-    }
-    public function recentViews()
-    {
-        return $this->hasMany(RecentView::class);
-    }
+
+
 
 
 }
