@@ -17,6 +17,8 @@ import categoryRoute from "@views/user/category/route"
 import expensecategoryRoute from "@views/user/ExpenseCategory/route"
 import expenseRoute from "@views/user/Expense/route" 
 import unitRoute from "@/views/user/unit/route"
+import reportRoute from "@/views/user/reports/route"
+
 import Forget  from '@/views/auth/forget.vue';
 
 
@@ -39,6 +41,7 @@ const routes = [
             ...expensecategoryRoute,
             ...expenseRoute,
             ...unitRoute,
+            ...reportRoute,
 
         ],
     },
