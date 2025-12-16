@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserProfileResource;
+use App\Models\Category;
+use App\Models\Expense;
+use App\Models\ExpenseCategory;
+use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -12,7 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class ProductController extends Controller
+class PaymentController extends Controller
 {
 
         public function index(Request $request)
@@ -22,9 +27,7 @@ class ProductController extends Controller
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
 
-        $baseQuery = Product::with(['unit','category']);
-
-        
+        $baseQuery = Payment::with('user');
 
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();
@@ -34,11 +37,7 @@ class ProductController extends Controller
                 ->orderByDesc('id')
                 ->skip($offset)
                 ->take($length)
-                ->get()
-                ->map(function($item){
-              
-                    return $item;
-                });
+                ->get();
 
             return response()->json([
                 'total' => $count,
@@ -53,9 +52,13 @@ class ProductController extends Controller
        public function store(Request $request)
     {
         
-        $model = new Product();
+        $model = new Payment();
         $validator = Validator::make($request->all(),[
-            'title' => 'required|string|max:255',
+            'date' => 'required|string|max:1000',
+            'type' => 'required|in:debit,credit',
+            'amount' => 'required|numeric|min:0|max:999999.99',
+            'user_id' =>['required','integer',Rule::exists('users','id')],
+            'remarks' => 'required|string|max:1000',
         ]);
 
         if ($validator->fails()) {
@@ -65,9 +68,17 @@ class ProductController extends Controller
             ], 422);
         }
     
-        $model->title = $request->title;
-        $model->sku = 'sku-'.rand(100, 999).'000';
-        $model->price = 0;
+        
+        $model->date = $request->date;
+        if($request->type == 'debit'){
+             $model->debit = $request->amount;
+             $model->credit = 0;
+        }else{
+              $model->credit = $request->amount;
+              $model->debit = 0;
+        }
+        $model->user_id = $request->user_id;
+        $model->remarks = $request->remarks;
         $model->save();
    
         return response()->json([
@@ -81,9 +92,15 @@ class ProductController extends Controller
         public function show(Request $request,$id)
     {
 
-        $model = Product::find($id);
+        $model = Payment::find($id);
         if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
+        }
+
+        if($model->debit == 0){
+            $model->type = 'credit';
+        }else{
+            $model->type = 'debit';
         }
 
         return response()->json([
@@ -97,24 +114,19 @@ class ProductController extends Controller
       public function update(Request $request,$id)
     {
         
-        $model = Product::find($id);
+        $model = Payment::find($id);
 
         if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
         $validator = Validator::make($request->all(),[
-                'title' => 'required|string|max:255',
-                'sku' => 'required|string|max:255',
-                'description' => 'nullable|string|max:255',
-                'image' => 'nullable|image',
-                'price' => 'required|string|max:255',
-
-                'category_id' =>['nullable','integer','max:10',Rule::exists('category','id')],
-                'user_id' =>['nullable','integer','max:10',Rule::exists('users','id')],
-                'unit_id' =>['nullable','integer','max:10',Rule::exists('unit','id')],
-            ],
-        );
+            'date' => 'required|string|max:1000',
+            'type' => 'required|in:debit,credit',
+            'amount' => 'required|numeric|min:0|max:999999.99',
+            'user_id' =>['required',Rule::exists('users','id')],
+            'remarks' => 'required|string|max:1000',
+        ]);
 
         if ($validator->fails()) {
             return response()->json([
@@ -123,66 +135,43 @@ class ProductController extends Controller
             ], 422);
         }
 
-
-        $model->title = $request->title;
-        $model->sku = $request->sku;
-        $model->description = $request->description;
-        $model->price = $request->price;
-
-        $model->category_id = $request->category_id;
-        $model->user_id = $request->user_id;
-        $model->unit_id = $request->unit_id;
-
-        if ($request->file('image')) {
-            
-            // Remove existing thumbnail if it exists
-            if ($model->image && file_exists(public_path('uploads/' . $model->image))) {
-                unlink(public_path('uploads/' . $model->image));
-            }
-
-            $fileName = time() . '__ff__' . $request->file('image')->getClientOriginalName();
-            $filePath = public_path('uploads/');
-            $request->file('image')->move($filePath, $fileName);
-            $model->image = $fileName;
+         $model->date = $request->date;
+        if($request->type == 'debit'){
+             $model->debit = $request->amount;
+             $model->credit = 0;
+        }else{
+              $model->credit = $request->amount;
+              $model->debit = 0;
         }
-
+        $model->user_id = $request->user_id;
+        $model->remarks = $request->remarks;
         $model->save();
-
-     
-   
+        
         return response()->json([
             'message' => "Record Updated Successfuly",
             'data' => $model,
         ],200);
 
     }
-
-
     
+
         public function destroy(Request $request,$id)
     {
 
-        $model = Product::find($id);
+        $model = Payment::find($id);
         if(!$model){
             return response()->json(['message' => 'Record Not Found'],400);
         }
 
-        if ($model->image && file_exists(public_path('uploads/' . $model->image))) {
-             unlink(public_path('uploads/' . $model->image));
-        }
-        
         $model->delete();
 
         return response()->json([
             'message' => 'Record Deleted',
+            'data' =>  $model,
         ],200);
 
     }
 
 
   
-
-
 }
-
-

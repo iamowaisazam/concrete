@@ -1,12 +1,12 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-card title="Inventory" subtitle="View All Inventory Details">
+      <v-card title="Items" subtitle="View All Items List">
         <v-card-text>
-   
           <div class="d-flex flex-wrap pb-3 pt-3">
             <v-select 
-              label="Length" 
+              label="Length"
+              max-width="100px" 
               v-model="filter.length" 
               :items="[10, 20, 30]"  
               width="150"
@@ -14,16 +14,17 @@
             <v-text-field
               class="ml-2"
               label="Search"
+              max-width="200px"
               v-model="filter.search"
               width="200"
               clearable
               persistent-placeholder
             />
-            <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems">Search</v-btn>
-            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/inventory/create`">Add Inventory</v-btn>
+            <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems"></v-btn>
+            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/inventory/create`"></v-btn>
           </div>
 
-          <v-data-table-server
+          <v-data-table-server class="border striped-table"
             :headers="headers"
             :items="items"
             :items-length="totalItems"
@@ -32,23 +33,24 @@
             @update:options="loadItems"
           >
             <template #item.image="{ item }">
-              <v-img :src="item.image" width="60" height="50" contain></v-img>
+              <v-img :src="item.image_preview" width="60" height="50" contain></v-img>
             </template>
+
             <template #item.unit="{ item }">
-              {{ item.title }}
+              {{ item?.unit?.title }}
             </template>
             <template #item.category="{ item }">
-              {{ item.title }}
+              {{ item?.category?.title }}
             </template>
 
             <template #item.actions="{ item }">
-                 <v-btn color="warning" variant="plain" :to="`/user/inventory/edit/${item.id}`">
+                 <v-btn color="warning" variant="flat" :to="`/user/inventory/edit/${item.id}`">
                     <v-icon>mdi-square-edit-outline</v-icon>
                 </v-btn>
             <span class="px-1"> </span>
             <v-btn
                 color="danger"
-                variant="plain"
+                variant="flat"
                 @click="deleteItem(item.id)"
                 >
                 <v-icon>mdi-delete</v-icon>
@@ -82,13 +84,13 @@ export default {
       last_page: 1,
       loading: false,
       headers: [
-        { title: "ID", value: "id" },
+        { title: "ID", value: "id" ,sortable: false},
         { title: "Image", value: "image" },
         { title: "Title", value: "title" },
+        { title: "Sku", value: "sku" },
         { title: "Price", value: "price" },
         { title: "Unit", value: "unit" },
         { title: "Category", value: "category" },
-        // { title: "Description", value: "description" },
         { title: "Actions", value: "actions", sortable: false },
       ],
     };

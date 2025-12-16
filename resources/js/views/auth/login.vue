@@ -49,7 +49,7 @@
                                                     {{ themeStore.loading ? "Loading..." : "Log In" }}
                                                 </v-btn>
                                             </v-col>
-                                            <v-col cols="12" class="mt-n4">
+                                            <!-- <v-col cols="12" class="mt-n4">
                                                 <div class="d-flex justify-end">
                                                     <v-btn
                                                         variant="text"
@@ -61,7 +61,7 @@
                                                         Forgot Password?
                                                     </v-btn>
                                                 </div>
-                                            </v-col>
+                                            </v-col> -->
 
                                             <v-col cols="12" class="text-center pt-2">
                                                 <span class="text-body-2">Securely sign in to your account using your email and password to continue. </span>

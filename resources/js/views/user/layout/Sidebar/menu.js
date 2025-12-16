@@ -11,19 +11,23 @@ export default [
             path: "/user/account",
         },
         {
-            icon: "mdi-office-building",
-            label: "Unit",
-            path: "/user/unit",
-        },
-        {
-            icon: "mdi-shape-outline",
-            label: "Category",
-            path: "/user/category",
-        },
-        {
             icon: "mdi-warehouse",
             label: "Inventory",
             path: "/user/inventory",
+            children:[
+                {
+                    label: "Unit",
+                    path: "/user/unit",
+                },
+                {
+                    label: "Category",
+                    path: "/user/category",
+                },
+                {
+                    label: "Items",
+                    path: "/user/inventory",
+                },
+            ]
         },
         {
             icon: "mdi-file-chart",
@@ -33,15 +37,28 @@ export default [
         {
             icon: "mdi-cash-multiple",
             label: "Expense",
-            path: "/user/expense",
+            children:[
+                {
+              
+                    label: "Expense Category",
+                    path: "/user/expensecategory",
+                },
+                {
+            
+                    label: "Expense",
+                    path: "/user/expense",
+                },
+
+            ]
+        },
+       
+        {
+            icon: "mdi-cash-fast",
+            label: "Payments",
+            path: "/user/payments",
         },
         {
-            icon: "mdi-cash-multiple",
-            label: "Expense Category",
-            path: "/user/expensecategory",
-        },
-        {
-            icon: "mdi-cash-multiple",
+            icon: "mdi-file",
             label: "Reports",
             children:[
                 {

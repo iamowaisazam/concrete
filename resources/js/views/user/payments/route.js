@@ -5,7 +5,7 @@ import edit from "./edit.vue"
 
 export default [
     {
-        path: "inventory",
+        path: "payments",
         children: [
             { 
                 path: '', 

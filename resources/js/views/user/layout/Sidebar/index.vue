@@ -20,7 +20,7 @@
             <!-- Dynamic Menu Items -->
             <template v-for="(item, index) in menus" :key="index">
 
-                <v-list-group value="users" v-if="item?.children">
+                <v-list-group :value="item.label" v-if="item?.children">
                     <template #activator="{ props }">
                         <v-list-item 
                           v-bind="props" 

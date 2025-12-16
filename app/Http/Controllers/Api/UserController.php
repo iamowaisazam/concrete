@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Payment;
+use App\Models\SaleInvoice;
 use Illuminate\Http\Request;
 
 use App\Models\User;
@@ -22,6 +23,22 @@ class UserController extends Controller
         $offset = ($page - 1) * $length;
 
         $baseQuery = User::query()->where('user_type','!=',1);
+        
+        if($request->has('group') && $request->group != ''){
+            $baseQuery->where('group',$request->group);
+        }
+
+        if($request->has('search') && $request->search != ''){
+            $search = $request->search;
+            $baseQuery->where(function ($q) use ($search) {
+                $q->where('firstName', 'like', "%{$search}%")
+                ->orWhere('id', 'like', "%{$search}%")
+                ->orWhere('salesman', 'like', "%{$search}%")
+                ->orWhere('phone', 'like', "%{$search}%")
+                ->orWhere('nic', 'like', "%{$search}%")
+                ->orWhere('townCity', 'like', "%{$search}%");
+            });
+        }
 
             // ✅ Clone the query before using count()
             $count = (clone $baseQuery)->count();
@@ -62,7 +79,7 @@ class UserController extends Controller
         }
     
         $user->firstName = $request->firstName;
-        $user->personalEmail = strtolower($request->firstName) . rand(100, 999) . '@example.com';
+        $user->personalEmail = 'eamil'.rand(100, 999) .'@example.com';
         $user->status = 1;
         $user->user_type = 0;
         $user->save();
@@ -109,6 +126,10 @@ class UserController extends Controller
             'country' => 'nullable|string|max:255',
             'townCity' => 'nullable|string|max:255',
             'companyAddress1' => 'nullable|string|max:255',
+            'salesman' => 'nullable|string|max:255',
+            'nic'  => 'nullable|string|max:255',
+            'ntn'  => 'nullable|string|max:255',
+            'group' => 'nullable|string|max:255',
             ],
         );
 
@@ -125,6 +146,11 @@ class UserController extends Controller
         $user->personalEmail = $request->personalEmail;
         $user->townCity = $request->townCity;
         $user->country = $request->country;
+
+        $user->salesman = $request->salesman;
+        $user->nic = $request->nic;
+        $user->ntn = $request->ntn;
+        $user->group = $request->group;
 
 
         if ($request->file('avatar')) {
@@ -157,6 +183,14 @@ class UserController extends Controller
         $user = User::find($id);
         if(!$user){
             return response()->json(['message' => 'Record Not Found'],400);
+        }
+
+        if(Payment::where('user_id',$id)->first()){
+            return response()->json(['message' => 'Cannot Delete Record it Used In Payments'],400);
+        }
+
+        if(SaleInvoice::where('user_id',$id)->first()){
+            return response()->json(['message' => 'Cannot Delete Record it Used In Invoice'],400);
         }
         
         $user->delete();

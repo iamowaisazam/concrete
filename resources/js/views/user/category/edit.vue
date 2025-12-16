@@ -1,34 +1,14 @@
 <template>
   <v-card :loading="loading" :disabled="loading" 
           title="Category Information" 
-          subtitle="Edit Category Item">
+          subtitle="Edit Category">
     <v-card-text>
       <v-row class="pt-3">
         <!-- Title -->
-        <v-col cols="12" sm="6">
+        <v-col cols="12" >
           <label class="form-label">Title</label>
           <v-text-field v-model="form.title" placeholder="Enter title" height="38px"/>
         </v-col>
-
-
-        <!-- Image upload -->
-        <v-col cols="12" sm="6">
-          <label class="form-label">Image</label>
-          <v-file-input
-            v-model="form.image"
-            label="Upload Image"
-            prepend-icon="mdi-camera"
-            variant="filled"
-            accept="image/*"
-          />
-        </v-col>
-
-        <!-- Image preview -->
-        <v-col cols="12" sm="6" style="margin-top: 20px;">
-          <v-img v-if="imagePreview" :src="imagePreview" width="100" height="80" contain />
-        </v-col>
-
-
       </v-row>
     </v-card-text>
 
@@ -48,18 +28,11 @@ export default {
       loading: false,
       form: {
         title: '',
-        image: null,
       },
-      originalImage: null,
     };
   },
   computed: {
-    imagePreview() {
-      if (this.form.image) {
-        return typeof this.form.image === 'string' ? this.form.image : URL.createObjectURL(this.form.image);
-      }
-      return this.originalImage;
-    }
+
   },
   mounted() {
     this.loadInventory();
@@ -73,7 +46,7 @@ export default {
         const data = res.data;
 
         this.form.title = data.title;
-        this.originalImage = data.image;
+   
       } catch (error) {
         console.error(error);
         this.$alertStore.add("Failed to load inventory", "error");
@@ -89,10 +62,7 @@ export default {
 
         formData.append('title', this.form.title);
 
-        if (this.form.image instanceof File) {
-        formData.append('image', this.form.image);
-        }
-
+     
         const id = this.$route.params.id;
 
         const res = await categoryModel.update(id, formData);
@@ -116,10 +86,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.form-label {
-  font-weight: 500;
-  margin-bottom: 4px;
-  display: block;
-}
-</style>

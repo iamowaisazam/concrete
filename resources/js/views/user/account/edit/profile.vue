@@ -37,8 +37,28 @@
                         <v-text-field :model-value="form?.personalEmail"
                             @update:modelValue="hInput($event, 'personalEmail')" />
                     </v-col>
-                </v-row>
-                <v-row>
+                     <v-col cols="12" md="4">
+                        <label class="d-block pb-2">NIC</label>
+                        <v-text-field :model-value="form?.nic"
+                            @update:modelValue="hInput($event, 'nic')" />
+                    </v-col>
+                    <v-col cols="12" md="4">
+                        <label class="d-block pb-2">NTN</label>
+                        <v-text-field :model-value="form?.ntn"
+                            @update:modelValue="hInput($event, 'ntn')" />
+                    </v-col>
+                    <v-col cols="12" md="4">
+                        <label class="d-block pb-2">Salesman</label>
+                        <v-text-field :model-value="form?.salesman"
+                            @update:modelValue="hInput($event, 'salesman')" />
+                    </v-col>
+                    <v-col cols="12" md="4">
+                        <label class="d-block pb-2">Group</label>
+                        <v-select 
+                            v-model="form.group" 
+                            :items="['customer','employe']"
+                            />
+                    </v-col>
                     <v-col cols="12" md="4">
                         <label class="form-label">Country</label>
                         <v-text-field :model-value="form?.country" @update:modelValue="hInput($event, 'country')" />
@@ -85,6 +105,10 @@ export default {
                 country:'',
                 townCity:'',
                 companyAddress1:'',
+                salesman:'',
+                nic:'',
+                ntn:'',
+                group:'',  
             },
             edit: false,
         };
@@ -114,6 +138,10 @@ export default {
                         country:data?.country,
                         townCity:data?.townCity,
                         companyAddress1:data?.companyAddress1,
+                        salesman:data?.salesman,
+                        nic:data?.nic,
+                        ntn:data?.ntn,
+                        group:data?.group,
                 }
                 this.loading = false;
 
@@ -157,23 +185,7 @@ export default {
                 this.loading = false;
                 this.$alertStore.add(error.message, 'error');
             });
-
-            // authService.updateProfile(this.form).then((res) => {
-            //     console.log(res);
-            //     this.loadDataFromProfile();
-            //     this.loading = false;
-            //     this.$alertStore.add('Profile Updated', 'success');
-
-            // }).catch((error) => {
-
-            //     this.loadDataFromProfile();
-            //     this.loading = false;
-            //     this.$alertStore.add(error.message, 'error');
-            // });
-
         }
-
-
     },
 
 };

@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" :disabled="loading" title="Category Information" subtitle="Create New Category Item"> 
+  <v-card :loading="loading" :disabled="loading" title="Category Information" subtitle="Create New Category"> 
     <v-card-text>      
         <v-row class="pt-3">
             <v-col cols="12" sm="12">
@@ -45,8 +45,8 @@ export default {
             
             let res = await categoryModel.create(formData);
             this.$alertStore.add(res.message, 'success');
-            console.log(res)
-            this.$router.push(`/user/category/edit/${res.data.id}`);
+           
+            this.$router.push(`/user/category`);
 
         } catch (error) {
             console.error(error);
@@ -66,10 +66,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.form-label {
-  font-weight: 500;
-  margin-bottom: 4px;
-  display: block;
-}
-</style>

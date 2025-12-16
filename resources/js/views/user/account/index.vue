@@ -8,17 +8,25 @@
                 <v-row class="mt-3">
                     <v-col cols="12" class="">
                         
-                        <v-card title="Accounts" subtitle="View All Accounts Details" class="">
+                        <v-card title="Accounts" subtitle="View All Accounts List" class="">
                             <v-card-text>
                                 <div class="pb-3 pt-3 d-flex flex-wrap ">
                                     <div class="py-2">
                                         <v-select 
                                             label="Length" 
                                             v-model="filter.length" 
-                                            :items="[10, 20, 30]"  
+                                            :items="[50, 100, 500]"  
                                             class=""
                                             width="150"
                                              />
+                                    </div>
+                                    <div class="pl-2 py-2">
+                                        <v-select label="Group" 
+                                            v-model="filter.group"
+                                            width="200"
+                                            :items="['customer','employe']"
+                                            persistent-placeholder
+                                            clearable />
                                     </div>
                                     <div class="pl-2 py-2">
                                         <v-text-field label="Search" 
@@ -38,24 +46,23 @@
                                     </div>
                                 </div>
 
-                                <v-data-table-server class="border" :headers="headers" :items="items"
+                                <v-data-table-server class="border striped-table" :headers="headers" :items="items"
                                     :items-length="totalItems" :loading="loading" item-value="id"
                                     @update:options="loadItems">
 
+                                    <template #item.img="{ item }">
+                                    <v-img :src="item.image_preview" width="60" height="50" contain></v-img>
+                                    </template>
+
                                     <template #item.view="{ item }">
-                                        <v-btn color="warning" variant="plain" :to="`/user/account/edit/${item.id}`">
+                                        <v-btn color="warning" variant="flat" :to="`/user/account/edit/${item.id}`">
                                             <v-icon>mdi-square-edit-outline</v-icon>
                                         </v-btn>
-                                        <span class="px-1"> </span>
-                                        <v-btn color="danger" variant="plain" >
+                                        <span class="px-1 py-1"> </span>
+                                        <v-btn color="danger" variant="flat" >
                                             <v-icon>mdi-delete</v-icon>
                                         </v-btn>
                                     </template>
-
-                                    <template #item.autoboli="{ item }">
-                                        -
-                                    </template>
-
                                     <template v-slot:bottom>
                                         <div class="py-2">
                                             <custom-pagination :loading="loading" v-model:page="filter.page"
@@ -93,18 +100,21 @@ export default {
                 length: 10,
                 page: 1,
                 offset: 0,
+                group:null,
             },
             last_page: 1,
             items: [],
             totalItems: 0,
             loading: false,
             headers: [
-                { title: "ID", value: "id" },
+                { title: "ID", value: "id",sortable: false },
+                { title: "Image", key: "img" },
                 { title: "Account", value: "firstName" },
+                { title: "Group", value: "group" },
                 { title: "Phone", value: "phone" },
-                { title: "Email", value: "personalEmail" },
+                { title: "NIC", value: "nic" },
+                { title: "Salesman", value: "salesman" },
                 { title: "City", value: "townCity" },
-                { title: "Address", value: "companyAddress1" },
                 { title: "Action", key: 'view', sortable: false },
             ],
         };

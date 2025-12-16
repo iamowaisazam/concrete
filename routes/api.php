@@ -8,8 +8,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
-
-
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SaleInvoiceController;
 use App\Http\Controllers\Api\UnitController;
@@ -42,6 +41,7 @@ Route::prefix('auth')->group(function () {
  Route::apiResource('expenseCategory', ExpenseCategoryController::class);
  Route::apiResource('expenses', ExpenseController::class);
  Route::apiResource('saleInvoice', SaleInvoiceController::class);
+ Route::apiResource('payments', PaymentController::class);
 
 
  Route::prefix('reports')->group(function () {

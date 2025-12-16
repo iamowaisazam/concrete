@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;  // Ensure this is included
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -38,7 +39,16 @@ class User extends Authenticatable  // This should extend Authenticatable
         'motorTradeProof',
         'addressProof',
         'avatar',
+        'salesman',
+        'nic',
+        'ntn',
+        'group',
     ];
+
+    protected $appends = [
+        'image_preview',
+    ];
+
 
     protected $hidden = [
         'password',
@@ -49,6 +59,13 @@ class User extends Authenticatable  // This should extend Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class, 'user_type', 'id');
+    }
+
+       protected function imagePreview(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->avatar ?  asset('/uploads/'.$this->avatar) : null
+        );
     }
 
 

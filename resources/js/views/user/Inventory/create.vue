@@ -1,10 +1,10 @@
 <template>
-  <v-card :loading="loading" :disabled="loading" title="Inventory Information" subtitle="Create New Inventory Item"> 
+  <v-card :loading="loading" :disabled="loading" title="Item Information" subtitle="Create New Item"> 
     <v-card-text>      
         <v-row class="pt-3">
             <v-col cols="12" sm="12">
                 <label class="form-label">Title</label>
-                <v-text-field v-model="form.title" height="38px" placeholder="Enter inventory title" />
+                <v-text-field v-model="form.title" height="38px" placeholder="Title" />
             </v-col>
 
         </v-row>

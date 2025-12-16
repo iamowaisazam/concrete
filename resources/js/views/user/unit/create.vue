@@ -1,10 +1,10 @@
 <template>
-  <v-card :loading="loading" :disabled="loading" title="Unit Information" subtitle="Create New Unit Item"> 
+  <v-card :loading="loading" :disabled="loading" title="Unit" subtitle="Create New Unit"> 
     <v-card-text>      
         <v-row class="pt-3">
-            <v-col cols="12" sm="6">
+            <v-col cols="12" >
                 <label class="form-label">Title</label>
-                <v-text-field v-model="form.title" height="38px" placeholder="Enter title" />
+                <v-text-field v-model="form.title" height="38px" placeholder="Title" />
             </v-col>
 
         </v-row>
@@ -65,9 +65,5 @@ export default {
 </script>
 
 <style scoped>
-.form-label {
-  font-weight: 500;
-  margin-bottom: 4px;
-  display: block;
-}
+
 </style>

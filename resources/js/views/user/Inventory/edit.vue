@@ -1,7 +1,7 @@
 <template>
   <v-card :loading="loading" :disabled="loading" 
-          title="Inventory Information" 
-          subtitle="Edit Inventory Item">
+          title="Item Information" 
+          subtitle="Edit Item">
     <v-card-text>
       <v-row class="pt-3">
         <!-- Title -->
@@ -17,34 +17,34 @@
         </v-col>
 
         <!-- Price -->
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="4">
           <label class="form-label">Price</label>
           <v-text-field v-model="form.price" type="number" placeholder="Enter price" height="38px"/>
         </v-col>
 
         <!-- Unit -->
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="4">
           <label class="form-label">Unit</label>
-          <v-text-field v-model="form.unit" placeholder="Enter unit" height="38px"/>
+          <UnitDropdown 
+            v-model="form.unit_id"
+            clearable  
+            placeholder="Select Unit" />
         </v-col>
 
-    
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="4">
           <label class="form-label">Category</label>
-          
-          <ExpenseCategory 
+          <CategoryDropdown 
             v-model="form.category_id"
             clearable  
-            placeholder="Select category" />
-
+            placeholder="Select Category" />
         </v-col>
 
-        <v-col cols="12" sm="12">
+        <v-col cols="12" sm="6">
           <label class="form-label">Image</label>
           <v-file-input
             v-model="form.image"
             label="Upload Image"
-            prepend-icon="mdi-camera"
+            prepend-icon="mdi-file"
             variant="filled"
             accept="image/*"
           />
@@ -58,7 +58,7 @@
         <!-- Description -->
         <v-col cols="12">
           <label class="form-label">Description</label>
-          <v-textarea v-model="form.description" rows="3" placeholder="Enter description" />
+          <v-textarea variant="outlined" v-model="form.description" rows="3" placeholder="Enter description" />
         </v-col>
       </v-row>
     </v-card-text>
@@ -72,10 +72,13 @@
 
 <script>
 import ProductsModel from "@/models/product.model";
-import ExpenseCategory from "@/components/ExpenseCategory.vue";
+import CategoryDropdown from "@/components/CategoryDropdown.vue";
+import UnitDropdown from "@/components/UnitDropdown.vue";
+
 export default {
   components:{
-    ExpenseCategory
+    CategoryDropdown,
+    UnitDropdown
   },
   data() {
     return {
@@ -84,7 +87,8 @@ export default {
         title: '',
         sku: '',
         price: '',
-        unit: '',
+        unit_id: '',
+        category_id: '',
         description: '',
         image: null,
       },
@@ -113,9 +117,10 @@ export default {
         this.form.title = data.title;
         this.form.sku = data.sku;
         this.form.price = data.price;
-        this.form.unit = data.unit || '';
+        this.form.unit_id = data.unit_id;
+        this.form.category_id = data.category_id;
         this.form.description = data.description;
-        this.originalImage = data.image;
+        this.originalImage = data.image_preview;
       } catch (error) {
         console.error(error);
         this.$alertStore.add("Failed to load inventory", "error");
@@ -132,7 +137,8 @@ export default {
         formData.append('title', this.form.title);
         formData.append('sku', this.form.sku);
         formData.append('price', this.form.price);
-        formData.append('unit', this.form.unit);
+        formData.append('unit_id', this.form.unit_id);
+        formData.append('category_id', this.form.category_id);
         formData.append('description', this.form.description);
 
         if (this.form.image instanceof File) {
@@ -144,7 +150,7 @@ export default {
         const res = await ProductsModel.update(id, formData);
 
         this.$alertStore.add(res.message || 'Inventory updated', 'success');
-        this.$router.push('/user/inventory');
+        // this.$router.push('/user/inventory');
 
     } catch (error) {
         console.error(error);
@@ -162,10 +168,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.form-label {
-  font-weight: 500;
-  margin-bottom: 4px;
-  display: block;
-}
-</style>

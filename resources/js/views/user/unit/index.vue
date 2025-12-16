@@ -6,6 +6,7 @@
    
           <div class="d-flex flex-wrap pb-3 pt-3">
             <v-select 
+              max-width="100px"
               label="Length" 
               v-model="filter.length" 
               :items="[10, 20, 30]"  
@@ -13,17 +14,18 @@
             />
             <v-text-field
               class="ml-2"
+              max-width="200px"
               label="Search"
               v-model="filter.search"
               width="200"
               clearable
               persistent-placeholder
             />
-            <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems">Search</v-btn>
-            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/unit/create`">Add Unit</v-btn>
+            <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems"></v-btn>
+            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/unit/create`"></v-btn>
           </div>
 
-          <v-data-table-server
+          <v-data-table-server class="border striped-table"
             :headers="headers"
             :items="items"
             :items-length="totalItems"
@@ -36,13 +38,13 @@
             </template>
 
             <template #item.actions="{ item }">
-                 <v-btn color="warning" variant="plain" :to="`/user/unit/edit/${item.id}`">
+                 <v-btn color="warning" variant="flat" :to="`/user/unit/edit/${item.id}`">
                     <v-icon>mdi-square-edit-outline</v-icon>
                 </v-btn>
             <span class="px-1"> </span>
             <v-btn
                 color="danger"
-                variant="plain"
+                variant="flat"
                 @click="deleteItem(item.id)"
                 >
                 <v-icon>mdi-delete</v-icon>
@@ -76,8 +78,7 @@ export default {
       last_page: 1,
       loading: false,
       headers: [
-        { title: "ID", value: "id" },
-        { title: "Image", value: "image" },
+        { title: "ID", value: "id",sortable: false },
         { title: "Title", value: "title" },
         { title: "Actions", value: "actions", sortable: false },
       ],

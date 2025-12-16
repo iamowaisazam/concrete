@@ -1,6 +1,6 @@
 import index from "./index.vue"
 import create from "./create.vue"
-import edit from "./edit/index.vue"
+import edit from "./edit.vue"
 
 
 export default [
