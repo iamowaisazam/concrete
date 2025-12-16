@@ -10,10 +10,9 @@
         </v-row>
     </v-card-text>
 
-    <v-card-actions>
-      <v-btn color="primary" variant="flat" @click="submitForm">Submit</v-btn>
-      <v-btn color="danger" variant="flat" @click="resetForm">Cancel</v-btn>
-    </v-card-actions>
+    <div class="mt-3 text-center" >
+      <v-btn color="primary" @click="submitForm">Save</v-btn>
+    </div>
   </v-card>
 </template>
 

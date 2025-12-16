@@ -8,10 +8,9 @@
                 </v-col>
             </v-row>
         </v-card-text>
-        <v-card-actions>
-          <v-btn class="v-btn" variant="flat" color="primary" @click="submitForm">Submit</v-btn>
-          <v-btn class="v-btn" to="/user/account" variant="flat" color="danger">Cancel</v-btn>
-        </v-card-actions>
+        <div class="mt-3 text-center" >
+            <v-btn color="primary" @click="submitForm">Save</v-btn>
+        </div>
       </v-card>
 
 </template>

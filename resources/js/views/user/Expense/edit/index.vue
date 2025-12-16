@@ -47,14 +47,14 @@
       </v-row>
     </v-card-text>
 
-    <v-card-actions style="margin-top: 60px;">
-      <v-btn color="primary" variant="flat" @click="submitForm">
+     <div class="mt-16 text-center">
+      <v-btn color="primary"  @click="submitForm">
         Update
       </v-btn>
-      <v-btn color="danger" variant="flat" @click="resetForm">
+      <!-- <v-btn color="danger" variant="flat" @click="resetForm">
         Cancel
-      </v-btn>
-    </v-card-actions>
+      </v-btn> -->
+    </div>
   </v-card>
 </template>
 

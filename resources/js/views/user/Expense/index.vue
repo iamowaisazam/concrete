@@ -36,17 +36,18 @@
             </template>
 
             <template #item.actions="{ item }">
-                 <v-btn color="warning" variant="plain" :to="`/user/expense/edit/${item.id}`">
+                 <v-btn color="warning" variant="flat" :to="`/user/expense/edit/${item.id}`">
                     <v-icon>mdi-square-edit-outline</v-icon>
                 </v-btn>
             <span class="px-1"> </span>
             <v-btn
                 color="danger"
-                variant="plain"
+                variant="flat"
                 @click="deleteItem(item.id)"
                 >
-                <v-icon>mdi-delete</v-icon>
+                <v-icon>mdi-delete</v-icon> 
                 </v-btn>
+                
             </template>
 
             <template v-slot:bottom>

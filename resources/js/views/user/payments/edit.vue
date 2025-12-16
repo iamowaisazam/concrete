@@ -55,14 +55,14 @@
             placeholder="Remarks"
           />
         </v-col>
-        <v-col cols="12" > 
-            <v-btn class="mr-1" color="primary" variant="flat" @click="submitForm">
+         <div  class="mt-3 text-center w-100">
+            <v-btn class="mr-1" color="primary"  @click="submitForm">
                 Update
             </v-btn>
-            <v-btn color="danger" variant="flat" @click="resetForm">
+            <!-- <v-btn color="danger" variant="flat" @click="resetForm">
                 Cancel
-            </v-btn>
-        </v-col>
+            </v-btn> -->
+        </div>
 
       </v-row>
     </v-card-text>

@@ -75,10 +75,13 @@
                 </v-row>
             </v-container>
         </v-card-text>
-        <v-card-actions>
+        <!-- <v-card-actions>
             <v-btn @click="onSubmit" color="primary" class=" mr-2" variant="flat">Save Changes</v-btn>
             <v-btn @click="loadDataFromProfile" color="danger" class="" variant="flat">Cancel</v-btn>
-        </v-card-actions>
+        </v-card-actions> -->
+        <div class="mt-3 text-center" >
+            <v-btn color="primary" @click="onSubmit">Save</v-btn>
+        </div>
     </v-card>
 </template>
 <script>
