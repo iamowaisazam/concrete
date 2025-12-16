@@ -2,26 +2,105 @@
   <v-row>
     <v-col cols="12">
       <v-card title="Sale Invoice" subtitle="View All Sale Invoice Details">
+        <v-card class="mb-4" outlined>
+          <v-card-text>
+
+            <v-row dense>
+
+              <!-- Search -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="filter.search"
+                  label="Search"
+                  prepend-inner-icon="mdi-magnify"
+                  clearable
+                  density="compact"
+                />
+              </v-col>
+
+              <!-- Date -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="filter.date"
+                  label="Date"
+                  type="date"
+                  density="compact"
+                />
+              </v-col>
+
+              <!-- Due Date -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="filter.due_date"
+                  label="Due Date"
+                  type="date"
+                  density="compact"
+                />
+              </v-col>
+
+              <!-- Paid Status -->
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="filter.is_paid"
+                  label="Paid Status"
+                  :items="[
+                    { title: 'All', value: '' },
+                    { title: 'Paid', value: 1 },
+                    { title: 'Unpaid', value: 0 }
+                  ]"
+                  density="compact"
+                />
+              </v-col>
+
+              <!-- Min Total -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="filter.total_min"
+                  label="Min Total"
+                  type="number"
+                  density="compact"
+                />
+              </v-col>
+
+              <!-- Max Total -->
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="filter.total_max"
+                  label="Max Total"
+                  type="number"
+                  density="compact"
+                />
+              </v-col>
+
+              <!-- Buttons -->
+              <v-col cols="12" class="text-center mt-3">
+                <v-btn
+                  color="primary"
+                  prepend-icon="mdi-filter"
+                  class="mr-2"
+                  @click="loadItems"
+                >
+                  Search
+                </v-btn>
+
+                <v-btn
+                  color="grey"
+                  variant="outlined"
+                  prepend-icon="mdi-refresh"
+                  @click="resetFilter"
+                >
+                  Reset
+                </v-btn>
+              </v-col>
+
+            </v-row>
+
+          </v-card-text>
+        </v-card>
+
         <v-card-text>
    
-          <div class="d-flex flex-wrap pb-3 pt-3">
-            <v-select 
-              label="Length" 
-              v-model="filter.length" 
-              :items="[10, 20, 30]"  
-              width="150"
-            />
-            <v-text-field
-              class="ml-2"
-              label="Search"
-              v-model="filter.search"
-              width="200"
-              clearable
-              persistent-placeholder
-            />
-            <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems">Search</v-btn>
-            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/saleInvoice/create`">Add Sale Invoice</v-btn>
-          </div>
+   
 
           <v-data-table-server class="border striped-table"
             :headers="headers"

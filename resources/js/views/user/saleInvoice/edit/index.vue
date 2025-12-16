@@ -58,7 +58,7 @@
         <v-row class="mb-2">
             <v-col  cols="12" sm="3" >
                 <label class="form-label">Subtotal</label>
-                <v-text-field disabled="true" :model-value="0" />
+                <v-text-field disabled="true" :model-value="subtotal" />
             </v-col>
             <v-col cols="6" sm="3" >
                 <label class="form-label">Discount</label>
@@ -194,7 +194,42 @@ export default {
 
 
 
+  },
+  computed: {
+    subtotal() {
+      return this.form.items.reduce((sum, item) => {
+        const qty = Number(item.quantity || 0);
+        const price = Number(item.price || 0);
+        const discount = Number(item.discount || 0);
+        const tax = Number(item.tax || 0);
+
+        const itemBase = qty * price;
+        const itemTotal = itemBase - discount + tax;
+
+        return sum + itemTotal;
+      }, 0);
+    },
+    invoiceDiscountAmount() {
+      const discountPercent = Number(this.form.discount || 0);
+      return (this.subtotal * discountPercent) / 100;
+    },
+
+    invoiceTaxAmount() {
+      const taxPercent = Number(this.form.tax || 0);
+      return ((this.subtotal - this.invoiceDiscountAmount) * taxPercent) / 100;
+    },
+
+    grandTotal() {
+      return (
+        this.subtotal -
+        this.invoiceDiscountAmount +
+        this.invoiceTaxAmount
+      ).toFixed(2);
+    }
+
   }
+
+
 };
 </script>
 <style>
