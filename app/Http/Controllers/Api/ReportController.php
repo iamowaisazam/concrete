@@ -18,7 +18,7 @@ class ReportController extends Controller
 
         public function customerLedger(Request $request)
     {  
-
+        
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
@@ -47,7 +47,7 @@ class ReportController extends Controller
                     $balance =  $balance - $item->bills;
                     $balance =  $balance + $item->payments_credit;
                     $balance =  $balance - $item->payments_debit;
-                    $item->balance = 0;
+                    $item->balance = $balance;
                     return $item;
 
             });
@@ -65,7 +65,8 @@ class ReportController extends Controller
 
         public function customerLedgerDetail(Request $request,$id)
     {  
-        
+
+        $model = User::find($id);
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
         $offset = ($page - 1) * $length;
@@ -109,6 +110,7 @@ class ReportController extends Controller
             'last_page' => ceil($count / $length),
             'data' => $data,
             'balance' => $balance,
+            'customer' => $model,
         ]);
 
 
@@ -163,6 +165,7 @@ class ReportController extends Controller
 
     public function inventoryDetail(Request $request,$id)
     {  
+        $model = Product::with(['category','unit'])->where('id',$id)->first();
         
         $length = $request->input('length', 50);
         $page   = $request->input('page', 1);
@@ -207,6 +210,7 @@ class ReportController extends Controller
             'last_page' => ceil($count / $length),
             'data' => $data,
             'balance' => $balance,
+            'prodcut' =>  $model,
         ]);
 
 

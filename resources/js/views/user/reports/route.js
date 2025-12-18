@@ -1,8 +1,8 @@
 
 import AccountLedger from "./accountLedger.vue"
-import CustomerLedger from "./customerledger.vue"
 import AccountLedgerDetail from "./accountLedgerDetail.vue"
-
+import Inventory from "./inventory.vue"
+import inventoryDetail from "./inventoryDetail.vue"
 
 
 export default [
@@ -15,15 +15,21 @@ export default [
                 meta: { requiresAuth: true } 
             },
             { 
-                path: 'customerledger', 
-                component: CustomerLedger, 
-                meta: { requiresAuth: true } 
-            },
-            { 
                 path: 'accountLedgerDetail/:id', 
                 component: AccountLedgerDetail, 
                 meta: { requiresAuth: true } 
             },
+            { 
+                path: 'inventory', 
+                component: Inventory, 
+                meta: { requiresAuth: true } 
+            },
+              { 
+                path: 'inventory/:id', 
+                component: inventoryDetail, 
+                meta: { requiresAuth: true } 
+            },
+            
             
         ],
     },

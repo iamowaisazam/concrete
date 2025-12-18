@@ -97,11 +97,7 @@
 
           </v-card-text>
         </v-card>
-
         <v-card-text>
-   
-   
-
           <v-data-table-server class="border striped-table"
             :headers="headers"
             :items="items"
@@ -110,8 +106,6 @@
             item-value="id"
             @update:options="loadItems"
           >
-  
-
             <template #item.actions="{ item }">
                  <v-btn color="warning" variant="flat" :to="`/user/saleInvoice/edit/${item.id}`">
                     <v-icon>mdi-square-edit-outline</v-icon>

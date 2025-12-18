@@ -8,22 +8,22 @@
             <v-select 
               label="Length" 
               v-model="filter.length" 
-              :items="[10, 20, 30]"  
-              width="150"
+              :items="[50, 100, 500]"  
+              max-width="100px"
             />
             <v-text-field
               class="ml-2"
               label="Search"
               v-model="filter.search"
-              width="200"
+              max-width="200px"
               clearable
               persistent-placeholder
             />
-            <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems">Search</v-btn>
-            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/stockadjustment/create`">Add Stock Adjustment</v-btn>
+            <v-btn class="ml-2" color="primary" variant="flat" prepend-icon="mdi-magnify" @click="loadItems"></v-btn>
+            <v-btn class="ml-2" color="success" variant="flat" prepend-icon="mdi-plus" :to="`/user/stockadjustment/create`"></v-btn>
           </div>
 
-          <v-data-table-server
+          <v-data-table-server class="border striped-table"
             :headers="headers"
             :items="items"
             :items-length="totalItems"
@@ -66,7 +66,8 @@
 </template>
 
 <script>
-import StockaAjustment from "@/models/stockadjustment.model";
+import generalModel from "@/models/general.model";
+
 
 export default {
   data() {
@@ -91,39 +92,51 @@ export default {
     this.loadItems();
   },
   methods: {
+    
+    
     async loadItems() {
-      this.loading = true;
-      try {
-        const res = await StockaAjustment.all(this.filter);
-        this.items = res.data;
-        this.totalItems = res.total;
-        this.last_page = res.last_page;
-        this.filter.page = Number(res.page);
-        this.filter.offset = res.offset;
-      } catch (error) {
-        this.items = [];
-        this.totalItems = 0;
-      } finally {
-        this.loading = false;
-      }
-    },
-    async deleteItem(id) {
-        if (!confirm("Are you sure you want to delete this item?")) return;
 
         this.loading = true;
         try {
-        const res = await StockaAjustment.delete(id);
+          const res = await generalModel.get("/api/stockadjustment",this.filter);
+          this.items = res.data;
+          this.totalItems = res.total;
+          this.last_page = res.last_page;
+          this.filter.page = Number(res.page);
+          this.filter.offset = res.offset;
+        } catch (error) {
+          this.items = [];
+          this.totalItems = 0;
+        } finally {
+          this.loading = false;
+        }
+    },
 
-        this.$alertStore.add(res.message || "Inventory deleted", "success");
-        this.loadItems(); 
+
+
+    async deleteItem(id) {
+        
+      if (!confirm("Are you sure you want to delete this item?")) return;
+
+        this.loading = true;
+
+        try {
+
+            const res = await generalModel.delete('/api/stockadjustment/'+id);
+            this.$alertStore.add(res.message || "Inventory deleted", "success");
+            this.loadItems(); 
 
         } catch (error) {
-        console.error(error);
-        this.$alertStore.add(error.message || "Delete failed", "error");
+            console.error(error);
+            this.$alertStore.add(error.message || "Delete failed", "error");
         } finally {
-        this.loading = false;
+            this.loading = false;
         }
+
     }
+
+
+
 
   },
 };

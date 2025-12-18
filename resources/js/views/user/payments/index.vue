@@ -1,13 +1,13 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-card title="Payments" subtitle="View All Payments List">
+      <v-card title="Receive / payable" subtitle="View All List">
         <v-card-text>
           <div class="d-flex flex-wrap pb-3 pt-3">
             <v-select 
               label="Length" 
               v-model="filter.length" 
-              :items="[100, 500, 1000]"  
+              :items="[50, 100,500]"  
               max-width="100px"
             />
             <v-text-field
@@ -70,7 +70,7 @@ import paymentModel from "@/models/payment.model";
 export default {
   data() {
     return {
-      filter: { search: "", length: 100, page: 1, offset: 0 },
+      filter: { search: "", length: 50, page: 1, offset: 0 },
       items: [],
       totalItems: 0,
       last_page: 1,

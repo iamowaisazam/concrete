@@ -89,8 +89,8 @@ export default [
                     path: "/user/reports/accountLedger",
                 },
                 {
-                    label: "Customer Ledger",
-                    path: "/user/reports/customerledger",
+                    label: "Inventory",
+                    path: "/user/reports/inventory",
                 },
             ]
         },

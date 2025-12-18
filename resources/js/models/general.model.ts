@@ -5,10 +5,10 @@ import { errorHandler } from "@/services/responseHandleService";
 export default class     {
 
 
-    static async all(options:any) {
+    static async get(url:string,options:any) {
         
         try {
-            const res = await api.get("/api/reports/customerLedger",{
+            const res = await api.get(url,{
                 params:options
             });
             return res.data;
@@ -19,44 +19,46 @@ export default class     {
 
     }
 
-    static async inventory(options:any) {
-        
+    static async post(url,options:any) {
         try {
-            const res = await api.get("/api/reports/inventory",{
-                params:options
-            });
+
+           let req = await toFormData(options);
+            const res = await api.post(url, req);
             return res.data;
-        
-        } catch (error) {
-            throw await errorHandler(error);
-        }
-
-    }
-
-    static async inventoryDetail(id:any,options:any) {
-        
-        try {
-            const res = await api.get("/api/reports/inventoryDetail/"+id,{
-                params:options
-            });
-            return res.data;
-        
-        } catch (error) {
-            throw await errorHandler(error);
-        }
-
-    }
-
-    static async ledger(id: number | string) {
-        try {
-            const res = await api.get(`/api/reports/customerLedgerDetail/${id}`);
-            return res.data;
+    
         } catch (error) {
             throw await errorHandler(error);
         }
     }
 
 
+    static async put(url:any,options:any) {
+        try {
+
+           let req = await toFormData(options);
+            req.append("_method","put");
+            const res = await api.post(url, req);
+            return res.data;
+    
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+
+
+      static async delete(url:any) {
+        try {
+            const res = await api.delete(url);
+            return res.data;
+    
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+    }
+
+
+
+ 
 
 
 }
