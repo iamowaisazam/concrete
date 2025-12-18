@@ -42,6 +42,7 @@ export default [
                 },
                 {
                     label: "Stock Adjustment",
+                    path:"/user/stockadjustment"
                 
                 },
             ]

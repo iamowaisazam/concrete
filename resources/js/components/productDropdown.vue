@@ -14,7 +14,7 @@
 import ProductsModel from "@/models/product.model";
 
 export default {
-    name: "CategoryDropdown",
+    name: "ProductDropdown",
     props: {
         modelValue: {
             type: [String, Number,Boolean],

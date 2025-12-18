@@ -26,8 +26,6 @@
           </div>
 
           <v-data-table-server class="border"
-            fixed-header
-            striped="even"
             :headers="headers"
             :items="items"
             :items-length="totalItems"
@@ -40,7 +38,7 @@
             </template>
 
             <template #item.actions="{ item }">
-                 <v-btn color="primary" variant="flat" :to="`/user/inventory/edit/${item.id}`">
+                 <v-btn color="success" variant="plain"  :to="`/user/inventory/edit/${item.id}`">
                     <v-icon>mdi-eye</v-icon>
                 </v-btn>
             </template>
@@ -70,69 +68,68 @@
 </template>
 
 <script>
-
+import customerLedger from "@/models/report.model";
 
 export default {
   data() {
     return {
-      filter: { search: "", length: 10, page: 1, offset: 0 },
-      items: [
-              {
-                id: 1,
-                date: "2025-09-12",
-                description: "Opening balance",
-                debit: 0,
-                credit: 5000,
-                actions: true
-              },
-          {
-            id: 2,
-            date: "2025-09-13",
-            description: "Car Rent",
-            debit: 3000,
-            credit: 0,
-            actions: true
-          },
-          {
-            id: 3,
-            date: "2025-09-14",
-            description: "Sale invoice #INV-001",
-            debit: 0,
-            credit: 12000,
-            actions: true
-          },
-          {
-            id: 4,
-            date: "2025-09-15",
-            description: "Advance Payment",
-            debit: 1800,
-            credit: 0,
-            actions: true
-          },
-        
-      ],
+      filter: {
+        search: "",
+        length: 10,
+        page: 1,
+        offset: 0,
+      },
+
+      items: [],
+
       totalItems: 0,
       last_page: 1,
       loading: false,
+
       headers: [
-        { title: "ID", value: "id",sortable: false },
+        { title: "ID", value: "id", sortable: false },
         { title: "Date", value: "date" },
-        { title: "Description", value: "description" },
+        { title: "Description", value: "remarks" },
         { title: "Debit", value: "debit" },
         { title: "Credit", value: "credit" },
         { title: "Actions", value: "actions", sortable: false },
       ],
     };
   },
+
   mounted() {
     this.loadItems();
   },
+
   methods: {
-    async loadItems() {
- 
+    async loadItems(options = {}) {
+      this.loading = true;
+
+      try {
+        // ✅ datatable options sync
+        if (options.page) this.filter.page = options.page;
+        if (options.itemsPerPage) this.filter.length = options.itemsPerPage;
+
+        // 👇 single customer ledger (id from route)
+        const customerId = this.$route.params.id;
+
+        const res = await customerLedger.ledger(customerId, this.filter);
+
+        this.items = res.data ?? [];
+        this.totalItems = res.total ?? 0;
+        this.last_page = res.last_page ?? 1;
+        this.filter.page = Number(res.page ?? 1);
+        this.filter.offset = res.offset ?? 0;
+
+      } catch (error) {
+        console.error(error);
+        this.items = [];
+        this.totalItems = 0;
+      } finally {
+        this.loading = false;
+      }
     },
-
-
   },
 };
 </script>
+

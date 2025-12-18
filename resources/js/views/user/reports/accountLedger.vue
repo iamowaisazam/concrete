@@ -56,50 +56,63 @@
 </template>
 
 <script>
-
+import customerLedger from "@/models/report.model";
 
 export default {
   data() {
     return {
-      filter: { search: "", length: 10, page: 1, offset: 0 },
-      items: [
-        {
-          id:1,
-          image:'',
-          name:'Customer 1',
-          phone:'03112239342',
-          balance:0.00,
-        },
-        {
-          id:2,
-          image:'',
-          name:'Customer 2',
-          phone:'03112239342',
-          balance:0.00,
-        }
-      ],
+      filter: {
+        search: "",
+        length: 10,
+        page: 1,
+        offset: 0,
+      },
+      items: [],
       totalItems: 0,
       last_page: 1,
       loading: false,
+
       headers: [
-        { title: "ID", value: "id",sortable: false },
-        { title: "Image", value: "image" },
-        { title: "Name", value: "name" },
+        { title: "ID", value: "id", sortable: false },
+        { title: "Image", value: "image", sortable: false },
+        { title: "Name", value: "firstName" },
         { title: "Phone", value: "phone" },
         { title: "Balance", value: "balance" },
-        { title: "Actions", value: "actions", sortable: false },
+        {title: "Actions", value: "actions", sortable: false },
       ],
     };
   },
+
   mounted() {
     this.loadItems();
   },
+
   methods: {
-    async loadItems() {
- 
+    async loadItems(options = {}) {
+      this.loading = true;
+
+      try {
+        // ✅ datatable se page / items-per-page lena
+        if (options.page) this.filter.page = options.page;
+        if (options.itemsPerPage) this.filter.length = options.itemsPerPage;
+
+        const res = await customerLedger.all(this.filter);
+
+        this.items = res.data ?? [];
+        this.totalItems = res.total ?? 0;
+        this.last_page = res.last_page ?? 1;
+        this.filter.page = Number(res.page ?? 1);
+        this.filter.offset = res.offset ?? 0;
+
+      } catch (error) {
+        console.error(error);
+        this.items = [];
+        this.totalItems = 0;
+      } finally {
+        this.loading = false;
+      }
     },
-
-
   },
 };
 </script>
+
