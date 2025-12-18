@@ -420,14 +420,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/products/1",
+							"raw": "{{url}}/api/products/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"products",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -752,6 +752,254 @@
 							"path": [
 								"api",
 								"category",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SaleInvoice",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/saleInvoice",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"saleInvoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/saleInvoice/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"saleInvoice",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "date",
+									"value": "12-12-2025",
+									"type": "text"
+								},
+								{
+									"key": "ref",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/saleInvoice",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"saleInvoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "put",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "12-12-30",
+									"type": "text"
+								},
+								{
+									"key": "due_date",
+									"value": "12-12-30",
+									"type": "text"
+								},
+								{
+									"key": "ref",
+									"value": "123",
+									"type": "text"
+								},
+								{
+									"key": "remarks",
+									"value": "remarks",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "pending",
+									"type": "text"
+								},
+								{
+									"key": "is_paid",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "items[0][product_id]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "items[0][quantity]",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "items[0][price]",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "items[0][discount]",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "items[0][tax]",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "tax",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/saleInvoice/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"saleInvoice",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/saleInvoice/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"saleInvoice",
 								"1"
 							]
 						}
@@ -1147,7 +1395,7 @@
 			]
 		},
 		{
-			"name": "SaleInvoice",
+			"name": "Payments",
 			"item": [
 				{
 					"name": "all",
@@ -1165,13 +1413,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/saleInvoice",
+							"raw": "{{url}}/api/payments",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"saleInvoice"
+								"payments"
 							]
 						}
 					},
@@ -1193,14 +1441,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/saleInvoice/2",
+							"raw": "{{url}}/api/payments/5",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"saleInvoice",
-								"2"
+								"payments",
+								"5"
 							]
 						}
 					},
@@ -1226,12 +1474,22 @@
 							"formdata": [
 								{
 									"key": "date",
-									"value": "12-12-2025",
+									"value": "12-13-2025",
 									"type": "text"
 								},
 								{
-									"key": "ref",
-									"value": "123",
+									"key": "type",
+									"value": "debit",
+									"type": "text"
+								},
+								{
+									"key": "amount",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "remarks",
+									"value": "Remarks 1",
 									"type": "text"
 								},
 								{
@@ -1242,13 +1500,13 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/saleInvoice",
+							"raw": "{{url}}/api/payments",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"saleInvoice"
+								"payments"
 							]
 						}
 					},
@@ -1279,85 +1537,40 @@
 								},
 								{
 									"key": "date",
-									"value": "12-12-30",
+									"value": "12-13-2025",
 									"type": "text"
 								},
 								{
-									"key": "due_date",
-									"value": "12-12-30",
-									"type": "text"
-								},
-								{
-									"key": "ref",
-									"value": "123",
+									"key": "amount",
+									"value": "200",
 									"type": "text"
 								},
 								{
 									"key": "remarks",
-									"value": "remarks",
+									"value": "Remarks 1",
 									"type": "text"
 								},
 								{
-									"key": "status",
-									"value": "pending",
-									"type": "text"
-								},
-								{
-									"key": "is_paid",
-									"value": "0",
+									"key": "type",
+									"value": "debit",
 									"type": "text"
 								},
 								{
 									"key": "user_id",
 									"value": "1",
 									"type": "text"
-								},
-								{
-									"key": "items[0][product_id]",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "items[0][quantity]",
-									"value": "10",
-									"type": "text"
-								},
-								{
-									"key": "items[0][price]",
-									"value": "5",
-									"type": "text"
-								},
-								{
-									"key": "items[0][discount]",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "items[0][tax]",
-									"value": "0",
-									"type": "text"
-								},
-								{
-									"key": "discount",
-									"value": "5",
-									"type": "text"
-								},
-								{
-									"key": "tax",
-									"value": "1",
-									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/api/saleInvoice/2",
+							"raw": "{{url}}/api/payments/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"saleInvoice",
-								"2"
+								"payments",
+								"1"
 							]
 						}
 					},
@@ -1379,13 +1592,236 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/saleInvoice/1",
+							"raw": "{{url}}/api/payments/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"saleInvoice",
+								"payments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "StockAdjustment",
+			"item": [
+				{
+					"name": "all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/stockadjustment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stockadjustment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/stockadjustment/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stockadjustment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_id",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "qty",
+									"value": "200",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "remarks",
+									"value": "Testing..",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "12-12-2025",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "out",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/stockadjustment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stockadjustment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "_method",
+									"value": "put",
+									"type": "text"
+								},
+								{
+									"key": "product_id",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "qty",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "100",
+									"type": "text"
+								},
+								{
+									"key": "remarks",
+									"value": "Testing..",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "12-12-2025",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "out",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/stockadjustment/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stockadjustment",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "100|Cq2HUbPXfGcMrVuBT9ht3KMRdZA7aWqoTG8Mwygf367c0536",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/stockadjustment/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stockadjustment",
 								"1"
 							]
 						}
@@ -1512,6 +1948,69 @@
 								"user",
 								"dashboard",
 								"onlineAuctions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "customerLedger",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/reports/customerLedger",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"customerLedger"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customerLedgerDetail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/reports/customerLedgerDetail/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"customerLedgerDetail",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inventory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/reports/inventory",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"reports",
+								"inventory"
 							]
 						}
 					},

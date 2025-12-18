@@ -8,7 +8,20 @@ export default [
         {
             icon: "mdi-account-multiple",
             label: "Account",
-            path: "/user/account",
+            path: "/",
+            children:[
+                {
+              
+                    label: "Account List",
+                    path: "/user/account",
+                },
+                {
+            
+                    label: "Receive / Payable",
+                    path: "/user/payments",
+                },
+
+            ]
         },
         {
             icon: "mdi-warehouse",
@@ -27,12 +40,26 @@ export default [
                     label: "Items",
                     path: "/user/inventory",
                 },
+                {
+                    label: "Stock Adjustment",
+                
+                },
             ]
         },
         {
             icon: "mdi-file-chart",
-            label: "Sale Invoice",
-            path: "/user/saleInvoice",
+            label: "Sales",
+            path: "/",
+            children:[
+                {
+                    label: "Delivery Challan",
+                },
+                {
+                    label: "Sale Invoice",
+                    path: "/user/saleInvoice",
+                },
+
+            ]
         },
         {
             icon: "mdi-cash-multiple",
@@ -51,12 +78,7 @@ export default [
 
             ]
         },
-       
-        {
-            icon: "mdi-cash-fast",
-            label: "Payments",
-            path: "/user/payments",
-        },
+    
         {
             icon: "mdi-file",
             label: "Reports",
