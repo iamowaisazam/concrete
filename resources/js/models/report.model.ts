@@ -18,6 +18,19 @@ export default class     {
         }
 
     }
+    static async inventory(options:any) {
+        
+        try {
+            const res = await api.get("/api/reports/inventory",{
+                params:options
+            });
+            return res.data;
+        
+        } catch (error) {
+            throw await errorHandler(error);
+        }
+
+    }
     static async ledger(id: number | string) {
         try {
             const res = await api.get(`/api/reports/customerLedgerDetail/${id}`);
