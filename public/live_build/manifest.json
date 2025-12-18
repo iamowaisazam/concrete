@@ -109,15 +109,15 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DLOxh9Sf.js",
+    "file": "assets/app-P88Fvbol.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app-tfFd1NJa.css"
+      "assets/app-x4zCjS6x.css"
     ],
     "assets": [
-      "assets/logo-BNoyFm4c.png",
+      "assets/logo-Ds0UWnQm.png",
       "assets/inter-cyrillic-ext-400-normal-BQZuk6qB.woff2",
       "assets/inter-cyrillic-ext-400-normal-DQukG94-.woff",
       "assets/inter-cyrillic-400-normal-obahsSVq.woff2",
@@ -147,7 +147,7 @@
     ]
   },
   "resources/js/assets/images/logo/logo.png": {
-    "file": "assets/logo-BNoyFm4c.png",
+    "file": "assets/logo-Ds0UWnQm.png",
     "src": "resources/js/assets/images/logo/logo.png"
   }
 }
