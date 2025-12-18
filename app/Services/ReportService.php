@@ -88,6 +88,58 @@ class ReportService
     }
 
 
+       public static function getInventoryLeder($id)
+    {
+
+            // $billsQuery = DB::table('sale_invoices')
+            // ->select(
+            //     'sale_invoices.id',
+
+            //     'sale_invoices.date',
+                
+            //     DB::raw("'sale' AS type"),
+                
+            //     'sale_invoices.remarks',
+
+            //     DB::raw("0 AS credit"),
+                
+            //     'sale_invoices.total AS debit'
+
+            // )->where('sale_invoices.user_id',$customerId);
+
+
+            $adjustmentQuery = DB::table('stock_adjustment')
+            ->select(
+                'stock_adjustment.id',
+                
+
+                'stock_adjustment.date',
+                
+                DB::raw("'Adjustment' AS type"),
+            
+                DB::raw("stock_adjustment.remarks"),
+
+                DB::raw("CASE 
+                    WHEN stock_adjustment.type = 'in' 
+                    THEN stock_adjustment.qty 
+                    ELSE 0 
+                END AS stock_in"),
+
+                DB::raw("CASE 
+                    WHEN stock_adjustment.type = 'out' 
+                    THEN stock_adjustment.qty 
+                    ELSE 0 
+                END AS stock_out")
+                
+            )->where('stock_adjustment.product_id',$id);
+
+           return $adjustmentQuery;
+           
+    }
+
+
+
+
     
     
     // public static function getBankBalance($customerId)

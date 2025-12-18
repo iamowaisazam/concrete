@@ -160,6 +160,57 @@ class ReportController extends Controller
 
 
 
+
+    public function inventoryDetail(Request $request,$id)
+    {  
+        
+        $length = $request->input('length', 50);
+        $page   = $request->input('page', 1);
+        $offset = ($page - 1) * $length;
+        $balance = 0;
+
+
+        $baseQuery = ReportService::getInventoryLeder($id);
+        $query = DB::query()->fromSub($baseQuery, 'transactions');
+
+    
+        // ✅ Clone the query before using count()
+        $count = (clone $query)->count();
+        $data = $query->select([
+                    '*'                       
+            ])
+            ->orderByDesc('id')
+            ->skip($offset)
+            ->take($length)
+            ->get()
+            ->map(function($item) use(&$balance) {
+
+                
+                // Convert values to numbers
+                $credit = floatval($item->stock_in);
+                $debit = floatval($item->stock_out);
+
+                // Calculate running balance
+                $balance += $credit;
+                $balance -= $debit;
+                $item->balance = floatval($balance);
+
+                return $item;
+
+            });
+
+
+        return response()->json([
+            'total' => $count,
+            'page' => $page,
+            'offset' => $offset,
+            'last_page' => ceil($count / $length),
+            'data' => $data,
+            'balance' => $balance,
+        ]);
+
+
+    }
     
 
 

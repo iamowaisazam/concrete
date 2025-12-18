@@ -51,5 +51,8 @@ Route::prefix('auth')->group(function () {
     Route::get('/customerLedger',[ReportController::class,'customerLedger']);
     Route::get('/customerLedgerDetail/{id}',[ReportController::class,'customerLedgerDetail']);
     Route::get('/inventory',[ReportController::class,'inventory']);
+    Route::get('/inventoryDetail/{id}',[ReportController::class,'inventoryDetail']);
+
+    
 
 });
