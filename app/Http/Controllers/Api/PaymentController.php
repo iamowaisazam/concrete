@@ -56,7 +56,7 @@ class PaymentController extends Controller
         $validator = Validator::make($request->all(),[
             'date' => 'required|string|max:1000',
             'type' => 'required|in:debit,credit',
-            'amount' => 'required|numeric|min:0|max:999999.99',
+            'amount' => 'required|numeric|min:0',
             'user_id' =>['required','integer',Rule::exists('users','id')],
             'remarks' => 'required|string|max:1000',
         ]);
@@ -123,7 +123,7 @@ class PaymentController extends Controller
         $validator = Validator::make($request->all(),[
             'date' => 'required|string|max:1000',
             'type' => 'required|in:debit,credit',
-            'amount' => 'required|numeric|min:0|max:999999.99',
+            'amount' => 'required|numeric|min:0',
             'user_id' =>['required',Rule::exists('users','id')],
             'remarks' => 'required|string|max:1000',
         ]);

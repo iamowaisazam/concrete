@@ -55,7 +55,7 @@ class ExpenseController extends Controller
         $validator = Validator::make($request->all(),[
             'remarks' => 'required|string|max:1000',
             'date' => 'required|string|max:1000',
-            'debit' => 'required|numeric|min:0|max:999999.99',
+            'debit' => 'required|numeric|min:0',
             'category_id' =>['nullable','integer','max:10',Rule::exists('expense_category','id')],
             'user_id' =>['nullable','integer','max:10',Rule::exists('users','id')],
         ]);
@@ -110,7 +110,7 @@ class ExpenseController extends Controller
         $validator = Validator::make($request->all(),[
             'remarks' => 'required|string|max:1000',
             'date' => 'required|string|max:1000',
-            'debit' => 'required|numeric|min:0|max:999999.99',
+            'debit' => 'required|numeric|min:0',
             'category_id' =>['nullable','integer','max:10',Rule::exists('expense_category','id')],
             'user_id' =>['nullable','integer','max:10',Rule::exists('users','id')],
         ]);

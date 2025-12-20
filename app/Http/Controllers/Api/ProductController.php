@@ -108,7 +108,7 @@ class ProductController extends Controller
                 'sku' => 'required|string|max:255',
                 'description' => 'nullable|string|max:255',
                 'image' => 'nullable|image',
-                'price' => 'required|string|max:255',
+                'price' => 'required|numeric',
 
                 'category_id' =>['nullable','integer','max:10',Rule::exists('category','id')],
                 'user_id' =>['nullable','integer','max:10',Rule::exists('users','id')],
