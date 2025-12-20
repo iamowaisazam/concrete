@@ -43,7 +43,7 @@ return new class extends Migration
 
             $table->foreignId('sale_order_id')
             ->nullable()
-            ->constrained('sale_invoices')
+            ->constrained('sale_orders')
             ->cascadeOnDelete();
 
             $table->string('price')->default(0)->nullable();
