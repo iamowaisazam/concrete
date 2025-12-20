@@ -11,27 +11,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        Schema::create('sale_invoices', function (Blueprint $table) {
+        Schema::create('delivery_notes', function (Blueprint $table) {
             $table->id();
             $table->timestamp('date')->nullable();
-            $table->timestamp('due_date')->nullable();
             $table->string('ref')->nullable();
             $table->text('remarks')->nullable();
             $table->string('status')->nullable();
-            $table->string('is_paid')->nullable();
-            
-
-            $table->string('subtotal')->default(0)->nullable();
-            $table->string('tax')->default(0)->nullable();
-            $table->string('discount')->default(0)->nullable();
             $table->string('total')->default(0)->nullable();
+
+            $table->foreignId('sale_order_id')
+            ->nullable()
+            ->constrained('sale_orders')
+            ->nullOnDelete();
 
             $table->foreignId('user_id')
             ->nullable()
             ->constrained('users')
             ->nullOnDelete();
 
+            $table->timestamps();
+        });
+
+
+        Schema::create('delivery_note_items', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('product_id')
+            ->nullable()
+            ->constrained('products')
+            ->restrictOnDelete();
+
+            $table->string('quantity')->default(0)->nullable();
+            $table->string('price')->default(0)->nullable();
+            $table->string('total')->default(0)->nullable();
+            
             $table->timestamps();
         });
 
@@ -43,6 +56,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sale_invoices');
+        Schema::dropIfExists('delivery_note_items');
+        Schema::dropIfExists('delivery_notes');
     }
 };
