@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Auctions;
+use App\Models\DeliveryNote;
 use App\Models\Interest;
 use App\Models\SaleOrder;
 use App\Models\SaleOrderItem;
@@ -79,7 +80,6 @@ class SaleOrderService
         $order->update([
             'date'     => Carbon::parse($request->date),
             'ref'      => $request->ref,
-            'user_id'  => $request->user_id,
             'status'   => $request->status,
             'remarks'  => $request->remarks,
             'subtotal' => 0,
@@ -120,6 +120,34 @@ class SaleOrderService
 
         return $order;
 
+    }
+
+       static public function show($id, $request)
+    {
+
+        $model = SaleOrder::where('id', $id)->first();
+        if (!$model) {
+          throw new \Exception("Record with ID $id not found");
+        }
+        return $model;
+    }
+
+
+       static public function delete($id, $request)
+    {
+
+        $model = SaleOrder::where('id', $id)->first();
+        if (!$model) {
+          throw new \Exception("Record with ID $id not found");
+        }
+        
+        if(DeliveryNote::where('sale_order_id',$id)->first()){
+            throw new \Exception("Cannot Deleted Record Its Used In Delivery Note");
+        }
+        
+        $model->delete();
+    
+        return $model;
     }
 
     

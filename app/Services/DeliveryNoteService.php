@@ -6,6 +6,7 @@ use App\Models\Auctions;
 use App\Models\DeliveryNote;
 use App\Models\DeliveryNoteItem;
 use App\Models\Interest;
+use App\Models\SaleInvoiceItem;
 use App\Models\SaleOrder;
 use App\Models\SaleOrderItem;
 use Illuminate\Http\Request;
@@ -125,8 +126,12 @@ class DeliveryNoteService
     {   
 
         $model = DeliveryNote::where('id',$id)->first();
-         if (!$model) {
+        if (!$model) {
           throw new \Exception("Record with ID $id not found");
+        }
+
+        if(SaleInvoiceItem::where('delivery_note_id',$id)->first()){
+            throw new \Exception("Cannot Deleted Record Its Used In Delivery Note");
         }
 
 

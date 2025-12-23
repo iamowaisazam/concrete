@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\SaleInvoiceController;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ReportController;
+use App\Http\Controllers\Api\SaleOrderController;
 use App\Http\Controllers\Api\StockAdjustmentController;
 
 Route::get('/user', function (Request $request) {
@@ -45,6 +46,7 @@ Route::apiResource('expenses', ExpenseController::class);
 Route::apiResource('payments', PaymentController::class);
 Route::apiResource('stockadjustment', StockAdjustmentController::class);
 
+Route::apiResource('saleOrder', SaleOrderController::class);
 Route::apiResource('deliveryNotes', DeliveryNoteController::class);
 Route::apiResource('saleInvoice', SaleInvoiceController::class);
 
