@@ -46,6 +46,7 @@ class SaleOrderService
                 "price" => $value['price'],
                 "discount" => $value['discount'] ?? 0,
                 "tax" => $value['tax'] ?? 0,
+                'created_at' => Carbon::now(),
             ]);
 
             $step  = $orderItem->quantity * $orderItem->price;
@@ -70,7 +71,59 @@ class SaleOrderService
     }
 
 
+       static public function Update($id,$request)
+    {   
+
+        $order = SaleOrder::where('id',$id)->first();
+              
+        $order->update([
+            'date'     => Carbon::parse($request->date),
+            'ref'      => $request->ref,
+            'user_id'  => $request->user_id,
+            'status'   => $request->status,
+            'remarks'  => $request->remarks,
+            'subtotal' => 0,
+            'discount' => $request->discount ?? 0,
+            'tax'      => $request->tax ?? 0,
+            'total'    => 0,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $subtotal = 0;
+        SaleOrderItem::where('sale_order_id',$order->id)->delete();
+        foreach ($request->items as $key => $value) {
+           
+            $orderItem = new SaleOrderItem([
+                "sale_order_id" => $order->id,
+                "product_id" => $value['product_id'],
+                "quantity" => $value['quantity'],
+                "price" => $value['price'],
+                "discount" => $value['discount'] ?? 0,
+                "tax" => $value['tax'] ?? 0,
+            ]);
+
+            $step  = $orderItem->quantity * $orderItem->price;
+            $step  = $step + $orderItem->discount;
+            $step  = $step + $orderItem->tax;
+            $orderItem->total = $step;
+            $orderItem->save();
+            $subtotal +=  $step;
+
+        }
+
+        $order->subtotal = $subtotal;
+        $step = $subtotal - $request->discount;
+        $step = $subtotal + $request->tax;
+
+        $order->total = $step;
+        $order->save();
+
+        return $order;
+
+    }
+
+    
 
 
-  
+
 }

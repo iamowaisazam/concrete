@@ -6,10 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeliveryNote extends Model
 {
-
+    
     protected $table = 'delivery_notes'; 
-
-     protected $guarded = [];
+    protected $fillable = [
+        'date',
+        'ref',
+        'remarks',
+        'status',
+        'total',
+        'sale_order_id',
+        'user_id',
+        'created_at',
+        'updated_at',
+     ];
 
 
     public function items() {
@@ -20,4 +29,5 @@ class DeliveryNote extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
     
+
 }

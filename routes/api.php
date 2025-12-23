@@ -25,37 +25,34 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
 
-    Route::get('/profile',[AuthController::class,'profile'])->middleware(['auth:sanctum']);
+    Route::get('/profile', [AuthController::class, 'profile'])->middleware(['auth:sanctum']);
     // Route::post('/profile',[AuthController::class,'profileUpdate'])->middleware(['auth:sanctum']);
 
-    Route::post('/login',[AuthController::class,'login']);
+    Route::post('/login', [AuthController::class, 'login']);
     // Route::post('/register',[AuthController::class,'register']);
 
     Route::post('/changePassword', [AuthController::class, 'changePassword'])->middleware(['auth:sanctum']);
-
 });
 
 
- Route::apiResource('users', UserController::class);
- Route::apiResource('products', ProductController::class);
- Route::apiResource('category', CategoryController::class);
- Route::apiResource('unit', UnitController::class);
- Route::apiResource('expenseCategory', ExpenseCategoryController::class);
- Route::apiResource('expenses', ExpenseController::class);
- Route::apiResource('saleInvoice', SaleInvoiceController::class);
- Route::apiResource('payments', PaymentController::class);
- Route::apiResource('stockadjustment', StockAdjustmentController::class);
+Route::apiResource('users', UserController::class);
+Route::apiResource('products', ProductController::class);
+Route::apiResource('category', CategoryController::class);
+Route::apiResource('unit', UnitController::class);
+Route::apiResource('expenseCategory', ExpenseCategoryController::class);
+Route::apiResource('expenses', ExpenseController::class);
+
+Route::apiResource('payments', PaymentController::class);
+Route::apiResource('stockadjustment', StockAdjustmentController::class);
 
 Route::apiResource('deliveryNotes', DeliveryNoteController::class);
+Route::apiResource('saleInvoice', SaleInvoiceController::class);
 
 
- Route::prefix('reports')->group(function () {
+Route::prefix('reports')->group(function () {
 
-    Route::get('/customerLedger',[ReportController::class,'customerLedger']);
-    Route::get('/customerLedgerDetail/{id}',[ReportController::class,'customerLedgerDetail']);
-    Route::get('/inventory',[ReportController::class,'inventory']);
-    Route::get('/inventoryDetail/{id}',[ReportController::class,'inventoryDetail']);
-
-    
-
+    Route::get('/customerLedger', [ReportController::class, 'customerLedger']);
+    Route::get('/customerLedgerDetail/{id}', [ReportController::class, 'customerLedgerDetail']);
+    Route::get('/inventory', [ReportController::class, 'inventory']);
+    Route::get('/inventoryDetail/{id}', [ReportController::class, 'inventoryDetail']);
 });

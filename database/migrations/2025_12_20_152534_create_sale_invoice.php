@@ -39,7 +39,7 @@ return new class extends Migration
         Schema::create('sale_invoice_items', function (Blueprint $table) {
             $table->id();
             
-            $table->foreignId('deliver_note_id')
+            $table->foreignId('delivery_note_id')
             ->nullable()
             ->constrained('delivery_notes')
             ->restrictOnDelete();
