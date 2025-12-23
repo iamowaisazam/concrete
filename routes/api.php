@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\DeliveryNoteController;
 use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\PaymentController;
@@ -44,6 +45,8 @@ Route::prefix('auth')->group(function () {
  Route::apiResource('saleInvoice', SaleInvoiceController::class);
  Route::apiResource('payments', PaymentController::class);
  Route::apiResource('stockadjustment', StockAdjustmentController::class);
+
+Route::apiResource('deliveryNotes', DeliveryNoteController::class);
 
 
  Route::prefix('reports')->group(function () {

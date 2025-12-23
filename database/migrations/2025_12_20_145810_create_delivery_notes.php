@@ -41,6 +41,11 @@ return new class extends Migration
             ->constrained('products')
             ->restrictOnDelete();
 
+            $table->foreignId('delivery_note_id')
+            ->nullable()
+            ->constrained('delivery_notes')
+            ->restrictOnDelete();
+
             $table->string('quantity')->default(0)->nullable();
             $table->string('price')->default(0)->nullable();
             $table->string('total')->default(0)->nullable();
