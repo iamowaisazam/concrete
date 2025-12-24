@@ -64,6 +64,28 @@ export default [
         },
         {
             icon: "mdi-cash-multiple",
+            label: "sales management",
+            children:[
+                {
+              
+                    label: "Sale Order",
+                    path: "/user/saleorder",
+                },
+                {
+            
+                    label: "Delivery Note",
+                    path: "/user/deliverynote",
+                },
+                {
+            
+                    label: "Sale Invoice",
+                    path: "/user/saleinvoice",
+                },
+
+            ]
+        },
+        {
+            icon: "mdi-cash-multiple",
             label: "Expense",
             children:[
                 {

@@ -21,6 +21,7 @@ import reportRoute from "@/views/user/reports/route"
 import saleInvoiceRoute from "@/views/user/saleInvoice/route"
 import paymentsRoute from "@/views/user/payments/route"
 import stockadjustmentRoute from "@views/user/stockadjustment/route"
+import saleorderRoute from "@views/user/saleorder/route"
 import Forget  from '@/views/auth/forget.vue';
 
 
@@ -47,6 +48,7 @@ const routes = [
             ...saleInvoiceRoute,
             ...paymentsRoute,
             ...stockadjustmentRoute,
+            ...saleorderRoute,
         ],
     },
     {
