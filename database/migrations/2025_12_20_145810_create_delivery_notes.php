@@ -44,7 +44,7 @@ return new class extends Migration
             $table->foreignId('delivery_note_id')
             ->nullable()
             ->constrained('delivery_notes')
-            ->restrictOnDelete();
+            ->cascadeOnDelete();
 
             $table->string('quantity')->default(0)->nullable();
             $table->string('price')->default(0)->nullable();
