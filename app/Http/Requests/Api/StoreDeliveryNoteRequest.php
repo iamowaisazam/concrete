@@ -10,7 +10,7 @@ class StoreDeliveryNoteRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' =>['required','integer','max:10',Rule::exists('users','id')],
+            'user_id' =>['required',Rule::exists('users','id')],
             'date' => 'required|date',
             'ref' => 'required|string|max:1000',
             'status' => 'required|in:0,1',

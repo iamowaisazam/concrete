@@ -134,6 +134,8 @@ class DeliveryNoteService
             throw new \Exception("Cannot Deleted Record Its Used In Delivery Note");
         }
 
+        DeliveryNoteItem::where('delivery_note_id',$id)->delete();
+
 
         $model->delete();
         SaleOrder::where('id', $model->sale_order_id)->delete();
