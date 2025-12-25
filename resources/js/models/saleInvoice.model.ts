@@ -31,16 +31,21 @@ export default class     {
 
 
 
-    static async create(options:any) {
-
+    static async create(formData: any) {
         try {
-            const res = await api.post("/api/saleInvoice",options);
-            return res.data;
-        
+        const res = await api.post(
+            "/api/saleInvoice",
+            formData,
+            {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            }
+        );
+        return res.data;
         } catch (error) {
-            throw await errorHandler(error);
+        throw await errorHandler(error);
         }
-
     }
 
 

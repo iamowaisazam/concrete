@@ -81,7 +81,13 @@ class SaleInvoiceController extends Controller
 
         try {
 
-            $data = SaleInvoiceService::show($id,$request);
+            // $data = SaleInvoiceService::show($id,$request);
+              $data = SaleInvoice::with(['items.product', 'user'])
+            ->where('id', $id)
+            ->first();
+            if (!$data) {
+                throw new \Exception("Record with ID $id not found");
+            }
             return response()->json([
                 'message' => "Record Created Successfuly",
                 'data' => $data

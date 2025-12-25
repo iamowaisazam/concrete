@@ -7,7 +7,7 @@
 
             <v-row dense>
 
-              <!-- Search -->
+    
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="filter.search"
@@ -18,7 +18,7 @@
                 />
               </v-col>
 
-              <!-- Date -->
+       
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="filter.date"
@@ -28,7 +28,7 @@
                 />
               </v-col>
 
-              <!-- Due Date -->
+      
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="filter.due_date"
@@ -38,7 +38,6 @@
                 />
               </v-col>
 
-              <!-- Paid Status -->
               <v-col cols="12" md="4">
                 <v-select
                   v-model="filter.is_paid"
@@ -52,7 +51,7 @@
                 />
               </v-col>
 
-              <!-- Min Total -->
+          
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="filter.total_min"
@@ -62,7 +61,7 @@
                 />
               </v-col>
 
-              <!-- Max Total -->
+     
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="filter.total_max"
@@ -72,7 +71,6 @@
                 />
               </v-col>
 
-              <!-- Buttons -->
               <v-col cols="12" class="text-center mt-3">
                 <v-btn
                   color="primary"
@@ -83,14 +81,12 @@
                   Search
                 </v-btn>
 
-                <v-btn
-                  color="grey"
-                  variant="outlined"
-                  prepend-icon="mdi-refresh"
-                  @click="resetFilter"
-                >
-                  Reset
-                </v-btn>
+             <v-btn 
+                class="ml-2" 
+                color="success" 
+                variant="flat" 
+                prepend-icon="mdi-plus" 
+                :to="`/user/saleInvoice/create`"></v-btn>
               </v-col>
 
             </v-row>
@@ -106,19 +102,47 @@
             item-value="id"
             @update:options="loadItems"
           >
-            <template #item.actions="{ item }">
-                 <v-btn color="warning" variant="flat" :to="`/user/saleInvoice/edit/${item.id}`">
-                    <v-icon>mdi-square-edit-outline</v-icon>
-                </v-btn>
-            <span class="px-1"> </span>
+          <template #item.actions="{ item }">
             <v-btn
-                color="danger"
-                variant="flat"
-                @click="deleteItem(item.id)"
+              color="warning"
+              variant="flat"
+              :to="`/user/saleInvoice/edit/${item.id}`"
+              size="small"
+            >
+              <v-icon>mdi-square-edit-outline</v-icon>
+            </v-btn>
+
+            <span class="px-1"></span>
+            <v-btn
+              color="primary"
+              variant="flat"
+              size="small"
+              @click="printInvoice(item.id)"
+            >
+              <v-icon>mdi-printer</v-icon>
+            </v-btn>
+
+            <span class="px-1"></span>
+            <v-btn
+              color="danger"
+              variant="flat"
+              size="small"
+              @click="deleteItem(item.id)"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </template>
+
+
+              <template #item.is_paid="{ item }">
+                <v-chip
+                  :color="item.is_paid == 1 ? 'green' : 'red'"
+                  dark
+                  small
                 >
-                <v-icon>mdi-delete</v-icon>
-                </v-btn>
-            </template>
+                  {{ item.is_paid == 1 ? 'Paid' : 'Unpaid' }}
+                </v-chip>
+              </template>
 
             <template v-slot:bottom>
               <custom-pagination

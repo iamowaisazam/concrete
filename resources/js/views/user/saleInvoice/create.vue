@@ -1,97 +1,231 @@
-<template>
-  <v-card
-    :loading="loading"
-    :disabled="loading"
-    title="Expense Category Information"
-    subtitle="Create New Expense Category Item"
-  >
-    <v-card-text>
-      <v-row class="pt-3">
+  <template>
 
-        <!-- Date -->
-        <v-col cols="12" sm="6">
-          <label class="form-label">Date</label>
-          <v-text-field
-            v-model="form.date"
-            type="date"
-            height="38px"
-          />
-        </v-col>
+    <v-container>
 
-        <!-- Ref -->
-        <v-col cols="12" sm="6">
-          <label class="form-label">Reference</label>
-          <v-text-field
-            v-model="form.ref"
-            height="38px"
-            placeholder="Enter reference"
-          />
-        </v-col>
+      <v-card 
+        :loading="loading" 
+        :disabled="loading" 
+        title="Sale Invoice" 
+        subtitle="Create Sale Invoice">
+        <v-card-text>
+            <v-row class="pt-3">
+              <v-col cols="12" sm="4">
+        
+                <v-text-field v-model="form.ref" label="Reference"clearable persistent-placeholder=""/>
+              </v-col>
+              <v-col cols="12" sm="4">
+          
+                <v-text-field v-model="form.date" type="date" label="Date"clearable persistent-placeholder=""/>
+              </v-col>
+              <v-col cols="12" sm="4">
 
-      </v-row>
-    </v-card-text>
+                <v-text-field v-model="form.due_date" type="date" label="Due Date"clearable persistent-placeholder="" />
+              </v-col>
+              
+              <v-col cols="12" sm="4">
+          
+                <v-text-field v-model="form.remarks" label="Remarks" clearable persistent-placeholder=""/>
+              </v-col>
+              <v-col cols="12" sm="4">
 
-     <div class="mt-3 text-center">
-      <v-btn color="primary"  @click="submitForm">Submit</v-btn>
-      <!-- <v-btn color="danger" variant="flat" @click="resetForm">Cancel</v-btn> -->
-    </div>
-  </v-card>
-</template>
+                <v-select
+                  v-model="form.status"
+                  :items="statusItems"
+                  item-title="label"
+                  item-value="value"
+                  label="Status"
+                  clearable
+                />
+              </v-col>
+
+              <v-col cols="3" sm="4">
+                <v-select v-model="form.is_paid" :items="[
+                  { text: 'Yes', value: 1 },
+                  { text: 'No', value: 0 }
+                ]" item-title="text" item-value="value"  label="Paid status" clearable persistent-placeholder=""/>
+              </v-col>
+              <v-col cols="3" sm="4">
+                <UserDropdown
+                      v-model="form.user_id"
+                      label="Users"
+                  />
+              </v-col>
+
+
+            </v-row>
+        </v-card-text>
+      </v-card>
+      <v-card :loading="loading" :disabled="loading" class="mt-3" title="Item List" >
+        <v-card-text >
+          <InvoiceItemsSection :items="form.items" @add="addItem" @remove="removeItem" />
+        </v-card-text>
+      </v-card>
+      <v-card :loading="loading" :disabled="loading" class="mt-3" title="Invoice Total">
+        <v-card-text>
+          <v-row class="mb-2">
+              <v-col  cols="12" sm="3" >
+                  <label class="form-label">Subtotal</label>
+                  <v-text-field disabled="true" :model-value="subtotal" />
+              </v-col>
+              <v-col cols="6" sm="3" >
+                  <label class="form-label">Discount</label>
+                  <v-text-field  v-model="form.discount" />
+              </v-col>
+              <v-col cols="6" sm="3" >
+                <label class="form-label">Tax</label>
+                  <v-text-field  v-model="form.tax" />
+              </v-col>
+              <v-col cols="6" sm="3" >
+                <label class="form-label">Grand Total</label>
+                  <v-text-field disabled="true" :model-value="grandTotal" />
+              </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+
+      <div class="mt-3 text-center" >
+          <v-btn color="primary" @click="submitForm">Save</v-btn>
+      
+      </div>
+
+    </v-container>
+
+  </template>
+
 
 <script>
+import InvoiceItemsSection from "./edit/InvoiceItemsSection.vue";
 import saleInvoiceModel from "@/models/saleInvoice.model";
+import UserDropdown from "@/components/UserDropdown.vue";
 
 export default {
+  components: {
+    InvoiceItemsSection,
+    UserDropdown,
+  },
+
   data() {
     return {
       loading: false,
       form: {
-        date: '',
-        ref: '',
+        date: "",
+        due_date: "",
+        ref: "",
+        remarks: "",
+        status: 1,
+        is_paid: 0,
+        discount: 0,
+        tax: 0,
+        user_id: null,
+        items: [],
       },
-    }
+
+      statusItems: [
+        { label: "Active", value: 1 },
+        { label: "Deactive", value: 0 },
+      ],
+    };
   },
+
   methods: {
+    addItem() {
+      this.form.items.push({
+        product_id: "",
+        quantity: 1,
+        price: 0,
+        discount: 0,
+        tax: 0,
+      });
+    },
+
+    removeItem(index) {
+      this.form.items.splice(index, 1);
+    },
+
     async submitForm() {
       this.loading = true;
+
       try {
-        const formData = new FormData();
-        Object.keys(this.form).forEach(key => {
-          formData.append(key, this.form[key]);
+        const fd = new FormData();
+
+        fd.append("date", this.form.date);
+        fd.append("due_date", this.form.due_date);
+        fd.append("ref", this.form.ref);
+        fd.append("remarks", this.form.remarks);
+        fd.append("status", this.form.status);
+        fd.append("discount", this.form.discount);
+        fd.append("tax", this.form.tax);
+        fd.append("is_paid", this.form.is_paid ? 1 : 0);
+        fd.append("user_id", this.form.user_id);
+
+        this.form.items.forEach((item, i) => {
+          if (!item.delivery_note_id) return;
+
+          fd.append(`items[${i}][delivery_note_id]`, item.delivery_note_id);
+          fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
+          fd.append(`items[${i}][price]`, item.price ?? 0);
+          fd.append(`items[${i}][discount]`, item.discount ?? 0);
+          fd.append(`items[${i}][tax]`, item.tax ?? 0);
         });
 
-        const res = await saleInvoiceModel.create(formData);
-
-  
-        this.$alertStore.add(res.message || "Record created", 'success');
-
-
-        if (res.data && res.data.id) {
-          this.$router.push(`/user/saleInvoice/edit/${res.data.id}`);
+        // 🔍 Debug (recommended)
+        for (let pair of fd.entries()) {
+          console.log(pair[0], pair[1]);
         }
 
-      } catch (error) {
-        console.error(error);
-        this.$alertStore.add(error.message || 'Create failed', 'error');
+        await saleInvoiceModel.create(fd);
+        this.$router.push("/user/saleInvoice");
+
+      } catch (e) {
+        console.error(e);
+        this.$alertStore.add("Invoice create failed", "error");
       } finally {
         this.loading = false;
       }
+    }
+
+  },
+
+  computed: {
+    subtotal() {
+      return this.form.items.reduce((sum, item) => {
+        const qty = Number(item.quantity || 0);
+        const price = Number(item.price || 0);
+        const discount = Number(item.discount || 0);
+        const tax = Number(item.tax || 0);
+        return sum + qty * price - discount + tax;
+      }, 0);
     },
 
-    resetForm() {
-      this.form = {
-        date: '',
-        ref: '',
-      };
-    }
-  }
-}
+    invoiceDiscountAmount() {
+      return (this.subtotal * Number(this.form.discount || 0)) / 100;
+    },
+
+    invoiceTaxAmount() {
+      return (
+        (this.subtotal - this.invoiceDiscountAmount) *
+        Number(this.form.tax || 0)
+      ) / 100;
+    },
+
+    grandTotal() {
+      return (
+        this.subtotal -
+        this.invoiceDiscountAmount +
+        this.invoiceTaxAmount
+      ).toFixed(2);
+    },
+  },
+};
 </script>
 
-<style scoped>
-.form-label {
-  font-weight: 500;
-  margin-bottom: 4px;
-  display: block;
-}
-</style>
+  <style>
+  .section {
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  </style>

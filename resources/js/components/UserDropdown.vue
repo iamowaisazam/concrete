@@ -1,60 +1,60 @@
 <template>
-    <v-select
-        v-bind="$attrs"
-        :model-value="modelValue"
-        :items="data"
-        item-title="firstName"
-        item-value="id"
-        :loading="loading"
-        @update:model-value="handleValue($event)"
-        />  
+  <v-select
+    v-bind="$attrs"
+    :model-value="modelValue"
+    :items="data"
+    item-title="firstName"
+    item-value="id"
+    :loading="loading"
+    clearable
+    @update:model-value="emitValue"
+  />
 </template>
 
 <script>
-
 import UserModel from "@/models/user.model";
 
 export default {
-    name: "UserDropdown",
-    props: {
-        modelValue: {
-            type: [String, Number,Boolean],
-            default: null
-        },
-       
-    },
-    data() {
-        return {
-            value:null,
-            data: [],
-            loading: false,
-        };
-    },
-    mounted(){
-        this.getData();
-    },
-    methods: {
+  name: "UserDropdown",
 
-        async getData() {
-                this.loading = true;
-                try {
-                    const response = await UserModel.all({length:1000});
-                    this.data = response.data; 
-                } catch (err) {
-                    console.error("Error loading platforms:", err);
-                    this.data = [];
-                } finally {
-                    this.loading = false;
-                }
-        },
-        handleValue(value) {
-            this.$emit("update:modelValue", value);
-        },
+  props: {
+    modelValue: {
+      type: Number, // ✅ ONLY NUMBER
+      default: null,
     },
-    emits: ['update:modelValue']
+  },
+
+  emits: ["update:modelValue"],
+
+  data() {
+    return {
+      data: [],
+      loading: false,
+    };
+  },
+
+  mounted() {
+    this.getData();
+  },
+
+  methods: {
+    async getData() {
+      this.loading = true;
+      try {
+        const res = await UserModel.all({ length: 1000 });
+        this.data = res.data ?? [];
+      } catch (e) {
+        console.error(e);
+        this.data = [];
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    emitValue(val) {
+      // ✅ force number
+      this.$emit("update:modelValue", val ? Number(val) : null);
+    },
+  },
 };
 </script>
-
-<style scoped>
-    
-</style>

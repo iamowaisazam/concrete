@@ -100,11 +100,18 @@ class DeliveryNoteController extends Controller
 
     public function show(Request $request, $id)
     {
+          $data = DeliveryNote::with(['items.product', 'user'])
+            ->where('id', $id)
+            ->first();
+            if (!$data) {
+                throw new \Exception("Record with ID $id not found");
+            }
 
         try {
             return response()->json([
                 'message' => 'Get Record Details',
-                'data' => DeliveryNoteService::show($id, $request),
+                // 'data' => DeliveryNoteService::show($id, $request),
+                'data' => $data,
             ]);
         } catch (\Throwable $th) {
             return response()->json([

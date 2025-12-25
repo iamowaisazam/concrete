@@ -4,8 +4,8 @@
       :loading="loading"
       :disabled="loading"
     >
-      <v-card-title>Edit Sale Order</v-card-title>
-      <v-card-subtitle>Update Sale Order</v-card-subtitle>
+      <v-card-title>Edit Delivery Note</v-card-title>
+      <v-card-subtitle>Update Delivery Noter</v-card-subtitle>
 
       <v-card-text>
         <v-row class="pt-3">
@@ -54,28 +54,7 @@
       </v-card-text>
     </v-card>
 
-    <!-- TOTAL -->
-    <v-card class="mt-3" title="Invoice Total">
-      <v-card-text>
-        <v-row>
-          <v-col cols="12" sm="3">
-            <v-text-field label="Subtotal" :model-value="subtotal" disabled />
-          </v-col>
 
-          <v-col cols="12" sm="3">
-            <v-text-field v-model="form.discount" label="Discount (%)" />
-          </v-col>
-
-          <v-col cols="12" sm="3">
-            <v-text-field v-model="form.tax" label="Tax (%)" />
-          </v-col>
-
-          <v-col cols="12" sm="3">
-            <v-text-field label="Grand Total" :model-value="grandTotal" disabled />
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
 
     <div class="text-center mt-4">
       <v-btn color="primary" @click="updateForm">
@@ -99,7 +78,7 @@ export default {
     return {
       loading: false,
 
-      url: "/api/saleOrder",
+      url: "/api/deliveryNotes",
       form: {
         date: "",
         ref: "",
@@ -199,17 +178,7 @@ export default {
   },
 
   computed: {
-    subtotal() {
-      return this.form.items.reduce((sum, i) => {
-        return sum + (i.quantity * i.price - i.discount + i.tax);
-      }, 0);
-    },
 
-    grandTotal() {
-      const d = (this.subtotal * this.form.discount) / 100;
-      const t = ((this.subtotal - d) * this.form.tax) / 100;
-      return (this.subtotal - d + t).toFixed(2);
-    },
   },
 };
 </script>

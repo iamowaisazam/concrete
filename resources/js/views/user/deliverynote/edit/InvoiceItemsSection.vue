@@ -5,13 +5,13 @@
     class="mt-2 align-center"
     dense
   >
-    <v-col cols="12" md="2">
+    <v-col cols="12" md="3">
       <productDropDown
         v-model="item.product_id"
         label="Product"
       />
     </v-col>
-    <v-col cols="6" md="1">
+    <v-col cols="6" md="2">
       <v-text-field
         v-model.number="item.quantity"
         label="Qty"
@@ -19,7 +19,7 @@
         density="compact"
       />
     </v-col>
-    <v-col cols="6" md="2">
+    <v-col cols="6" md="3">
       <v-text-field
         v-model.number="item.price"
         label="Price"
@@ -27,7 +27,7 @@
         density="compact"
       />
     </v-col>
-    <v-col cols="6" md="2">
+    <!-- <v-col cols="6" md="2">
       <v-text-field
         v-model.number="item.discount"
         label="Discount"
@@ -42,8 +42,8 @@
         type="number"
         density="compact"
       />
-    </v-col>
-    <v-col cols="6" md="2">
+    </v-col> -->
+    <v-col cols="6" md="3">
       <v-text-field
         :model-value="itemTotal(item)"
         label="Total"

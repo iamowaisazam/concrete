@@ -5,8 +5,8 @@
     <v-card 
       :loading="loading" 
       :disabled="loading" 
-      title="Sale Order " 
-      subtitle="Create Sale Order">
+      title="Delivery Note" 
+      subtitle="Create Delivery Note">
       <v-card-text>
           <v-row class="pt-3">
             <v-col cols="12" sm="4">
@@ -50,28 +50,6 @@
         <InvoiceItemsSection :items="form.items" @add="addItem" @remove="removeItem" />
       </v-card-text>
     </v-card>
-    <v-card :loading="loading" :disabled="loading" class="mt-3" title="Invoice Total">
-      <v-card-text>
-        <v-row class="mb-2">
-            <v-col  cols="12" sm="3" >
-                <label class="form-label">Subtotal</label>
-                <v-text-field disabled="true" :model-value="subtotal" />
-            </v-col>
-            <v-col cols="6" sm="3" >
-                <label class="form-label">Discount</label>
-                <v-text-field  v-model="form.discount" />
-            </v-col>
-            <v-col cols="6" sm="3" >
-              <label class="form-label">Tax</label>
-                <v-text-field  v-model="form.tax" />
-            </v-col>
-            <v-col cols="6" sm="3" >
-              <label class="form-label">Grand Total</label>
-                <v-text-field disabled="true" :model-value="grandTotal" />
-            </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
 
     <div class="mt-3 text-center" >
         <v-btn color="primary" @click="submitForm">Save</v-btn>
@@ -96,7 +74,7 @@ export default {
   data() {
     return {
       loading: false,
-      url :"/api/saleOrder", 
+      url :"/api/deliveryNotes",
       form: {
         date: "",
         ref: "",
@@ -113,7 +91,6 @@ export default {
         { label: "Deactive", value: 0 },
         ],
     };
-    
   },
 
 
@@ -155,9 +132,8 @@ export default {
               tax: Number(item.tax) || 0,
             })),
         };
-
         await generaApi.post(this.url, payload);
-        this.$router.push("/user/saleorder");
+        this.$router.push("/user/deliverynote");
 
       } catch (e) {
         console.error("Create failed:", e);
@@ -170,39 +146,9 @@ export default {
 
 
 
-
   },
   computed: {
-    subtotal() {
-      return this.form.items.reduce((sum, item) => {
-        const qty = Number(item.quantity || 0);
-        const price = Number(item.price || 0);
-        const discount = Number(item.discount || 0);
-        const tax = Number(item.tax || 0);
 
-        const itemBase = qty * price;
-        const itemTotal = itemBase - discount + tax;
-
-        return sum + itemTotal;
-      }, 0);
-    },
-    invoiceDiscountAmount() {
-      const discountPercent = Number(this.form.discount || 0);
-      return (this.subtotal * discountPercent) / 100;
-    },
-
-    invoiceTaxAmount() {
-      const taxPercent = Number(this.form.tax || 0);
-      return ((this.subtotal - this.invoiceDiscountAmount) * taxPercent) / 100;
-    },
-
-    grandTotal() {
-      return (
-        this.subtotal -
-        this.invoiceDiscountAmount +
-        this.invoiceTaxAmount
-      ).toFixed(2);
-    }
 
   }
 

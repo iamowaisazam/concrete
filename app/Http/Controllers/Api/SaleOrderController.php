@@ -84,7 +84,12 @@ class SaleOrderController extends Controller
 
         try {
 
-            $data = SaleOrderService::show($id,$request);
+            $data = SaleOrder::with(['items.product', 'user'])
+            ->where('id', $id)
+            ->first();
+            if (!$data) {
+                throw new \Exception("Record with ID $id not found");
+            }
             return response()->json([
                 'message' => "Record Created Successfuly",
                 'data' => $data

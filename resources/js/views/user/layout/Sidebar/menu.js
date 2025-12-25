@@ -55,16 +55,16 @@ export default [
                 {
                     label: "Delivery Challan",
                 },
-                {
-                    label: "Sale Invoice",
-                    path: "/user/saleInvoice",
-                },
+                // {
+                //     label: "Sale Invoice",
+                //     path: "/user/saleInvoice",
+                // },
 
             ]
         },
         {
             icon: "mdi-cash-multiple",
-            label: "sales management",
+            label: "Sales Management",
             children:[
                 {
               
@@ -77,9 +77,8 @@ export default [
                     path: "/user/deliverynote",
                 },
                 {
-            
-                    label: "Sale Invoice",
-                    path: "/user/saleinvoice",
+                        label: "Sale Invoice",
+                        path: "/user/saleInvoice",
                 },
 
             ]

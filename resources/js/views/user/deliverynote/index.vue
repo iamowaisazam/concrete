@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-card title="Sale Order" subtitle="View All Sale Order Details">
+      <v-card title="Delivery Note" subtitle="View All Delivery Note Details">
         <v-card class="mb-4" outlined>
           <v-card-text>
 
@@ -73,7 +73,7 @@
                 color="success" 
                 variant="flat" 
                 prepend-icon="mdi-plus" 
-                :to="`/user/saleorder/create`"></v-btn>
+                :to="`/user/deliverynote/create`"></v-btn>
            
               </v-col>
 
@@ -91,7 +91,7 @@
             @update:options="loadItems"
           >
             <template #item.actions="{ item }">
-                 <v-btn color="warning" variant="flat" :to="`/user/saleorder/edit/${item.id}`">
+                 <v-btn color="warning" variant="flat" :to="`/user/deliverynote/edit/${item.id}`">
                     <v-icon>mdi-square-edit-outline</v-icon>
                 </v-btn>
             <span class="px-1"> </span>
@@ -103,7 +103,6 @@
                 <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </template>
-
               <template #item.status="{ item }">
                 <v-chip
                   :color="item.status == 1 ? 'green' : 'red'"
@@ -149,13 +148,10 @@ export default {
         { title: "Ref", value: "ref" },
         { title: "Remarks", value: "remarks" },
         { title: "Status", value: "status" },
-        { title: "Subtotal", value: "subtotal" },
-        { title: "Discount", value: "discount" },
-        { title: "Tax", value: "tax" },
         { title: "Total", value: "total" },
         { title: "Actions", value: "actions", sortable: false },
       ],
-      url :"/api/saleOrder/"
+      url :"/api/deliveryNotes/"
     };
   },
   mounted() {
@@ -166,7 +162,7 @@ export default {
     async loadItems() {
       this.loading = true;
       try {
-        const res = await generaApi.get(this.url,this.filter);
+        const res = await generaApi.all(this.url,this.filter);
         this.items = res.data;
         this.totalItems = res.total;
         this.last_page = res.last_page;

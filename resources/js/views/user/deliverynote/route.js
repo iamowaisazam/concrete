@@ -5,7 +5,7 @@ import edit from "./edit/index.vue"
 
 export default [
     {
-        path: "saleInvoice",
+        path: "deliverynote",
         children: [
             { 
                 path: '', 
@@ -19,11 +19,6 @@ export default [
             },
             { 
                 path: 'edit/:id', 
-                component: edit, 
-                meta: { requiresAuth: true } 
-            },
-            { 
-                path: 'print/:id', 
                 component: edit, 
                 meta: { requiresAuth: true } 
             },
