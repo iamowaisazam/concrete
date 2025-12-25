@@ -79,7 +79,7 @@ export default {
         date: "",
         ref: "",
         remarks: "",
-        status: "pending",
+        status: "",
         discount: 0,
         tax: 0,
         user_id: null,
@@ -132,16 +132,30 @@ export default {
               tax: Number(item.tax) || 0,
             })),
         };
-        await generaApi.post(this.url, payload);
-        this.$router.push("/user/deliverynote");
+
+        const response = await generaApi.post(this.url, payload);
+
+        // Show success popup
+        const successMessage = response.data?.message || "Delivery Note created successfully!";
+        this.$alertStore.add(successMessage, "success");
+
+        // Redirect after short delay
+        setTimeout(() => {
+          this.$router.push("/user/deliverynote");
+        }, 1000);
 
       } catch (e) {
         console.error("Create failed:", e);
-        this.$alertStore.add("Sale Order creation failed", "error");
+
+        // Show error popup
+        const errorMessage = e.response?.data?.message || e.message || "Delivery Note creation failed";
+        this.$alertStore.add(errorMessage, "error");
+
       } finally {
         this.loading = false;
       }
     }
+
 
 
 

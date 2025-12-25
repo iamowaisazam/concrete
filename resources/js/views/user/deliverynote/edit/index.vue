@@ -83,7 +83,7 @@ export default {
         date: "",
         ref: "",
         remarks: "",
-        status: 1,
+        status: "",
         discount: 0,
         tax: 0,
         user_id: null,
@@ -112,7 +112,7 @@ export default {
           date: res.data.date,
           ref: res.data.ref,
           remarks: res.data.remarks,
-          status: res.data.status,
+          status: Number(res.data.status),
           discount: res.data.discount,
           tax: res.data.tax,
           user_id: res.data.user_id,
@@ -145,7 +145,6 @@ export default {
         const id = this.$route.params.id;
         const updateUrl = `${this.url}/${id}`;
 
-
         const payload = {
           date: this.form.date,
           ref: this.form.ref,
@@ -156,23 +155,36 @@ export default {
           user_id: this.form.user_id,
           items: this.form.items.map(item => ({
             product_id: item.product_id,
-            quantity: item.quantity,
-            price: item.price,
-            discount: item.discount,
-            tax: item.tax
+            quantity: Number(item.quantity) || 1,
+            price: Number(item.price) || 0,
+            discount: Number(item.discount) || 0,
+            tax: Number(item.tax) || 0,
           })),
         };
 
+        const response = await generaApi.put(updateUrl, payload);
 
-        await generaApi.put(updateUrl, payload);
+        // Show success popup
+        const successMessage = response.data?.message || "Sale Order updated successfully!";
+        this.$alertStore.add(successMessage, "success");
 
-        this.$router.push("/user/saleorder");
+        // Redirect after a short delay
+        setTimeout(() => {
+          this.$router.push("/user/saleorder");
+        }, 1000);
+
       } catch (e) {
-        console.error(e);
+        console.error("Update failed:", e);
+
+        // Show error popup
+        const errorMessage = e.response?.data?.message || e.message || "Sale Order update failed";
+        this.$alertStore.add(errorMessage, "error");
+
       } finally {
         this.loading = false;
       }
     }
+
 
 
   },

@@ -90,21 +90,17 @@ import UserDropdown from "@/components/UserDropdown.vue";
 import generaApi from "@/models/general.model";
 
 export default {
-  components: {
-    InvoiceItemsSection,
-    UserDropdown,
-  },
+  components: { InvoiceItemsSection, UserDropdown },
 
   data() {
     return {
       loading: false,
-
       url: "/api/saleOrder",
       form: {
         date: "",
         ref: "",
         remarks: "",
-        status: 1,
+        status: 0,
         discount: 0,
         tax: 0,
         user_id: null,
@@ -118,7 +114,6 @@ export default {
   },
 
   mounted() {
-    this.id = this.$route.params.id;
     this.fetchData();
   },
 
@@ -128,16 +123,23 @@ export default {
       try {
         const id = this.$route.params.id;
         const res = await generaApi.find(this.url, id);
-  
+        const data = res.data;
+
         this.form = {
-          date: res.data.date,
-          ref: res.data.ref,
-          remarks: res.data.remarks,
-          status: res.data.status,
-          discount: res.data.discount,
-          tax: res.data.tax,
-          user_id: res.data.user_id,
-          items: res.data.items || [],
+          date: data.date?.split(" ")[0],
+          ref: data.ref,
+          remarks: data.remarks,
+          status: Number(data.status),
+          discount: Number(data.discount),
+          tax: Number(data.tax),
+          user_id: data.user_id,
+          items: (data.items || []).map(item => ({
+            product_id: item.product_id || "",
+            quantity: Number(item.quantity) || 1,
+            price: Number(item.price) || 0,
+            discount: Number(item.discount) || 0,
+            tax: Number(item.tax) || 0,
+          })),
         };
       } catch (e) {
         console.error(e);
@@ -166,7 +168,6 @@ export default {
         const id = this.$route.params.id;
         const updateUrl = `${this.url}/${id}`;
 
-
         const payload = {
           date: this.form.date,
           ref: this.form.ref,
@@ -177,24 +178,35 @@ export default {
           user_id: this.form.user_id,
           items: this.form.items.map(item => ({
             product_id: item.product_id,
-            quantity: item.quantity,
-            price: item.price,
-            discount: item.discount,
-            tax: item.tax
+            quantity: Number(item.quantity) || 1,
+            price: Number(item.price) || 0,
+            discount: Number(item.discount) || 0,
+            tax: Number(item.tax) || 0,
           })),
         };
 
+        const response = await generaApi.put(updateUrl, payload);
 
-        await generaApi.put(updateUrl, payload);
+        // Show success popup
+        const successMessage = response.data?.message || "Sale Order updated successfully!";
+        this.$alertStore.add(successMessage, "success");
 
-        this.$router.push("/user/saleorder");
+        // Redirect after short delay
+        setTimeout(() => {
+          this.$router.push("/user/saleorder");
+        }, 1000);
+
       } catch (e) {
         console.error(e);
+
+        // Show error popup
+        const errorMessage =
+          e.response?.data?.message || e.message || "Sale Order update failed";
+        this.$alertStore.add(errorMessage, "error");
       } finally {
         this.loading = false;
       }
     }
-
 
   },
 
@@ -204,11 +216,14 @@ export default {
         return sum + (i.quantity * i.price - i.discount + i.tax);
       }, 0);
     },
-
+    invoiceDiscountAmount() {
+      return (this.subtotal * this.form.discount) / 100;
+    },
+    invoiceTaxAmount() {
+      return ((this.subtotal - this.invoiceDiscountAmount) * this.form.tax) / 100;
+    },
     grandTotal() {
-      const d = (this.subtotal * this.form.discount) / 100;
-      const t = ((this.subtotal - d) * this.form.tax) / 100;
-      return (this.subtotal - d + t).toFixed(2);
+      return (this.subtotal - this.invoiceDiscountAmount + this.invoiceTaxAmount).toFixed(2);
     },
   },
 };

@@ -112,7 +112,7 @@ export default {
         due_date: "",
         ref: "",
         remarks: "",
-        status: 1,
+        status: "",
         is_paid: 0,
         discount: 0,
         tax: 0,
@@ -142,47 +142,60 @@ export default {
       this.form.items.splice(index, 1);
     },
 
-    async submitForm() {
-      this.loading = true;
+async submitForm() {
+  this.loading = true;
 
-      try {
-        const fd = new FormData();
+  try {
+    const fd = new FormData();
 
-        fd.append("date", this.form.date);
-        fd.append("due_date", this.form.due_date);
-        fd.append("ref", this.form.ref);
-        fd.append("remarks", this.form.remarks);
-        fd.append("status", this.form.status);
-        fd.append("discount", this.form.discount);
-        fd.append("tax", this.form.tax);
-        fd.append("is_paid", this.form.is_paid ? 1 : 0);
-        fd.append("user_id", this.form.user_id);
+    fd.append("date", this.form.date);
+    fd.append("due_date", this.form.due_date);
+    fd.append("ref", this.form.ref);
+    fd.append("remarks", this.form.remarks);
+    fd.append("status", this.form.status);
+    fd.append("discount", this.form.discount);
+    fd.append("tax", this.form.tax);
+    fd.append("is_paid", this.form.is_paid ? 1 : 0);
+    fd.append("user_id", this.form.user_id);
 
-        this.form.items.forEach((item, i) => {
-          if (!item.delivery_note_id) return;
+    this.form.items.forEach((item, i) => {
+      if (!item.delivery_note_id) return;
 
-          fd.append(`items[${i}][delivery_note_id]`, item.delivery_note_id);
-          fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
-          fd.append(`items[${i}][price]`, item.price ?? 0);
-          fd.append(`items[${i}][discount]`, item.discount ?? 0);
-          fd.append(`items[${i}][tax]`, item.tax ?? 0);
-        });
+      fd.append(`items[${i}][delivery_note_id]`, item.delivery_note_id);
+      fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
+      fd.append(`items[${i}][price]`, item.price ?? 0);
+      fd.append(`items[${i}][discount]`, item.discount ?? 0);
+      fd.append(`items[${i}][tax]`, item.tax ?? 0);
+    });
 
-        // 🔍 Debug (recommended)
-        for (let pair of fd.entries()) {
-          console.log(pair[0], pair[1]);
-        }
-
-        await saleInvoiceModel.create(fd);
-        this.$router.push("/user/saleInvoice");
-
-      } catch (e) {
-        console.error(e);
-        this.$alertStore.add("Invoice create failed", "error");
-      } finally {
-        this.loading = false;
-      }
+    // Optional: Debug FormData
+    for (let pair of fd.entries()) {
+      console.log(pair[0], pair[1]);
     }
+
+    const response = await saleInvoiceModel.create(fd);
+
+    // Success popup
+    const successMessage = response.data?.message || "Invoice created successfully!";
+    this.$alertStore.add(successMessage, "success");
+
+    // Redirect after short delay
+    setTimeout(() => {
+      this.$router.push("/user/saleInvoice");
+    }, 1000);
+
+  } catch (e) {
+    console.error("Invoice create failed:", e);
+
+    // Error popup
+    const errorMessage = e.response?.data?.message || e.message || "Invoice creation failed";
+    this.$alertStore.add(errorMessage, "error");
+
+  } finally {
+    this.loading = false;
+  }
+}
+
 
   },
 

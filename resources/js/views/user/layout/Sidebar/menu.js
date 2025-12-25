@@ -47,25 +47,26 @@ export default [
                 },
             ]
         },
-        {
-            icon: "mdi-file-chart",
-            label: "Sales",
-            path: "/",
-            children:[
-                {
-                    label: "Delivery Challan",
-                },
+        // {
+        //     icon: "mdi-file-chart",
+        //     label: "Sales",
+        //     path: "/",
+        //     children:[
+                // {
+                //     label: "Delivery Challan",
+                // },
                 // {
                 //     label: "Sale Invoice",
                 //     path: "/user/saleInvoice",
                 // },
 
-            ]
-        },
+        //     ]
+        // },
         {
             icon: "mdi-cash-multiple",
             label: "Sales Management",
             children:[
+            
                 {
               
                     label: "Sale Order",
@@ -80,6 +81,9 @@ export default [
                         label: "Sale Invoice",
                         path: "/user/saleInvoice",
                 },
+                // {
+                //     label: "Delivery Challan",
+                // },
 
             ]
         },

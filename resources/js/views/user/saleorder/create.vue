@@ -39,6 +39,7 @@
               <UserDropdown
                     v-model="form.user_id"
                     label="Users"
+                    clearable persistent-placeholder=""
                 />
             </v-col>
 
@@ -101,7 +102,7 @@ export default {
         date: "",
         ref: "",
         remarks: "",
-        status: "pending",
+        status: "Active",
         discount: 0,
         tax: 0,
         user_id: null,
@@ -134,38 +135,49 @@ export default {
       this.form.items.splice(index, 1);
     },
 
-    async submitForm() {
-      this.loading = true;
-      try {
-        const payload = {
-          date: this.form.date,
-          ref: this.form.ref,
-          remarks: this.form.remarks,
-          status: this.form.status,
-          discount: this.form.discount,
-          tax: this.form.tax,
-          user_id: this.form.user_id,
-          items: this.form.items
-            .filter(item => item.product_id)
-            .map(item => ({
-              product_id: item.product_id,
-              quantity: Number(item.quantity) || 1,
-              price: Number(item.price) || 0,
-              discount: Number(item.discount) || 0,
-              tax: Number(item.tax) || 0,
-            })),
-        };
+async submitForm() {
+  this.loading = true;
+  try {
+    const payload = {
+      date: this.form.date,
+      ref: this.form.ref,
+      remarks: this.form.remarks,
+      status: this.form.status,
+      discount: this.form.discount,
+      tax: this.form.tax,
+      user_id: this.form.user_id,
+      items: this.form.items
+        .filter(item => item.product_id)
+        .map(item => ({
+          product_id: item.product_id,
+          quantity: Number(item.quantity) || 1,
+          price: Number(item.price) || 0,
+          discount: Number(item.discount) || 0,
+          tax: Number(item.tax) || 0,
+        })),
+    };
 
-        await generaApi.post(this.url, payload);
-        this.$router.push("/user/saleorder");
+    const response = await generaApi.post(this.url, payload);
 
-      } catch (e) {
-        console.error("Create failed:", e);
-        this.$alertStore.add("Sale Order creation failed", "error");
-      } finally {
-        this.loading = false;
-      }
-    }
+    // Show success popup
+    const successMessage = response.data?.message || "Sale Order created successfully!";
+    this.$alertStore.add(successMessage, "success");
+
+    // Redirect after a short delay so user can see the message
+    setTimeout(() => {
+      this.$router.push("/user/saleorder");
+    }, 1000);
+
+  } catch (e) {
+    console.log(e);
+    const errorMessage =
+      e.response?.data?.message || e.message || "Sale Order creation failed";
+    this.$alertStore.add(errorMessage, "error");
+  } finally {
+    this.loading = false;
+  }
+}
+
 
 
 

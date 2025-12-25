@@ -43,7 +43,7 @@ export default {
 
             this.data = res.data.map(item => ({
             id: item.id,
-            title: `${item.ref} `,
+            title: `${item.ref} - ${item.id} `,
             // title: `${item.ref} - ${item.date}`,
             }));
 

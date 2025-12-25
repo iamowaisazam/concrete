@@ -13,6 +13,7 @@
                   prepend-inner-icon="mdi-magnify"
                   clearable
                   density="compact"
+                  persistent-placeholder=""
                 />
               </v-col>
               <v-col cols="12" md="4">
@@ -23,42 +24,13 @@
                   density="compact"
                 />
               </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="filter.due_date"
-                  label="Due Date"
-                  type="date"
-                  density="compact"
+              <v-col cols="3" sm="4">
+              <UserDropdown
+                    v-model="filter.user_id"
+                    label="Users"
+                    clearable persistent-placeholder=""
                 />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="filter.is_paid"
-                  label="Paid Status"
-                  :items="[
-                    { title: 'All', value: '' },
-                    { title: 'Paid', value: 1 },
-                    { title: 'Unpaid', value: 0 }
-                  ]"
-                  density="compact"
-                />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="filter.total_min"
-                  label="Min Total"
-                  type="number"
-                  density="compact"
-                />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="filter.total_max"
-                  label="Max Total"
-                  type="number"
-                  density="compact"
-                />
-              </v-col>
+            </v-col>
               <v-col cols="12" class="text-center mt-3">
                 <v-btn
                   color="primary"
@@ -103,6 +75,12 @@
                 <v-icon>mdi-delete</v-icon>
                 </v-btn>
             </template>
+            <template #item.user="{item}">
+                <span class="font-weight-medium">
+                  {{ item.user?.firstName || '-' }}
+                  {{ item.user?.surname || '' }}
+                </span>
+            </template>
 
               <template #item.status="{ item }">
                 <v-chip
@@ -131,7 +109,11 @@
 
 <script>
 import generaApi from "@/models/general.model"
+import UserDropdown from "@/components/UserDropdown.vue"
 export default {
+  components: {
+    UserDropdown
+  },
   data() {
     return {
       filter: { search: "", length: 10, page: 1, offset: 0 },
@@ -149,9 +131,10 @@ export default {
         { title: "Ref", value: "ref" },
         { title: "Remarks", value: "remarks" },
         { title: "Status", value: "status" },
-        { title: "Subtotal", value: "subtotal" },
-        { title: "Discount", value: "discount" },
-        { title: "Tax", value: "tax" },
+        { title: "User", value: "user" },
+        // { title: "Subtotal", value: "subtotal" },
+        // { title: "Discount", value: "discount" },
+        // { title: "Tax", value: "tax" },
         { title: "Total", value: "total" },
         { title: "Actions", value: "actions", sortable: false },
       ],

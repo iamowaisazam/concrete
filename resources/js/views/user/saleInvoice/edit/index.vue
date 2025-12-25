@@ -112,13 +112,17 @@ export default {
         due_date: "",
         ref: "",
         remarks: "",
-        status: 1,
+        status: "",
         is_paid: 0,
         discount: 0,
         tax: 0,
         user_id: null,
         items: []
-      }
+      },
+      statusItems: [
+        { label: "Active", value: 1 },
+        { label: "Deactive", value: 0 },
+      ],
     };
   },
 
@@ -184,7 +188,6 @@ async loadInvoice() {
         const fd = new FormData();
         fd.append("_method", "PUT");
 
-   
         fd.append("date", this.form.date);
         fd.append("due_date", this.form.due_date);
         fd.append("ref", this.form.ref);
@@ -195,27 +198,39 @@ async loadInvoice() {
         fd.append("is_paid", this.form.is_paid ? 1 : 0);
         fd.append("user_id", this.form.user_id);
 
-
         this.form.items.forEach((item, i) => {
           if (!item.delivery_note_id) return;
 
           fd.append(`items[${i}][delivery_note_id]`, item.delivery_note_id);
-          fd.append(`items[${i}][quantity]`, item.quantity);
-          fd.append(`items[${i}][price]`, item.price);
-          fd.append(`items[${i}][discount]`, item.discount);
-          fd.append(`items[${i}][tax]`, item.tax);
+          fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
+          fd.append(`items[${i}][price]`, item.price ?? 0);
+          fd.append(`items[${i}][discount]`, item.discount ?? 0);
+          fd.append(`items[${i}][tax]`, item.tax ?? 0);
         });
 
-        await saleInvoiceModel.update(this.$route.params.id, fd);
-        this.$router.push("/user/saleinvoice");
+        const response = await saleInvoiceModel.update(this.$route.params.id, fd);
+
+        // Show success popup
+        const successMessage = response.data?.message || "Invoice updated successfully!";
+        this.$alertStore.add(successMessage, "success");
+
+        // Redirect after a short delay
+        setTimeout(() => {
+          this.$router.push("/user/saleinvoice");
+        }, 1000);
 
       } catch (e) {
-        console.error(e);
-        this.$alertStore.add("Invoice update failed", "error");
+        console.error("Invoice update failed:", e);
+
+        // Show error popup
+        const errorMessage = e.response?.data?.message || e.message || "Invoice update failed";
+        this.$alertStore.add(errorMessage, "error");
+
       } finally {
         this.loading = false;
       }
     }
+
   },
 
   computed: {
