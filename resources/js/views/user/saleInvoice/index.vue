@@ -3,11 +3,9 @@
     <v-col cols="12">
       <v-card title="Sale Invoice" subtitle="View All Sale Invoice Details">
         <v-card class="mb-4" outlined>
-          <v-card-text>
+  <v-card-text>
 
             <v-row dense>
-
-    
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="filter.search"
@@ -15,10 +13,9 @@
                   prepend-inner-icon="mdi-magnify"
                   clearable
                   density="compact"
+                  persistent-placeholder=""
                 />
               </v-col>
-
-       
               <v-col cols="12" md="4">
                 <v-text-field
                   v-model="filter.date"
@@ -27,50 +24,13 @@
                   density="compact"
                 />
               </v-col>
-
-      
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="filter.due_date"
-                  label="Due Date"
-                  type="date"
-                  density="compact"
+              <v-col cols="3" sm="4">
+              <UserDropdown
+                    v-model="filter.user_id"
+                    label="Users"
+                    clearable persistent-placeholder=""
                 />
-              </v-col>
-
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="filter.is_paid"
-                  label="Paid Status"
-                  :items="[
-                    { title: 'All', value: '' },
-                    { title: 'Paid', value: 1 },
-                    { title: 'Unpaid', value: 0 }
-                  ]"
-                  density="compact"
-                />
-              </v-col>
-
-          
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="filter.total_min"
-                  label="Min Total"
-                  type="number"
-                  density="compact"
-                />
-              </v-col>
-
-     
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="filter.total_max"
-                  label="Max Total"
-                  type="number"
-                  density="compact"
-                />
-              </v-col>
-
+            </v-col>
               <v-col cols="12" class="text-center mt-3">
                 <v-btn
                   color="primary"
@@ -80,13 +40,13 @@
                 >
                   Search
                 </v-btn>
-
-             <v-btn 
+                <v-btn 
                 class="ml-2" 
                 color="success" 
                 variant="flat" 
                 prepend-icon="mdi-plus" 
                 :to="`/user/saleInvoice/create`"></v-btn>
+           
               </v-col>
 
             </v-row>
@@ -144,6 +104,13 @@
                 </v-chip>
               </template>
 
+            <template #item.user="{item}">
+                <span class="font-weight-medium">
+                  {{ item.user?.firstName || '-' }}
+                  {{ item.user?.surname || '' }}
+                </span>
+            </template>
+
             <template v-slot:bottom>
               <custom-pagination
                 :loading="loading"
@@ -161,8 +128,11 @@
 
 <script>
 import saleInvoiceModel from "@/models/saleInvoice.model";
-
+import UserDropdown from "@/components/UserDropdown.vue"
 export default {
+    components: {
+    UserDropdown
+  },
   data() {
     return {
       filter: { search: "", length: 10, page: 1, offset: 0 },
@@ -185,6 +155,7 @@ export default {
         { title: "Ref", value: "ref" },
         { title: "Remarks", value: "remarks" },
         { title: "paid", value: "is_paid" },
+        { title: "User", value: "user" },
         { title: "Total", value: "total" },
         { title: "Actions", value: "actions", sortable: false },
       ],

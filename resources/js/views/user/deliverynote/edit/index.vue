@@ -168,15 +168,15 @@ export default {
         const successMessage = response.data?.message || "Sale Order updated successfully!";
         this.$alertStore.add(successMessage, "success");
 
-        // Redirect after a short delay
+
         setTimeout(() => {
-          this.$router.push("/user/saleorder");
+          this.$router.push("/user/deliverynote");
         }, 1000);
 
       } catch (e) {
         console.error("Update failed:", e);
 
-        // Show error popup
+
         const errorMessage = e.response?.data?.message || e.message || "Sale Order update failed";
         this.$alertStore.add(errorMessage, "error");
 

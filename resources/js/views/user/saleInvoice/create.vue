@@ -57,7 +57,12 @@
       </v-card>
       <v-card :loading="loading" :disabled="loading" class="mt-3" title="Item List" >
         <v-card-text >
-          <InvoiceItemsSection :items="form.items" @add="addItem" @remove="removeItem" />
+          <InvoiceItemsSection
+            :items="form.items"
+            :user-id="form.user_id"
+            @add="addItem"
+            @remove="removeItem"
+          />
         </v-card-text>
       </v-card>
       <v-card :loading="loading" :disabled="loading" class="mt-3" title="Invoice Total">
@@ -159,27 +164,26 @@ async submitForm() {
     fd.append("user_id", this.form.user_id);
 
     this.form.items.forEach((item, i) => {
-      if (!item.delivery_note_id) return;
+      if (!item.delivery_note_id) return
 
-      fd.append(`items[${i}][delivery_note_id]`, item.delivery_note_id);
-      fd.append(`items[${i}][quantity]`, item.quantity ?? 1);
-      fd.append(`items[${i}][price]`, item.price ?? 0);
-      fd.append(`items[${i}][discount]`, item.discount ?? 0);
-      fd.append(`items[${i}][tax]`, item.tax ?? 0);
-    });
+      fd.append(`items[${i}][delivery_note_id]`, item.delivery_note_id)
+      fd.append(`items[${i}][discount]`, item.discount ?? 0)
+      fd.append(`items[${i}][tax]`, item.tax ?? 0)
+    })
 
-    // Optional: Debug FormData
+
+
     for (let pair of fd.entries()) {
       console.log(pair[0], pair[1]);
     }
 
     const response = await saleInvoiceModel.create(fd);
 
-    // Success popup
+
     const successMessage = response.data?.message || "Invoice created successfully!";
     this.$alertStore.add(successMessage, "success");
 
-    // Redirect after short delay
+
     setTimeout(() => {
       this.$router.push("/user/saleInvoice");
     }, 1000);
@@ -187,7 +191,7 @@ async submitForm() {
   } catch (e) {
     console.error("Invoice create failed:", e);
 
-    // Error popup
+
     const errorMessage = e.response?.data?.message || e.message || "Invoice creation failed";
     this.$alertStore.add(errorMessage, "error");
 
@@ -199,36 +203,40 @@ async submitForm() {
 
   },
 
-  computed: {
-    subtotal() {
-      return this.form.items.reduce((sum, item) => {
-        const qty = Number(item.quantity || 0);
-        const price = Number(item.price || 0);
-        const discount = Number(item.discount || 0);
-        const tax = Number(item.tax || 0);
-        return sum + qty * price - discount + tax;
-      }, 0);
-    },
+computed: {
 
-    invoiceDiscountAmount() {
-      return (this.subtotal * Number(this.form.discount || 0)) / 100;
-    },
+  subtotal() {
+    return this.form.items.reduce((sum, item) => {
+      const dnTotal = Number(item.delivery_note?.total || 0);
+      const itemDiscount = Number(item.discount || 0);
+      const itemTax = Number(item.tax || 0);
 
-    invoiceTaxAmount() {
-      return (
-        (this.subtotal - this.invoiceDiscountAmount) *
-        Number(this.form.tax || 0)
-      ) / 100;
-    },
-
-    grandTotal() {
-      return (
-        this.subtotal -
-        this.invoiceDiscountAmount +
-        this.invoiceTaxAmount
-      ).toFixed(2);
-    },
+      return sum + (dnTotal - itemDiscount + itemTax);
+    }, 0);
   },
+
+
+  invoiceDiscountAmount() {
+    const discountPercent = Number(this.form.discount || 0);
+    return (this.subtotal * discountPercent) / 100;
+  },
+
+
+  invoiceTaxAmount() {
+    const taxPercent = Number(this.form.tax || 0);
+    return ((this.subtotal - this.invoiceDiscountAmount) * taxPercent) / 100;
+  },
+
+
+  grandTotal() {
+    return (
+      this.subtotal -
+      this.invoiceDiscountAmount +
+      this.invoiceTaxAmount
+    ).toFixed(2);
+  },
+}
+
 };
 </script>
 

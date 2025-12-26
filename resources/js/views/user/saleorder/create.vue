@@ -102,7 +102,7 @@ export default {
         date: "",
         ref: "",
         remarks: "",
-        status: "Active",
+        status: "",
         discount: 0,
         tax: 0,
         user_id: null,

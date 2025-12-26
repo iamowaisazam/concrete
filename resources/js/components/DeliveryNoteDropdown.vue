@@ -1,67 +1,85 @@
 <template>
-    <v-select
+  <v-select
     v-bind="$attrs"
     :model-value="modelValue"
     :items="data"
     item-title="title"
-    item-value="id"
     :loading="loading"
+    return-object
     @update:model-value="handleValue"
-    />
-
+  />
 </template>
+
 
 <script>
 import generaApi from "@/models/general.model"
 
 export default {
-    name: "DeliveryNoteDropdown",
-    props: {
-        modelValue: {
-            type: [String, Number,Boolean],
-            default: null
-        },
-       
-    },
-    data() {
-        return {
-            value:null,
-            data: [],
-            loading: false,
-            url :"/api/deliveryNotes"
-        };
-    },
-    mounted(){
-        this.getData();
-    },
-    methods: {
+  name: "DeliveryNoteDropdown",
 
-        async getData() {
-        this.loading = true;
-        try {
-            const res = await generaApi.all(this.url, { length: 1000 });
-
-            this.data = res.data.map(item => ({
-            id: item.id,
-            title: `${item.ref} - ${item.id} `,
-            // title: `${item.ref} - ${item.date}`,
-            }));
-
-        } catch (err) {
-            console.error("Error loading delivery notes:", err);
-            this.data = [];
-        } finally {
-            this.loading = false;
-        }
-        },
-
-        handleValue(value) {
-            this.$emit("update:modelValue", value);
-        },
+  props: {
+    modelValue: {
+      type: Object,
+      default: null
     },
-    emits: ['update:modelValue']
-};
+    userId: {
+      type: [Number, String],
+      default: null
+    }
+  },
+
+  data() {
+    return {
+      data: [],
+      loading: false,
+      url: "/api/deliveryNotes"
+    }
+  },
+
+  watch: {
+    userId: {
+      immediate: true,
+      handler() {
+        this.getData()
+      }
+    }
+  },
+
+  methods: {
+    async getData() {
+      if (!this.userId) {
+        this.data = []
+        return
+      }
+
+      this.loading = true
+      try {
+        const res = await generaApi.all(this.url, {
+          length: 1000,
+          user_id: this.userId
+        })
+
+        this.data = res.data.map(item => ({
+          id: item.id,
+          title: `${item.ref} - ${item.id}`,
+          total: Number(item.total || 0)
+        }))
+
+      } catch (e) {
+        console.error("Delivery note load failed", e)
+        this.data = []
+      } finally {
+        this.loading = false
+      }
+    },
+
+    handleValue(val) {
+      this.$emit("update:modelValue", val)
+    }
+  }
+}
 </script>
+
 
 <style scoped>
     
