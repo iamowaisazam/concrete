@@ -30,31 +30,7 @@ class SaleOrderController extends Controller
 
         public function index(Request $request)
     {  
-
-        $length = $request->input('length', 50);
-        $page   = $request->input('page', 1);
-        $offset = ($page - 1) * $length;
-
-        $baseQuery = SaleOrder::with(['items.product','user']);
-
-            // ✅ Clone the query before using count()
-            $count = (clone $baseQuery)->count();
-            $data = $baseQuery->select([
-                        '*'                       
-                ])
-                ->orderByDesc('id')
-                ->skip($offset)
-                ->take($length)
-                ->get();
-
-            return response()->json([
-                'total' => $count,
-                'page' => $page,
-                'offset' => $offset,
-                'last_page' => ceil($count / $length),
-                'data' => $data,
-            ]);
-
+         return SaleOrderService::search($request);
     }
 
        public function store(StoreSaleOrderRequest $request)

@@ -28,8 +28,16 @@ class SaleOrder extends Model
         return $this->hasMany(SaleOrderItem::class, 'sale_order_id');
     }
 
+    public function saleOrderItem() {
+        return $this->hasMany(SaleOrderItem::class, 'sale_order_id');
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function deliveryNote() {
+        return $this->hasMany(DeliveryNote::class, 'sale_order_id');
     }
     
     

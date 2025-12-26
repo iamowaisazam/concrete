@@ -18,9 +18,45 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-
 class SaleOrderService 
 {
+
+
+    static public function search(Request $request)
+    {   
+        
+        return SaleOrder::with([
+            'user',
+            'deliveryNote:ref,remarks,total',
+            'items',
+            'items.product'
+        ])
+        //Search
+        ->when($request->search, function ($query, $search) {
+            $query->where(function($q) use ($search) {
+                $q->where('ref', 'like', "%{$search}%")
+                ->orWhereHas('user', fn($q2) => $q2->where('fistName', 'like', "%{$search}%"))
+                ->orWhereHas('items.product', fn($q2) => $q2->where('title', 'like', "%{$search}%"));
+            });
+        })
+        // User Id
+        ->when($request->user_id, function ($query, $value) {
+            $query->where('user_id',$value);
+        })
+        //Start Date
+        ->when($request->start_date, function ($query, $value) {
+            $query->whereDate('date', '>=', $value);
+        })
+        // End Date
+        ->when($request->end_date, function ($query, $value) {
+            $query->whereDate('date', '<=', $value);
+        })
+        ->orderByDesc('date')
+        ->paginate($request->length ?? 10);
+
+    }
+
+
 
       static public function create($request)
     {   
